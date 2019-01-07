@@ -1,0 +1,192 @@
+/* ---------------------------------
+   BASIC SETUP SECTION
+   --------------------------------- */
+* {
+    /* All elements initial styling */
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /*border: 0.5px solid rgb(110, 181, 232);*/
+}
+
+html body {
+    background-color: #fff;
+    color:#555;
+    /* Primamry font (Google font): Lato, the rest are fallback fonts, incase
+    the google font does not load */
+    font-family: 'Lato', 'Arial', 'sans-serif';
+    font-weight: 300;
+    font-size: 20px;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+}
+
+.clearfix {zoom: 1}
+.clearfix:after {
+  /* Clears floats after each element that declares them, this class is used in
+   each parent section where a child class declares floats */
+  content: '.';
+  clear: both;
+  display: block;
+  height: 0;
+  visibility: hidden;
+}
+
+/* ---------------------------------
+   RE-USABLE COMPONENTS SECTION
+   --------------------------------- */
+
+.row {
+    /* Only absolute dimension, all others will be relative. This is the entire
+    width of the page */
+    max-width: 1140px;
+    /* Center all the rows on the page, set left ad right to auto and top and
+    bottom to 0 */
+    margin: 0 auto;
+}
+
+
+/* ---------- HEADINGS ---------- */
+
+h1, h2, h3 {
+    /* Reduce h1 weights which are bold by default */
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+h1 {
+    /* Removes the header margins top and bottom so there are not white spaces
+    around it */
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #fff;
+    font-size: 200%;
+    word-spacing: 4px;
+}
+
+/* ---------- PARAGRAPHS ---------- */
+
+
+/* ---------- ICONS ---------- */
+
+
+/* ---------- LINKS ---------- */
+
+
+/* ---------- BUTTONS ---------- */
+.btn:link,
+.btn:visited,
+input[type='submit'] {
+    /* pseudo classes:css states for buttons: link >normal unclicked state,
+    visited >look after it has been clicked, hover >look When
+    pointed at, active > when clicked. Specify the state styling as below */
+
+    /* inline-blocks can have padding and margin and does not enforce breaks,
+    unlike an in-line element e.g. buttons, so use this inline block to make
+    inline elements, in-line blocks */
+    display: inline-block;
+    padding: 5px 20px;
+    font-size: 90%;
+    font-weight: 300;
+    text-decoration: none;
+    border-radius: 100px;
+    /* transition the link to hover colors in 0.2 seconds instead of instantenouesly */
+    transition: background-color 0.2s, border 0.2s, color 0.2s;
+}
+
+.btn_full:link,
+.btn_full:visited,
+input[type='submit'] {
+    /* Use flatuicolors.com to get nice flat colors of the buttons */
+    background-color: #e67e22;
+    border: 1px solid #e67e22;
+    color: #fff;
+    margin-right: 15px;
+}
+
+.btn:hover,
+.btn:active,
+input[type='submit']:hover,
+input[type='submit']:active {
+    /* Make the buttons to have a darker tone of orange. Use 0to255.com, pick
+    your color code and paste in the site to get various shades of your color */
+    background-color: #cf6d17;
+}
+
+.btn_full:hover,
+.btn_full:active,
+input[type='submit'] {
+    background-color: #cf6d17;
+}
+
+/* ---------------------------------
+   HEADER SECTION
+   --------------------------------- */
+   header {
+       /* Include the img via 'url' and make its darker using liner-gradient */
+       background-image: linear-gradient(rgba(0, 0, 0, 0.7),rgba(0, 0, 0, 0.5)),
+       url(images/header.jpg);
+       /* Ensure background image remains fixed when scrolling */
+       background-attachment: fixed;
+       /* ensure we can view the entire background image, not zoomed */
+       background-size: cover;
+       background-position: center;
+       /* set the header to fiil the page viewport i.e entire page size so that header
+       image fills the page as well */
+       height: 100vh;
+   }
+
+   .hero_textbox {
+       /* this will be an absolutely positined box so that we can horizontalt &
+       vertically centre it */
+       position: absolute;
+       width: 1140px;
+       top: 50%;
+       left: 50%;
+       /* Translates 50% of the element's width & length, up & left */
+      transform: translate(-50%, -50%);
+   }
+
+   .logo {
+       height: 170px;
+       width: auto;
+       float: left;
+       margin-top: 0px;
+   }
+
+/* ---------- MAIN NAV ---------- */
+.main_nav {
+    float: right;
+    list-style: none;  /* removes the bullets */
+    margin-top: 30px;
+
+}
+
+.main_nav li {
+    /* style all li elements inside the main nav bar */
+    /* Change the li elements from block to in-line blocks */
+    display: inline-block;
+    margin: 20px;
+
+}
+
+.main_nav li a:link,
+.main_nav li a:visited {
+    padding: 8px 0;
+    color: #fff;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 80%; /* desired font size/ base font size under 'html' */
+    border-bottom: 2px solid transparent;
+    transition: border-bottom 0.2s;
+}
+
+.main_nav li a:hover,
+.main_nav li a:active {
+    border-bottom: 2px solid #e67e22;
+    color: #fff;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 80%; /* desired font size/ base font size under 'html' */
+}
