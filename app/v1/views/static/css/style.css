@@ -65,6 +65,11 @@ h1 {
     word-spacing: 4px;
 }
 
+.h1_span {
+    color:#e67e22;
+
+}
+
 /* ---------- PARAGRAPHS ---------- */
 
 
@@ -112,12 +117,14 @@ input[type='submit']:active {
     /* Make the buttons to have a darker tone of orange. Use 0to255.com, pick
     your color code and paste in the site to get various shades of your color */
     background-color: #cf6d17;
+    border: 1px solid #fff;
 }
 
 .btn_full:hover,
 .btn_full:active,
 input[type='submit'] {
     background-color: #cf6d17;
+    border: 1px solid #fff;
 }
 
 /* ---------------------------------
@@ -125,7 +132,7 @@ input[type='submit'] {
    --------------------------------- */
    header {
        /* Include the img via 'url' and make its darker using liner-gradient */
-       background-image: linear-gradient(rgba(0, 0, 0, 0.7),rgba(0, 0, 0, 0.5)),
+       background-image: linear-gradient(rgba(0, 0, 0, 0.7),rgba(0, 0, 0, 0.7)),
        url(images/header.jpg);
        /* Ensure background image remains fixed when scrolling */
        background-attachment: fixed;
