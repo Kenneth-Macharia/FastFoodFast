@@ -264,3 +264,52 @@ transform: translate(-50%, -50%);
   text-transform: uppercase;
   font-size: 80%; /* desired font size/ base font size under 'html' */
 }
+
+/* ---------------------------------
+TESTIMONIALS SECTION
+--------------------------------- */
+.customer_testimonial {
+  background-image: linear-gradient(rgba(0 , 0, 0, 0.75), rgba(0, 0, 0, 0.75)),
+  url(images/testimonials.jpg);
+  background-size: cover;
+  color:#fff;
+  background-attachment: fixed;
+}
+
+blockquote {
+  padding: 2%;
+  /* quotes are usually in italics */
+  font-style: italic;
+  line-height: 145%;
+  position: relative;
+  margin-top: 40px;
+}
+
+cite {
+  font-size: 90%;
+  margin-top: 25px;
+  /* Move the cite element under the blockquote */
+  display: block;
+}
+
+blockquote:before {
+  /* Inserting text using css use 'content attribute' */
+  /* We need to use isospecial characters to insert signs such as quote marks
+  in css - Link in course e-book */
+  content: "\201C";
+  font-size:500%;
+  /* Position it on its own line */
+  display: block;
+  /* Whenever we give an element an absolute position, we need to give its parent
+  a relative position */
+  position: absolute;
+  top:-5px;
+  left:-5px;
+}
+
+cite img {
+  height: 45px;
+  border-radius: 50%;
+  margin-right: 10px;
+  vertical-align: middle;
+}
