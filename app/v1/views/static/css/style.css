@@ -169,16 +169,6 @@ input[type='submit'] {
   transition: background-color 0.2s, border 0.2s, color 0.2s;
 }
 
-.btn_full:link,
-.btn_full:visited,
-input[type='submit'] {
-  /* Use flatuicolors.com to get nice flat colors of the buttons */
-  background-color: #e67e22;
-  border: 1px solid #e67e22;
-  color: #fff;
-  margin-right: 15px;
-}
-
 .btn:hover,
 .btn:active,
 input[type='submit']:hover,
@@ -187,6 +177,16 @@ input[type='submit']:active {
   your color code and paste in the site to get various shades of your color */
   background-color: #cf6d17;
   border: 1px solid #fff;
+}
+
+.btn_full:link,
+.btn_full:visited,
+input[type='submit'] {
+  /* Use flatuicolors.com to get nice flat colors of the buttons */
+  background-color: #e67e22;
+  border: 1px solid #e67e22;
+  color: #fff;
+  margin-right: 15px;
 }
 
 .btn_full:hover,
@@ -313,3 +313,35 @@ cite img {
   margin-right: 10px;
   vertical-align: middle;
 }
+
+
+
+/* ---------------------------------
+ FEEDBACK SECTION
+--------------------------------- */
+
+.contact_form {
+    width: 90%;
+    /* Center the contact form inside its parent container */
+    margin:0 auto;
+}
+
+input[type='text'], input[type='email'],select, textarea {
+    /* Select only inputs with selected type */
+    width: 100%;
+    padding: 7px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+}
+
+textarea {
+    height: 100px;
+}
+
+input[type='checkbox'] {
+    /* Add some margin around the checkbox */
+    margin: 10px 5px 10px 0;
+}
+
+/* Removes the outline for all elements when selected */
+*:focus {outline:none}
