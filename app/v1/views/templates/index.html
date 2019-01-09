@@ -32,7 +32,7 @@
           <ul class="main_nav">
             <li><a href="#features">About Us</a></li>
             <li><a href="#testimonials">Testimonials</a></li>
-            <li><a href="#">Give Feedback</a></li>
+            <li><a href="#feedback">Give Feedback</a></li>
           </ul>
         </div>
       </nav>
@@ -91,11 +91,11 @@
            <i class="ion-ios-unlocked-outline icon-big"></i>
            <h3>How it works</h3>
            <p>
-             To get your super healthy meal fast, simply:<br>
-             1. Head over to our meal section<br>
-             2. Choose a meal<br>
-             3. Add it to cart<br>
-             4. And checkout your order
+             To get your super healthy meal fast, simply :<br>
+             (1) Head over to our menu<br>
+             (2) Choose a meal<br>
+             (3) Add it to cart<br>
+             (4) And checkout your order
            </p>
          </div>
        </div>
@@ -133,6 +133,36 @@
             alt="Milton Chapman">Milton Chapman</cite>
           </blockquote>
         </div>
+      </div>
+    </section>
+    <section class="customer_feedback" id="feedback">
+      <div class="row">
+        <h2>We'd love to hear from you</h2>
+      </div>
+      <div class="row">
+        <form class="contact_form" action="#" method="post">
+            <!-- Make two columns but the second to have 2-in-1 cols so that its
+            twice as wide as the first as specified in the grid css file-->
+            <!-- type is the what info to enter, name will be used to send
+            the data from the form, id is for linking a label to its input
+            element, so when clicke the element is selected. Used via the
+            'for' attribute in the label. Works only for text forms and
+            selects only -->
+          <div class="row feedback_row">
+              <input type="text" id="name" autocomplete="off" class="feed_input" placeholder="Your name"
+               required>
+          </div>
+          <div class="row feedback_row">
+              <input type="email" id="email" autocomplete="off" class="feed_input" placeholder="Your email"
+               required>
+          </div>
+          <div class="row feedback_row">
+              <textarea name="message" class="feed_input" placeholder="Your feedback"></textarea>
+          </div>
+          <div class="row feedback_row">
+              <input type="submit" value="Send">
+          </div>
+        </form>
       </div>
     </section>
 

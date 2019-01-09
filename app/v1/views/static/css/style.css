@@ -9,6 +9,9 @@
   /*border: 0.5px solid rgb(110, 181, 232);*/
 }
 
+/* Removes the outline for all elements when selected */
+*:focus {outline:none}
+
 html body {
   background-color: #fff;
   color:#555;
@@ -138,7 +141,6 @@ a:visited {
   text-decoration: none;
   padding-bottom: 2px;
   border-bottom: 1px solid #e67e22;
-  -webkit-transition: border-bottom 0.2s;
   transition: border-bottom 0.2s; color:0.2s
 }
 
@@ -169,6 +171,16 @@ input[type='submit'] {
   transition: background-color 0.2s, border 0.2s, color 0.2s;
 }
 
+.btn:hover,
+.btn:active,
+input[type='submit']:hover,
+input[type='submit']:active {
+  /* Make the buttons to have a darker tone of orange. Use 0to255.com, pick
+  your color code and paste in the site to get various shades of your color */
+  background-color: #cf6d17;
+  border: 1px solid #cf6d17;
+}
+
 .btn_full:link,
 .btn_full:visited,
 input[type='submit'] {
@@ -179,21 +191,12 @@ input[type='submit'] {
   margin-right: 15px;
 }
 
-.btn:hover,
-.btn:active,
-input[type='submit']:hover,
-input[type='submit']:active {
-  /* Make the buttons to have a darker tone of orange. Use 0to255.com, pick
-  your color code and paste in the site to get various shades of your color */
-  background-color: #cf6d17;
-  border: 1px solid #fff;
-}
-
 .btn_full:hover,
 .btn_full:active,
 input[type='submit'] {
-  background-color: #cf6d17;
-  border: 1px solid #fff;
+  background-color: transparent;
+  border: 1px solid #cf6d17;
+
 }
 
 /* ---------------------------------
@@ -201,7 +204,7 @@ input[type='submit'] {
    --------------------------------- */
 header {
   /* Include the img via 'url' and make its darker using liner-gradient */
-  background-image: linear-gradient(rgba(0, 0, 0, 0.7),rgba(0, 0, 0, 0.7)),
+  background-image: linear-gradient(rgba(0, 0, 0, 0.7),rgba(0, 0, 0, 0.65)),
   url(images/header.jpg);
   /* Ensure background image remains fixed when scrolling */
   background-attachment: fixed;
@@ -269,7 +272,7 @@ transform: translate(-50%, -50%);
 TESTIMONIALS SECTION
 --------------------------------- */
 .customer_testimonial {
-  background-image: linear-gradient(rgba(0 , 0, 0, 0.75), rgba(0, 0, 0, 0.75)),
+  background-image: linear-gradient(rgba(0 , 0, 0, 0.75), rgba(0, 0, 0, 0.7)),
   url(images/testimonials.jpg);
   background-size: cover;
   color:#fff;
@@ -312,4 +315,46 @@ cite img {
   border-radius: 50%;
   margin-right: 10px;
   vertical-align: middle;
+}
+
+
+
+/* ---------------------------------
+ FEEDBACK SECTION
+--------------------------------- */
+.customer_feedback {
+  background-image: linear-gradient(rgba(0 , 0, 0, 0.75), rgba(0, 0, 0, 0.65)),
+  url(images/feedback.jpg);
+  background-size: cover;
+  color:#fff;
+  background-attachment: fixed;
+}
+
+.contact_form {
+    width: 70%;
+    /* Center the contact form inside its parent container */
+    margin:0 auto;
+}
+
+.feedback_row {
+    width:80%;
+}
+
+input[type='text'], input[type='email'], textarea {
+    /* Select only inputs with selected type */
+    width: 100%;
+    padding: 7px;
+    margin-bottom: 7px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+    background-color: transparent;
+    color:#fff;
+}
+
+.feed_input {
+    font-weight: 100;
+}
+
+textarea {
+    height: 100px;
 }
