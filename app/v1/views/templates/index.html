@@ -91,11 +91,11 @@
            <i class="ion-ios-unlocked-outline icon-big"></i>
            <h3>How it works</h3>
            <p>
-             To get your super healthy meal fast, simply:<br>
-             1. Head over to our meal section<br>
-             2. Choose a meal<br>
-             3. Add it to cart<br>
-             4. And checkout your order
+             To get your super healthy meal fast, simply :<br>
+             (1) Head over to our menu<br>
+             (2) Choose a meal<br>
+             (3) Add it to cart<br>
+             (4) And checkout your order
            </p>
          </div>
        </div>
@@ -141,46 +141,26 @@
       </div>
       <div class="row">
         <form class="contact_form" action="#" method="post">
-          <div class="row">
             <!-- Make two columns but the second to have 2-in-1 cols so that its
             twice as wide as the first as specified in the grid css file-->
-            <div class="col span-1-of-3 label_div">
-              <label for="name">Name</label>
-            </div>
-            <div class="col span-2-of-3">
-              <!-- type is the what info to enter, name will be used to send
-              the data from the form, id is for linking a label to its input
-              element, so when clicke the element is selected. Used via the
-              'for' attribute in the label. Works only for text forms and
-              selects only -->
-              <input type="text" name="name" id="name" placeholder="Your name"
+            <!-- type is the what info to enter, name will be used to send
+            the data from the form, id is for linking a label to its input
+            element, so when clicke the element is selected. Used via the
+            'for' attribute in the label. Works only for text forms and
+            selects only -->
+          <div class="row feedback_row">
+              <input type="text" id="name" autocomplete="off" class="feed_input" placeholder="Your name"
                required>
-            </div>
           </div>
-          <div class="row">
-            <div class="col span-1-of-3 label_div">
-              <label for="email">Email</label>
-            </div>
-            <div class="col span-2-of-3">
-              <input type="email" name="email" id="email" placeholder="Your email"
+          <div class="row feedback_row">
+              <input type="email" id="email" autocomplete="off" class="feed_input" placeholder="Your email"
                required>
-            </div>
           </div>
-          <div class="row">
-            <div class="col span-1-of-3 label_div">
-              <label>Drop us a line</label>
-            </div>
-            <div class="col span-2-of-3">
-              <textarea name="message" placeholder="Your message"></textarea>
-            </div>
+          <div class="row feedback_row">
+              <textarea name="message" class="feed_input" placeholder="Your feedback"></textarea>
           </div>
-          <div class="row">
-            <div class="col span-1-of-3 label_div">
-              <label>&nbsp;</label>
-            </div>
-            <div class="col span-2-of-3">
-              <input type="submit" value="Send it!">
-            </div>
+          <div class="row feedback_row">
+              <input type="submit" value="Send">
           </div>
         </form>
       </div>

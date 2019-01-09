@@ -141,7 +141,6 @@ a:visited {
   text-decoration: none;
   padding-bottom: 2px;
   border-bottom: 1px solid #e67e22;
-  -webkit-transition: border-bottom 0.2s;
   transition: border-bottom 0.2s; color:0.2s
 }
 
@@ -205,7 +204,7 @@ input[type='submit'] {
    --------------------------------- */
 header {
   /* Include the img via 'url' and make its darker using liner-gradient */
-  background-image: linear-gradient(rgba(0, 0, 0, 0.7),rgba(0, 0, 0, 0.7)),
+  background-image: linear-gradient(rgba(0, 0, 0, 0.7),rgba(0, 0, 0, 0.65)),
   url(images/header.jpg);
   /* Ensure background image remains fixed when scrolling */
   background-attachment: fixed;
@@ -273,7 +272,7 @@ transform: translate(-50%, -50%);
 TESTIMONIALS SECTION
 --------------------------------- */
 .customer_testimonial {
-  background-image: linear-gradient(rgba(0 , 0, 0, 0.75), rgba(0, 0, 0, 0.75)),
+  background-image: linear-gradient(rgba(0 , 0, 0, 0.75), rgba(0, 0, 0, 0.7)),
   url(images/testimonials.jpg);
   background-size: cover;
   color:#fff;
@@ -324,27 +323,36 @@ cite img {
  FEEDBACK SECTION
 --------------------------------- */
 .customer_feedback {
-  background-image: linear-gradient(rgba(0 , 0, 0, 0.75), rgba(0, 0, 0, 0.5)),
+  background-image: linear-gradient(rgba(0 , 0, 0, 0.75), rgba(0, 0, 0, 0.65)),
   url(images/feedback.jpg);
   background-size: cover;
   color:#fff;
-  /*background-attachment: fixed;*/
+  background-attachment: fixed;
 }
 
 .contact_form {
-    width: 90%;
+    width: 70%;
     /* Center the contact form inside its parent container */
     margin:0 auto;
+}
+
+.feedback_row {
+    width:80%;
 }
 
 input[type='text'], input[type='email'], textarea {
     /* Select only inputs with selected type */
     width: 100%;
     padding: 7px;
+    margin-bottom: 7px;
     border-radius: 3px;
     border: 1px solid #ccc;
     background-color: transparent;
     color:#fff;
+}
+
+.feed_input {
+    font-weight: 100;
 }
 
 textarea {
