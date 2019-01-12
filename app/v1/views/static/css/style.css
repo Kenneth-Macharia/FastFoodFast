@@ -450,11 +450,13 @@ footer {
     /*background-color: #333;*/
     padding: 10px;
     font-size: 80%
+
 }
 
 .footer_row{
     padding-left: 35px;
     height: 33px;
+    margin-top: 10px;
 }
 
 .first_col {
@@ -559,7 +561,7 @@ footer p {
 
 .contacts {
     width: 570px;
-    margin: 45px 0px 20px 250px;
+    margin: 15px 0px 15px 330px;
 
 }
 
