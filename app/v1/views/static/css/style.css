@@ -6,7 +6,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  border: 0.5px solid rgb(110, 181, 232);
+  /* border: 0.5px solid rgb(110, 181, 232); */
 }
 
 /* Removes the outline for all elements when selected */
@@ -25,6 +25,7 @@ html body {
 }
 
 .clearfix {zoom: 1}
+
 .clearfix:after {
   /* Clears floats after each element that declares them, this class is used in
    each parent section where a child class declares floats */
@@ -559,7 +560,17 @@ footer p {
 /* ---------------------------------
  CORPORATE PAGE
 --------------------------------- */
-.corp h1 {
+.about_section {
+    padding: 50px;
+}
+
+.head,
+.parag,
+.imgs {
+    padding:5px;
+}
+
+.head h1 {
   color:#191a19;
   font-size: 120%;
   font-weight: 400;
@@ -571,12 +582,13 @@ footer p {
 .meals-showcase {
     list-style: none;
     width: 100%;
+    border-radius: 25px;
 
 }
 
 .meals-showcase li {
     display: block;
-    width: 33%;
+    width: 24%;
     float: left;
 }
 
@@ -590,9 +602,21 @@ footer p {
     height: 210px;
 }
 
+.chef {
+    margin: 0px 12px 0px 9px;
+}
 
+.parag {
+    font-size: 95%;
+    text-align: justify;
+    line-height: 140%;
+}
 
-
+.imgs figcaption {
+    font-size: 80%;
+    color: #e67e22;
+    font-weight: bold;
+}
 
 
 
