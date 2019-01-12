@@ -450,11 +450,13 @@ footer {
     /*background-color: #333;*/
     padding: 10px;
     font-size: 80%
+
 }
 
 .footer_row{
     padding-left: 35px;
     height: 33px;
+    margin-top: 10px;
 }
 
 .first_col {
@@ -556,6 +558,29 @@ footer p {
     text-align: center;
     margin-top: 5px;
 }
+
+.contacts {
+    width: 570px;
+    margin: 15px 0px 15px 330px;
+
+}
+
+.contacts div {
+    border: 1px solid;
+    border-radius: 2px;
+    padding-bottom: 5px;
+}
+
+.contacts h3 {
+    text-align: center;
+    border-bottom: 1px solid #e67e22;
+    margin:0;
+}
+
+.contacts p {
+    font-size: 90%;
+}
+
 
 /* ---------------------------------
  CORPORATE PAGE
