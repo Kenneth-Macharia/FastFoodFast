@@ -557,6 +557,29 @@ footer p {
     margin-top: 5px;
 }
 
+.contacts {
+    width: 570px;
+    margin: 45px 0px 20px 250px;
+
+}
+
+.contacts div {
+    border: 1px solid;
+    border-radius: 2px;
+    padding-bottom: 5px;
+}
+
+.contacts h3 {
+    text-align: center;
+    border-bottom: 1px solid #e67e22;
+    margin:0;
+}
+
+.contacts p {
+    font-size: 90%;
+}
+
+
 /* ---------------------------------
  CORPORATE PAGE
 --------------------------------- */
