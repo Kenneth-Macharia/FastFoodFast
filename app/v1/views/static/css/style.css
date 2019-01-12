@@ -44,7 +44,7 @@ html body {
   /* Only absolute dimension, all others will be relative. This is the entire
   width of the page */
   max-width: 1140px;
-  /* Center all the rows on the page, set left ad right to auto and top and
+  /* Center all the rows on the page, set left and right to auto and top and
   bottom to 0 */
   margin: 0 auto;
 }
@@ -154,7 +154,7 @@ a:active {
 /* ---------- BUTTONS ---------- */
 .btn:link,
 .btn:visited,
-input[type='submit'] {
+.feedback_row input[type='submit'] {
   /* pseudo classes:css states for buttons: link >normal unclicked state,
   visited >look after it has been clicked, hover >look When
   pointed at, active > when clicked. Specify the state styling as below */
@@ -174,8 +174,8 @@ input[type='submit'] {
 
 .btn:hover,
 .btn:active,
-input[type='submit']:hover,
-input[type='submit']:active {
+.feedback_row input[type='submit']:hover,
+.feedback_row input[type='submit']:active {
   /* Make the buttons to have a darker tone of orange. Use 0to255.com, pick
   your color code and paste in the site to get various shades of your color */
   background-color: #cf6d17;
@@ -184,7 +184,7 @@ input[type='submit']:active {
 
 .btn_full:link,
 .btn_full:visited,
-input[type='submit'] {
+.feedback_row input[type='submit'] {
   /* Use flatuicolors.com to get nice flat colors of the buttons */
   background-color: #e67e22;
   border: 1px solid #e67e22;
@@ -194,7 +194,7 @@ input[type='submit'] {
 
 .btn_full:hover,
 .btn_full:active,
-input[type='submit'] {
+.feedback_row input[type='submit'] {
   background-color: transparent;
   border: 1px solid #cf6d17;
 
@@ -269,8 +269,8 @@ transform: translate(-50%, -50%);
 }
 
 /* ---------------------------------
-TESTIMONIALS SECTION
---------------------------------- */
+   TESTIMONIALS SECTION
+   --------------------------------- */
 .customer_testimonial {
   background-image: linear-gradient(rgba(0 , 0, 0, 0.75), rgba(0, 0, 0, 0.7)),
   url(images/testimonials.jpg);
@@ -318,8 +318,8 @@ cite img {
 }
 
 /* ---------------------------------
- ORDER SECTION
---------------------------------- */
+   ORDER SECTION
+   --------------------------------- */
 
 .plans_section {
   background-color: #f4f4f4;
@@ -403,8 +403,8 @@ cite img {
 }
 
 /* ---------------------------------
- FEEDBACK SECTION
---------------------------------- */
+   FEEDBACK SECTION
+   --------------------------------- */
 .customer_feedback {
   background-image: linear-gradient(rgba(0 , 0, 0, 0.75), rgba(0, 0, 0, 0.65)),
   url(images/feedback.jpg);
@@ -443,11 +443,11 @@ textarea {
 }
 
 /* ---------------------------------
- FOOTER SECTION
---------------------------------- */
+   FOOTER SECTION
+   --------------------------------- */
 
 footer {
-    /*background-color: #333;*/
+    background-color: #fcfcfc;
     padding: 10px;
     font-size: 80%
 
@@ -456,7 +456,7 @@ footer {
 .footer_row{
     padding-left: 35px;
     height: 33px;
-    margin-top: 10px;
+    margin-top: 5px;
 }
 
 .first_col {
@@ -506,7 +506,7 @@ footer {
     color: #888;
     -webkit-transition: color 0.2s;
     transition: color 0.2s
-    font-size: 140%;
+    font-size: 105%;
 }
 
 .footer_nav li a:hover,
@@ -526,7 +526,7 @@ footer {
 
 .socal_links li a:link,
 .socal_links li a:visited {
-    font-size: 140%;
+    font-size: 105%;
 }
 
 .ion-social-facebook,
@@ -557,34 +557,48 @@ footer p {
     color: #888;
     text-align: center;
     margin-top: 5px;
+    font-size: 70%;
 }
 
 .contacts {
     width: 570px;
-    margin: 15px 0px 15px 330px;
+    margin-left: 330px;
 
 }
 
 .contacts div {
-    border: 1px solid;
+    /* border: 1px solid; */
     border-radius: 2px;
     padding-bottom: 5px;
 }
 
 .contacts h3 {
     text-align: center;
-    border-bottom: 1px solid #e67e22;
     margin:0;
+    font-size: 70%;
+}
+
+.contacts h3:after {
+  /* Diplays the orange underline */
+  display: block;
+  height: 1px;
+  background-color: #e67e22;
+  /* Contents must be specified anytime we use an :after, in this case no words
+  just a space */
+  content: " ";
+  width: 50px;
+  margin: 0 auto;
+  margin-top: 5px;
 }
 
 .contacts p {
-    font-size: 90%;
+    font-size: 70%;
 }
 
 
 /* ---------------------------------
- CORPORATE PAGE
---------------------------------- */
+   ABOUT US PAGE
+   --------------------------------- */
 .about_section {
     padding: 50px;
 }
@@ -643,27 +657,121 @@ footer p {
     font-weight: bold;
 }
 
-
-
 /* ---------------------------------
- ADMIN PAGE
---------------------------------- */
+   ADMIN PAGE
+   --------------------------------- */
+.admin_section{
+    padding:10px 0 0 0;
+    background-color: #fcfcfc;
 
+}
+
+.header_section,
+.view_section {
+    border: 1px solid #e67e22;
+    border-radius: 5px;
+}
+
+.header_section {
+    margin-bottom: 3px;
+    background-color: #25221f;
+}
+
+.admin_col {
+    margin:0;
+    padding: 5px 5px;
+
+}
+
+.header_section h1  {
+    color: #fff;
+    font-size: 100%;
+    margin:0 0 0 20px;
+    padding:0;
+    text-transform: capitalize;
+
+}
+
+.view_section {
+    height:600px;
+}
+
+.view_header {
+    box-shadow: 0 0 1px 0 #6b6767;
+    padding:5px;
+
+}
+
+.view_header p {
+    font-size: 90%;
+    text-align: center;
+    font-weight: 400;
+}
+
+.view_info {
+    height: 550px;
+    padding: 10px;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th {
+    font-size: 100%;
+    padding: 5px 5px;
+
+}
+td, th {
+    border: 1px solid #dddddd;
+    text-align: center;
+    font-size: 90%;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+.view_info input[type='submit'] {
+    display: inline-block;
+    padding: 1px 10px 1px 10px;
+    margin: 0 0 3px 0;
+    font-size: 70%;
+    text-decoration: none;
+    border: 1px solid #e67e22;
+    border-radius: 100px;
+
+}
+
+.view_info input[type='submit']:hover {
+    background-color: #e67e22;
+    color: #fff;
+}
+
+.view_footer {
+    height: 12px;
+}
+
+.view_footer p {
+    font-size: 50%;
+    float: right;
+    padding: 3px 2px 0 0;
+
+}
 
 /* ---------- NAV BAR ---------- */
-.corp_nav {
-  position: absolute;
-  top: 0;
-  right: 0;
-  left: 0;
-  z-index: 9999;
-  display: block;
-  margin: 0;
-  width: 100%;
-  min-width: 1024px;
-  height: 48px;
-  max-height: 44px;
-  background-color: rgba(45,45,45,0.75);
-  font-size: 17px;
-  user-select: none;
+.admin_nav {
+    display: block;
+}
+
+.admin_nav li {
+    float: right;
+    list-style: none;
+    display: inline-block;
+    margin-left: 20px;
+    margin-top: 1px;
+    text-decoration: none;
+    font-size: 80%;
+
 }
