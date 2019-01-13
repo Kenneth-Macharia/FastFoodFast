@@ -6,11 +6,12 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  /* border: 0.5px solid rgb(110, 181, 232); */
 }
 
-/* Removes the outline for all elements when selected */
-*:focus {outline:none}
+*:focus {
+    /* Removes the outline for all elements when selected */
+    outline:none
+}
 
 html body {
   background-color: #fff;
@@ -27,8 +28,7 @@ html body {
 .clearfix {zoom: 1}
 
 .clearfix:after {
-  /* Clears floats after each element that declares them, this class is used in
-   each parent section where a child class declares floats */
+  /* Clears floats after each element */
   content: '.';
   clear: both;
   display: block;
@@ -44,18 +44,17 @@ html body {
   /* Only absolute dimension, all others will be relative. This is the entire
   width of the page */
   max-width: 1140px;
-  /* Center all the rows on the page, set left and right to auto and top and
-  bottom to 0 */
+  /* Center all the rows on the page, set left and right to auto and top and bottom to 0 */
   margin: 0 auto;
 }
 
 section {
-  /* Add white spaces for each sections. Usually you use margins but padding
-  for this case */
+  /* Add white spaces for each sections*/
   padding: 80px 0;
 }
 
 .box {
+  /* Padding for colunm spans */
   padding: 1%;
 }
 
@@ -69,7 +68,7 @@ h1, h2, h3 {
 }
 
 h1 {
-  /* Removes the header margins top and bottom so there are not white spaces
+  /* Remove the header margins top and bottom so there are not white spaces
   around it */
   margin-top: 0;
   margin-bottom: 20px;
@@ -79,8 +78,8 @@ h1 {
 }
 
 .h1_span {
-  color:#e67e22;
-
+    /* changes select word color in the header h1 */
+    color:#e67e22;
 }
 
 h2 {
@@ -95,7 +94,7 @@ h2:after {
   display: block;
   height: 2px;
   background-color: #e67e22;
-  /* Contents must be specified anytime we use an :after, in this case no words
+  /* Specify contents :after, in this case no words
   just a space */
   content: " ";
   width: 110px;
@@ -109,17 +108,6 @@ h3 {
 }
 
 /* ---------- PARAGRAPHS ---------- */
-.long-copy {
-  line-height: 135%;
-  /* Typograhy rules make this make too long, so it can be shortened and
-  re-cntered as below */
-  width:70%;
-   /* total lenght is 100%, paragraphs length is 70%, leaving 30%, distributed
-   on each side */
-  margin-left: 15%;
-  margin-bottom: 30px;
-}
-
 .box p {
   font-size: 90%;
   line-height: 145%;
@@ -155,49 +143,47 @@ a:active {
 .btn:link,
 .btn:visited,
 .feedback_row input[type='submit'] {
-  /* pseudo classes:css states for buttons: link >normal unclicked state,
-  visited >look after it has been clicked, hover >look When
-  pointed at, active > when clicked. Specify the state styling as below */
-
   /* inline-blocks can have padding and margin and does not enforce breaks,
   unlike an in-line element e.g. buttons, so use this inline block to make
   inline elements, in-line blocks */
   display: inline-block;
   padding: 5px 20px;
+  margin-right: 15px;
   font-size: 90%;
   font-weight: 300;
   text-decoration: none;
   border-radius: 100px;
-  /* transition the link to hover colors in 0.2 seconds instead of instantenouesly */
-  transition: background-color 0.2s, border 0.2s, color 0.2s;
+}
+
+.btn:link,
+.btn:visited {
+    /* transition the link to hover colors in 0.2 seconds instead of instantenouesly */
+    transition: background-color 0.2s, border 0.2s, color 0.2s;
+    background-color: #e67e22;
+    border: 1px solid #e67e22;
+    color: #fff;
+}
+
+.feedback_row input[type='submit'] {
+    background-color: transparent;
+    border: 1px solid #cf6d17;
+    color: #fff;
+    transition: background-color 0.2s, border 0.2s, color 0.2s;
 }
 
 .btn:hover,
-.btn:active,
-.feedback_row input[type='submit']:hover,
-.feedback_row input[type='submit']:active {
-  /* Make the buttons to have a darker tone of orange. Use 0to255.com, pick
-  your color code and paste in the site to get various shades of your color */
+.btn:active {
   background-color: #cf6d17;
   border: 1px solid #cf6d17;
-}
-
-.btn_full:link,
-.btn_full:visited,
-.feedback_row input[type='submit'] {
-  /* Use flatuicolors.com to get nice flat colors of the buttons */
-  background-color: #e67e22;
-  border: 1px solid #e67e22;
-  color: #fff;
-  margin-right: 15px;
-}
-
-.btn_full:hover,
-.btn_full:active,
-.feedback_row input[type='submit'] {
   background-color: transparent;
   border: 1px solid #cf6d17;
+}
 
+.feedback_row input[type='submit']:hover,
+.feedback_row input[type='submit']:active {
+    background-color: #e67e22;
+    border: 1px solid #e67e22;
+    color: #fff;
 }
 
 /* ---------------------------------
@@ -224,42 +210,39 @@ header {
   margin-top: 0px;
 }
 
-.hero_textbox {
+.header_texbox {
     /* this will be an absolutely positined box so that we can horizontalt &
     vertically centre it */
     position: absolute;
     width: 700px;
     top: 55%;
-    left: 52%;
+    left: 50%;
     /* Translates 50% of the element's width & length, up & left */
     transform: translate(-50%, -50%);
 }
 
-.hero_textbox h1, p {
+.header_texbox h1,
+.header_texbox p {
     text-align: center;
 }
 
-.hero_textbox p {
+.header_texbox p {
     padding-bottom: 30px;
     color: #fff;
     font-size: 115%;
-    word-spacing: 3px;
-
+    word-spacing: 4px;
 }
 
-.hero_textbox a {
-    margin-left: 285px;
-}
+.header_texbox a {margin-left: 285px;}
 
 /* ---------- MAIN NAV ---------- */
 .main_nav {
   float: right;
-  list-style: none;  /* removes the bullets */
+  list-style: none;
   margin-top: 30px;
 }
 
 .main_nav li {
-  /* style all li elements inside the main nav bar */
   /* Change the li elements from block to in-line blocks */
   display: inline-block;
   margin: 20px;
@@ -271,7 +254,7 @@ header {
   color: #fff;
   text-decoration: none;
   text-transform: capitalize;
-  font-size: 70%; /* desired font size/ base font size under 'html' */
+  font-size: 70%; /* desired font size of the base font size under 'html' */
   border-bottom: 2px solid #e67e22;
   transition: border-bottom 0.2s;
 }
@@ -286,14 +269,23 @@ header {
 
 
 /* ---------------------------------
-   FEATURES SECTION
+   SELL SECTION
    --------------------------------- */
+.intro {
+    line-height: 135%;
+    width:70%;
+    /* total lenght is 100%, paragraphs length is 70%, leaving 30%, distributed
+    on each side */
+    margin-left: 15%;
+    margin-bottom: 30px;
+    word-spacing: 3px;
+}
+
 .works_list {
     font-size: 85%;
     line-height:  145%;
     margin: 10px 0 0 22px;
 }
-
 
 /* ---------------------------------
    TESTIMONIALS SECTION
@@ -308,9 +300,9 @@ header {
 
 blockquote {
   padding: 2%;
-  /* quotes are usually in italics */
   font-style: italic;
   line-height: 145%;
+  word-spacing: 3px;
   position: relative;
   margin-top: 40px;
 
@@ -324,9 +316,6 @@ cite {
 }
 
 blockquote:before {
-  /* Inserting text using css use 'content attribute' */
-  /* We need to use isospecial characters to insert signs such as quote marks
-  in css - Link in course e-book */
   content: "\201C";
   font-size:500%;
   /* Position it on its own line */
@@ -346,69 +335,54 @@ cite img {
 }
 
 /* ---------------------------------
-   ORDER SECTION
+   MENU SECTION
    --------------------------------- */
 
-.plans_section {
-  background-color: #f4f4f4;
-}
+.menu_section {background-color: #f4f4f4;}
 
-.plan_box {
+.menu_box {
   background-color:#fff;
   border-radius: 5px;
   width: 90%;  /* of the parent width */
   margin-left: 5%;  /* center - 10px/2 remainder width in the parent width */
   /* Add a box shadow - (x value offset, y value offset, blur value, color value*/
   box-shadow: 0 2px 2px #efefef;
-
 }
 
-.plan_box div {
-  border-bottom: 1px solid #e8e8e8;
-}
+.menu_box div {border-bottom: 1px solid #e8e8e8;}
 
-.plan_divs {
-  /* style the 3 child divs all together */
-  padding: 15px;
+.menu_divs {padding: 13px;}
 
-}
+.img_plan_div {height: 248px;}
 
-.img_plan_div {
-  height: 248px;
-}
-
-.plan_box img {
+.menu_box img {
   width: 100%;
   height: 100%;
-
 }
 
-.plan_box div:first-child {
+.menu_box div:first-child {
   background-color: #fcfcfc;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
 }
 
-.plan_box div:last-child {
+.menu_box div:last-child {
   text-align: center;
   border: none;
 }
 
-.plan_price {
+.meal_price {
   font-size: 200%;
   font-weight: 300;
   color: #e67e22;
 }
 
-.plan_price span {
-  /* This a child of plan_price, which has a % font-size that take care when
-  setting a % font-size here as well */
+.meal_price span {
   font-size:50%;
-  font-weight: 300;  /* Override the parent font weight to return it to the
-  normal */
+  font-weight: 300;  /* Override the parent font weight to return it to the normal */
 }
 
-.plan_box h3 {
+.menu_box h3 {
   text-align: center;
   margin-bottom: 0px;
   color: #e67e22;
@@ -416,18 +390,22 @@ cite img {
 }
 
 .single_line_h3 {
+  /* Style a meal title div with a short name to make it multi-line */
   margin-top: 15px;
   padding-bottom: 8px;
-
 }
 
-.plan_box p {
-  text-align: center;
-}
+.menu_box p {text-align: center;}
 
 .btn_meal:hover,
 .btn_meal:active {
   color: #e67e22;
+}
+
+.meal_desc p {
+    /* word-spacing: 2px; */
+    font-size: 90%;
+    text-align: justify;
 }
 
 /* ---------------------------------
@@ -441,15 +419,13 @@ cite img {
   background-attachment: fixed;
 }
 
-.contact_form {
+.feedback_form {
     width: 70%;
     /* Center the contact form inside its parent container */
     margin:0 auto;
 }
 
-.feedback_row {
-    width:80%;
-}
+.feedback_row {width:80%;}
 
 input[type='text'], input[type='email'], textarea {
     /* Select only inputs with selected type */
@@ -462,13 +438,9 @@ input[type='text'], input[type='email'], textarea {
     color:#fff;
 }
 
-.feed_input {
-    font-weight: 300;
-}
+.feed_input {font-weight: 300;}
 
-textarea {
-    height: 100px;
-}
+textarea {height: 100px;}
 
 /* ---------------------------------
    FOOTER SECTION
@@ -478,13 +450,6 @@ footer {
     background-color: #fcfcfc;
     padding: 10px;
     font-size: 80%
-}
-
-.first_col,
-.mid_col,
-.last_col {
-
-
 }
 
 .footer_nav {
@@ -545,25 +510,16 @@ footer {
 .ion-social-twitter,
 .ion-social-googleplus,
 .ion-social-instagram {
-    -webkit-transition: color 0.2s;
     transition: color 0.2s
 }
 
-.ion-social-facebook:hover {
-    color: #3b5998;
-}
+.ion-social-facebook:hover {color: #3b5998;}
 
-.ion-social-twitter:hover {
-    color: #00aced;
-}
+.ion-social-twitter:hover {color: #00aced;}
 
-.ion-social-googleplus:hover {
-    color: #dd4b39;
-}
+.ion-social-googleplus:hover {color: #dd4b39;}
 
-.ion-social-instagram:hover {
-    color: #517fa4;
-}
+.ion-social-instagram:hover {color: #517fa4;}
 
 footer p {
     color: #888;
@@ -573,7 +529,6 @@ footer p {
 }
 
 .contacts div {
-    /* border: 1px solid; */
     border-radius: 2px;
     padding-bottom: 5px;
 }
@@ -601,19 +556,18 @@ footer p {
 .contacts p {
     font-size: 70%;
     padding: 10px 0 10px 0;
+    line-height: 145%;
 }
 
 
 /* ---------------------------------
    ABOUT US PAGE
    --------------------------------- */
-.about_section {
-    padding: 50px;
-}
+.about_section {padding: 50px;}
 
 .head,
 .parag,
-.imgs {
+.images_div {
     padding:5px;
 }
 
@@ -623,46 +577,53 @@ footer p {
   font-weight: 400;
   text-transform: capitalize;
   border-bottom: 1px solid #e67e22;
-
 }
 
-.meals-showcase {
+.showcase {
     list-style: none;
     width: 100%;
     border-radius: 25px;
 
 }
 
-.meals-showcase li {
+.showcase li {
     display: block;
     width: 24%;
     float: left;
 }
 
-.meal-photo {
+.images_li {
     width: 100%;
     margin: 20px 0px 20px 0px;
 }
 
-.meal-photo img {
+.images_li img {
     width: 100%;
     height: 210px;
 }
 
 .chef {
-    margin: 0px 12px 0px 9px;
+    margin: 0px 25px 0px 9px;
 }
 
 .parag {
-    font-size: 95%;
+    font-size: 90%;
     text-align: justify;
     line-height: 140%;
 }
 
-.imgs figcaption {
+.parag div {
+    width: 48%;
+}
+
+.parag div:first-child {
+    margin-right: 27px;
+}
+
+.images_div figcaption {
+    text-align: center;
     font-size: 80%;
     color: #e67e22;
-    font-weight: bold;
 }
 
 /* ---------------------------------
@@ -671,7 +632,6 @@ footer p {
 .admin_section{
     padding:10px 0 0 0;
     background-color: #fcfcfc;
-
 }
 
 .header_section,
@@ -688,7 +648,6 @@ footer p {
 .admin_col {
     margin:0;
     padding: 5px 5px;
-
 }
 
 .header_section h1  {
@@ -697,17 +656,13 @@ footer p {
     margin:0 0 0 20px;
     padding:0;
     text-transform: capitalize;
-
 }
 
-.view_section {
-    height:600px;
-}
+.view_section {height:600px;}
 
 .view_header {
     box-shadow: 0 0 1px 0 #6b6767;
     padding:5px;
-
 }
 
 .view_header p {
@@ -729,7 +684,6 @@ table {
 th {
     font-size: 100%;
     padding: 5px 5px;
-
 }
 td, th {
     border: 1px solid #dddddd;
@@ -749,7 +703,6 @@ tr:nth-child(even) {
     text-decoration: none;
     border: 1px solid #e67e22;
     border-radius: 100px;
-
 }
 
 .view_info input[type='submit']:hover {
@@ -765,7 +718,6 @@ tr:nth-child(even) {
     font-size: 50%;
     float: right;
     padding: 3px 2px 0 0;
-
 }
 
 /* ---------- NAV BAR ---------- */
@@ -781,5 +733,4 @@ tr:nth-child(even) {
     margin-top: 1px;
     text-decoration: none;
     font-size: 80%;
-
 }
