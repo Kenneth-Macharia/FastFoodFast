@@ -1,58 +1,60 @@
 <!DOCTYPE html>
-<html>
+<html html lang="en">
+
   <head>
     <meta charset="utf-8">
-    <!-- For responsive webpage design -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- For search engine optimization -->
-    <meta name="description" content="FastfoodFast is an urban eatery which also offers
-     fast food delivery of quality healthy meals">
-
-    <!-- For std content viewing across browsers -->
+    <meta name="description" content="FastfoodFast is an urban eatery which also offers fast food delivery of quality healthy meals">
+    <!-- Std content viewing across browsers -->
     <link rel="stylesheet" type="text/css" href="../static/css/normalize.css">
-    <!-- For std column styles for the page -->
+    <!-- Pre-set page columns and styles -->
     <link rel="stylesheet" type="text/css" href="../static/css/grid.css">
-    <!-- For ionicons -->
+    <!-- Icon fonts -->
     <link rel="stylesheet" type="text/css" href="../static/css/ionicons.css">
-
+    <!-- Custom styling -->
     <link rel="stylesheet" type="text/css" href="../static/css/style.css">
-
+    <!-- Google fonts -->
     <link href="https://fonts.googleapis.com/css?family=Lato:100,300,300i,400"
     rel="stylesheet" type="text/css">
-
     <title>FastFoodFast</title>
+    <!-- Favicons pack -->
+    <link rel="apple-touch-icon" sizes="180x180" href="../static/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../static/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../static/favicons/favicon-16x16.png">
+    <link rel="manifest" href="../static/favicons/site.webmanifest">
+    <link rel="mask-icon" href="../static/favicons/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="../static/favicons/favicon.ico">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="msapplication-config" content="../static/favicons/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
   </head>
 
   <body>
     <header>
       <nav>
-        <!-- class 'row' in grid.css, styles all row divs properly -->
         <div class="row">
           <img src="../static/images/logo-white.png" alt="Fastfoodfast logo" class="logo">
           <ul class="main_nav">
             <li><a href="#">Previous orders</a></li>
-            <li><a href="#features">What we do</a></li>
+            <li><a href="#sell">What we do</a></li>
             <li><a href="#testimonials">Testimonials</a></li>
             <li><a href="#feedback">Give us feedback</a></li>
           </ul>
         </div>
       </nav>
-
-      <div class='hero_textbox'>
+      <div class='header_texbox'>
         <h1>EAT <span class="h1_span">HEALTHY</span>.. WITHIN <span class="h1_span">MINUTES</span>
         ..<br>ALL THE TIME!</h1>
         <p>
             Order any of today's delicious meal options or simply pick one from your previous orders.
         </p>
-        <!-- declare two css classes for the btns, one for common styles and
-        the other for specific styles (in this case call to action buttons) -->
-        <a class="btn btn_full" href="#menu">Order Now</a>
+        <a class="btn" href="#menu">Order Now</a>
       </div>
     </header>
-    <section class="section-features" id="features">
+    <section class="sell_section" id="sell">
        <div class="row">
          <h2>WE TAKE CARE OF YOUR DIETARY NEEDS</h2>
-         <p class="long-copy">
+         <p class="intro">
            Welcome to FastFoodfast, where fast meets healthy.
            Forget greasy, unhealthy meals; enjoy healthy gourment meals instead,
            prepared and served to you in no time. We understand you are busy,
@@ -61,9 +63,6 @@
        </div>
        <div class="row">
          <div class="col span-1-of-4 box">
-           <!-- add icon fonts from ionicons.com (v2), download the icon files
-           save the css & font files, then use with the <i> as
-           below. Get the icon class names from the website -->
            <i class="ion-leaf icon-big"></i>
            <h3>100% organic</h3>
            <p>
@@ -83,7 +82,7 @@
          </div>
          <div class="col span-1-of-4 box">
            <i class="ion-ios-star-outline icon-big"></i>
-           <h3>Quality gurantee</h3>
+           <h3>Quality guarantee</h3>
            <p>
              Our five star rating ensures quality from ordering to delivery. This
              has led to over 3,000 satisfied customers and counting, read some of
@@ -137,17 +136,17 @@
         </div>
       </div>
     </section>
-    <section class="plans_section" id="menu">
+    <section class="menu_section" id="menu">
           <div class="row">
             <h2>Today's menu</h2>
           </div>
           <div class="row">
             <div class="col span-1-of-3">
-              <div class="plan_box">
-                <div class="plan_divs">
+              <div class="menu_box">
+                <div class="menu_divs">
                   <h3 class="single_line_h3">Autumn pumpkin soup</h3>
                 </div>
-                <div class="plan_divs">
+                <div class="menu_divs meal_desc">
                   <p>
                     This lovely autumn pumpkin soup is packed with flavour and
                     perfect for when the nights begin to draw in. Best served with
@@ -157,43 +156,41 @@
                 <div class="img_plan_div">
                   <img src="../static/images/4.jpg" alt="Autumn pumpkin soup">
                 </div>
-                <div class="plan_divs">
-                  <p class="plan_price">$10<span> only</span></p>
+                <div class="menu_divs">
+                  <p class="meal_price">$10<span> only</span></p>
                 </div>
-                <div class="plan_divs">
-                  <a href="#" class="btn btn_full btn_meal">Add to cart</a>
+                <div class="menu_divs">
+                  <a href="#" class="btn  btn_meal">Add to cart</a>
                 </div>
               </div>
             </div>
             <div class="col span-1-of-3">
-              <div class="plan_box">
-                <div class="plan_divs">
+              <div class="menu_box">
+                <div class="menu_divs">
                   <h3>Korean bibimbap with egg and vegetables</h3>
                 </div>
-                <div class="plan_divs">
+                <div class="menu_divs meal_desc">
                   <p>
-                    Bibimbap, meaning 'mixed rice,' is rice with stir fried vegetables,
-                    strips of beef, flavoured with a spicy pepper paste and topped
-                    with a fried egg. Delicious!
+                    Bibimbap, meaning 'mixed rice,' is rice with stir fried vegetables, strips of beef, flavoured with a spicy pepper paste and topped with a fried egg. Delicious!
                   </p>
                 </div>
                 <div class="img_plan_div">
                   <img src="../static/images/1.jpg" alt="Autumn pumpkin soup">
                 </div>
-                <div class="plan_divs">
-                  <p class="plan_price">$20<span> only</span></p>
+                <div class="menu_divs">
+                  <p class="meal_price">$20<span> only</span></p>
                 </div>
-                <div class="plan_divs">
-                  <a href="#" class="btn btn_full btn_meal">Add to cart</a>
+                <div class="menu_divs">
+                  <a href="#" class="btn  btn_meal">Add to cart</a>
                 </div>
               </div>
             </div>
             <div class="col span-1-of-3">
-              <div class="plan_box">
-                <div class="plan_divs">
+              <div class="menu_box">
+                <div class="menu_divs">
                   <h3>Chicken breast steak with vegetables</h3>
                 </div>
-                <div class="plan_divs">
+                <div class="menu_divs meal_desc">
                   <p>
                     Are you looking for a quick and easy weeknight dinner? Look
                     no further, this easy chicken and veggies skillet is flavorful,
@@ -203,22 +200,22 @@
                 <div class="img_plan_div">
                   <img src="../static/images/3.jpg" alt="Autumn pumpkin soup">
                 </div>
-                <div class="plan_divs">
-                  <p class="plan_price">$15<span> only</span></p>
+                <div class="menu_divs">
+                  <p class="meal_price">$15<span> only</span></p>
                 </div>
-                <div class="plan_divs">
-                  <a href="#" class="btn btn_full btn_meal">Add to cart</a>
+                <div class="menu_divs">
+                  <a href="#" class="btn  btn_meal">Add to cart</a>
                 </div>
               </div>
             </div>
           </div>
           <div class="row">
             <div class="col span-1-of-3">
-              <div class="plan_box">
-                <div class="plan_divs">
+              <div class="menu_box">
+                <div class="menu_divs">
                   <h3>Burger with cheddar and bacon</h3>
                 </div>
-                <div class="plan_divs">
+                <div class="menu_divs meal_desc">
                   <p>
                     An incredibly tasty bacon and blue-cheese stuffed burger. Made
                     using a great American technique, which keeps the patty juicy,
@@ -228,20 +225,20 @@
                 <div class="img_plan_div">
                   <img src="../static/images/7.jpg" alt="Autumn pumpkin soup">
                 </div>
-                <div class="plan_divs">
-                  <p class="plan_price">$18<span> only</span></p>
+                <div class="menu_divs">
+                  <p class="meal_price">$18<span> only</span></p>
                 </div>
-                <div class="plan_divs">
-                  <a href="#" class="btn btn_full btn_meal">Add to cart</a>
+                <div class="menu_divs">
+                  <a href="#" class="btn  btn_meal">Add to cart</a>
                 </div>
               </div>
             </div>
             <div class="col span-1-of-3">
-              <div class="plan_box">
-                <div class="plan_divs">
+              <div class="menu_box">
+                <div class="menu_divs">
                   <h3>Paleo beef steak with vegetables</h3>
                 </div>
-                <div class="plan_divs">
+                <div class="menu_divs meal_desc">
                   <p>
                     Full-flavored steak and grilled vegetables make this recipe a
                     rich and satisfying meal, while a fresh vinaigrette adds a
@@ -251,20 +248,20 @@
                 <div class="img_plan_div">
                   <img src="../static/images/5.jpg" alt="Autumn pumpkin soup">
                 </div>
-                <div class="plan_divs">
-                  <p class="plan_price">$25<span> only</span></p>
+                <div class="menu_divs">
+                  <p class="meal_price">$25<span> only</span></p>
                 </div>
-                <div class="plan_divs">
-                  <a href="#" class="btn btn_full btn_meal">Add to cart</a>
+                <div class="menu_divs">
+                  <a href="#" class="btn  btn_meal">Add to cart</a>
                 </div>
               </div>
             </div>
             <div class="col span-1-of-3">
-              <div class="plan_box">
-                <div class="plan_divs">
+              <div class="menu_box">
+                <div class="menu_divs">
                   <h3 class="single_line_h3">Creamy apple pie</h3>
                 </div>
-                <div class="plan_divs">
+                <div class="menu_divs meal_desc">
                   <p>
                   With its flaky, buttery crust; tart-sweet apples, and wonderful
                   cinnamon-y aroma, with a twist of vanilla bean ice cream, it's
@@ -274,11 +271,11 @@
                 <div class="img_plan_div">
                   <img src="../static/images/8.jpg" alt="Autumn pumpkin soup">
                 </div>
-                <div class="plan_divs">
-                  <p class="plan_price">$13<span> only</span></p>
+                <div class="menu_divs">
+                  <p class="meal_price">$13<span> only</span></p>
                 </div>
-                <div class="plan_divs">
-                  <a href="#" class="btn btn_full btn_meal">Add to cart</a>
+                <div class="menu_divs">
+                  <a href="#" class="btn  btn_meal">Add to cart</a>
                 </div>
               </div>
             </div>
@@ -289,14 +286,7 @@
         <h2>We'd love to hear from you</h2>
       </div>
       <div class="row">
-        <form class="contact_form" action="#" method="post">
-            <!-- Make two columns but the second to have 2-in-1 cols so that its
-            twice as wide as the first as specified in the grid css file-->
-            <!-- type is the what info to enter, name will be used to send
-            the data from the form, id is for linking a label to its input
-            element, so when clicke the element is selected. Used via the
-            'for' attribute in the label. Works only for text forms and
-            selects only -->
+        <form class="feedback_form" action="#" method="post">
           <div class="row feedback_row">
               <input type="text" id="name" autocomplete="off" class="feed_input" placeholder="Your name"
                required>
@@ -314,13 +304,11 @@
         </form>
       </div>
     </section>
-
   </body>
 
   <footer>
       <div class="row footer_row">
-
-        <div class="col span-1-of-3 first_col">
+        <div class="col span-1-of-3">
             <div class="row contacts">
                 <h3>Contacts</h3>
                 <p>
@@ -335,7 +323,7 @@
                 </ul>
             </div>
         </div>
-        <div class="col span-1-of-3 mid_col">
+        <div class="col span-1-of-3">
             <div class="row contacts">
                 <h3>Working Hours</h3>
                 <p>
@@ -352,7 +340,7 @@
                 </ul>
             </div>
         </div>
-        <div class="col span-1-of-3 last_col">
+        <div class="col span-1-of-3">
             <div class="row contacts">
                 <h3>Location</h3>
                 <p>
@@ -366,6 +354,6 @@
                 </p>
             </div>
         </div>
-
   </footer>
+
 </html>
