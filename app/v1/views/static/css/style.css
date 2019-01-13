@@ -217,22 +217,38 @@ header {
   height: 100vh;
 }
 
-.hero_textbox {
- /* this will be an absolutely positined box so that we can horizontalt &
- vertically centre it */
- position: absolute;
- width: 1140px;
- top: 50%;
- left: 50%;
- /* Translates 50% of the element's width & length, up & left */
-transform: translate(-50%, -50%);
-}
-
 .logo {
   height: 170px;
   width: auto;
   float: left;
   margin-top: 0px;
+}
+
+.hero_textbox {
+    /* this will be an absolutely positined box so that we can horizontalt &
+    vertically centre it */
+    position: absolute;
+    width: 700px;
+    top: 55%;
+    left: 52%;
+    /* Translates 50% of the element's width & length, up & left */
+    transform: translate(-50%, -50%);
+}
+
+.hero_textbox h1, p {
+    text-align: center;
+}
+
+.hero_textbox p {
+    padding-bottom: 30px;
+    color: #fff;
+    font-size: 115%;
+    word-spacing: 3px;
+
+}
+
+.hero_textbox a {
+    margin-left: 285px;
 }
 
 /* ---------- MAIN NAV ---------- */
@@ -254,7 +270,7 @@ transform: translate(-50%, -50%);
   padding: 8px 0;
   color: #fff;
   text-decoration: none;
-  text-transform: uppercase;
+  text-transform: capitalize;
   font-size: 70%; /* desired font size/ base font size under 'html' */
   border-bottom: 2px solid #e67e22;
   transition: border-bottom 0.2s;
@@ -265,8 +281,19 @@ transform: translate(-50%, -50%);
   border-bottom: 2px solid;
   color: #fff;
   text-decoration: none;
-  text-transform: uppercase;
+  text-transform: capitalize;
 }
+
+
+/* ---------------------------------
+   FEATURES SECTION
+   --------------------------------- */
+.works_list {
+    font-size: 85%;
+    line-height:  145%;
+    margin: 10px 0 0 22px;
+}
+
 
 /* ---------------------------------
    TESTIMONIALS SECTION
@@ -286,6 +313,7 @@ blockquote {
   line-height: 145%;
   position: relative;
   margin-top: 40px;
+
 }
 
 cite {
@@ -450,40 +478,24 @@ footer {
     background-color: #fcfcfc;
     padding: 10px;
     font-size: 80%
-
 }
 
-.footer_row{
-    padding-left: 35px;
-    height: 33px;
-    margin-top: 5px;
-}
-
-.first_col {
-    width: 180px;
-    margin: 5px;
-
-}
-
-.mid_col {
-    width: 405px;
-    margin-top: 2px;
-
-}
-
+.first_col,
+.mid_col,
 .last_col {
-    width: 490px;
-    margin: 0px;
+
 
 }
 
 .footer_nav {
     list-style: none;
-    float: left;
+    text-align: center;
+    font-size: 85%;
 }
 
 .socal_links {
     list-style: none;
+    text-align: center;
 }
 
 .footer_nav li,
@@ -560,12 +572,6 @@ footer p {
     font-size: 70%;
 }
 
-.contacts {
-    width: 570px;
-    margin-left: 330px;
-
-}
-
 .contacts div {
     /* border: 1px solid; */
     border-radius: 2px;
@@ -578,7 +584,8 @@ footer p {
     font-size: 70%;
 }
 
-.contacts h3:after {
+.contacts h3:after,
+.contacts p:after {
   /* Diplays the orange underline */
   display: block;
   height: 1px;
@@ -586,13 +593,14 @@ footer p {
   /* Contents must be specified anytime we use an :after, in this case no words
   just a space */
   content: " ";
-  width: 50px;
+  width: 60px;
   margin: 0 auto;
   margin-top: 5px;
 }
 
 .contacts p {
     font-size: 70%;
+    padding: 10px 0 10px 0;
 }
 
 
