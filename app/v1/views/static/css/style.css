@@ -728,7 +728,6 @@ tr:nth-child(even) {
 .admin_nav li {
     float: right;
     list-style: none;
-    /* display: inline-block; */
     margin-left: 20px;
     margin-top: 1px;
     text-decoration: none;
