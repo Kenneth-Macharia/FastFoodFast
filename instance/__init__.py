@@ -2,7 +2,7 @@
 from flask import Flask
 from flask_restful import Api
 from .config import env_app_configs
-from app.api_v1.controllers.test import Test_api
+from app.api_v1.controllers.app import Test_api
 
 
 def create_app(run_time_config):
