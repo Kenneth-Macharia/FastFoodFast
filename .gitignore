@@ -1,8 +1,7 @@
-*.DS_Store
 venv
-.vscode
 __pycache__
+*.DS_Store
 *.pytest_cache
 *.pyc
-.vscode
-.coverage
+*.vscode
+*.coverage
