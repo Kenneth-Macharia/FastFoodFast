@@ -7,4 +7,5 @@ class Test_api(Resource):
 
     def get(self):
         ''' Displays a msg on home page '''
-        return jsonify({"data":"Hello world"})
+        return {"data":"Hello world"}
+        
