@@ -1,13 +1,15 @@
-import os
 ''' This module include the various evirnonments to run the appself.
     To switch enironments, type at the prompt before runing the app:
         > export APP_SETTINGS="<the desired environment>" '''
+        
+import os
 
 class app_base_configs(object):
     SECRET = os.getenv('SECRET')
 
 class app_development_configs(app_base_configs):
     DEBUG = True
+    
     
 
 class app_testing_configs(app_base_configs):

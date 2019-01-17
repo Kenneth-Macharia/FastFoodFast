@@ -8,4 +8,3 @@ class Test_api(Resource):
     def get(self):
         ''' Displays a msg on home page '''
         return {"data":"Hello world"}
-        
