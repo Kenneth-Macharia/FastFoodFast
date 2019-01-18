@@ -3,8 +3,8 @@
 from flask import Flask
 from flask_restful import Api
 from .config import env_app_configs
-from app.api_v1.models.db_setup import Db_setup
-# from app.api_v1.controllers.app import Test_api
+from app.api_v1.controllers.app import Test_app
+from app.api_v1.controllers.users import Users, User
 
 
 def create_app(run_time_config):
@@ -14,12 +14,9 @@ def create_app(run_time_config):
     app = Flask(__name__)
     app.config.from_object(env_app_configs[run_time_config])
 
-    Db_setup.setup_conn()
-    Db_setup.setup_tables()
-
     api = Api(app)
-    # api.add_resource(Test_api, '/')
+    api.add_resource(Test_app, '/test_api')
     api.add_resource(Users, '/api_v1/users')
-    api.add_resource(User, '/api_v1/user')
+    api.add_resource(User, '/api_v1/user/<string:email>')
 
     return app

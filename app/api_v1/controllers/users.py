@@ -1,22 +1,21 @@
 ''' This module defines the user resources exposed by the API '''
 
 from flask_restful import Resource, reqparse
-from app.api_v1.models.users import User, Users
+from ..models.users import Users_model, User_model
 
 
 class Users(Resource):
     ''' This class manages the Users resource '''
 
     def get(self):
-        ''' This function handles GET all requests to the '/users' route '''
+        ''' This function handles GET all requests to the '/api_v1/users' route '''
 
         users = []
-        rows_returned = Users.all_users()
+        rows_returned = Users_model.all_users()
 
-        if rows_returned:
-            for row in rows_returned:
-                users.append({'name':row[1], 'email':row[3], 'user_type':row[4]})
-
+        for row in rows_returned:
+            users.append({'Id':row[0], 'Name':row[1], 'Email':row[2], 'Type':row[3]})
+        
         return {'All Users':users}, 200
     
 
@@ -24,33 +23,35 @@ class User(Resource):
     ''' This class manages the User resource '''
 
     parser = reqparse.RequestParser()
-    parser.add_argument('name', type=str, required=True, help='This field cant be left blank!')
-    parser.add_argument('password', type=str, required=True, help='This field cant be left blank!')
-    parser.add_argument('email', type=str, required=True, help='This field cant be left blank!')
-    parser.add_argument('user_type', type=str, required=True, help='This field cant be left blank!')
 
     def post(self, email):
-        ''' This function handles POST requests to the '/user<email>' route '''
+        ''' This function handles POST requests to the '/api_v1/user/<email>' route '''
 
-        if User.find_user_by_email(email):
+        User.parser.add_argument('name', type=str, required=True, help='This field cant be left blank!')
+        User.parser.add_argument('password', type=str, required=True, help='This field cant be left blank!')
+
+        if User_model.find_user_by_email(email):
             return {'Response':'You are already registered'}, 400
 
-        user_data = User.parser.parse_args()
-        user_to_add = {'name':response_data['name'],
-        'password':response_data['password'], 'email': email, 'user_type':
+        json_payload = User.parser.parse_args()
+
+        user_to_add = {'name':json_payload['name'],
+        'password':json_payload['password'], 'email': email, 'type':
         'Guest'}
 
-        User.insert_user(user_data)
-        return {'Response':'Succesfully signed up'}, 201
+        User_model.insert_user(user_to_add)
+        return {'Response':'Succesfully signed up'}, 201    
 
     def put(self, email):
-        ''' This function handles PUT requests to the '/user/<email>' route '''
+        ''' This function handles PUT requests to the '/api_v1/user/<email>' route '''
+
+        parser.add_argument('user_type', type=str, required=True, help='This field cant be left blank!')
 
         valid_user_types = ['Admin', 'Guest']
         response_data = User.parser.parse_args()
         user_to_update = {'email':email, 'user_type':response_data['user_type']}
 
-        if not User.find_user_by_email(email):
+        if not User_model.find_user_by_email(email):
             response = 'User not found'
             code = 400
 
@@ -59,30 +60,30 @@ class User(Resource):
             code = 400
 
         else:
-            User.update_user(user_to_update)
+            User_model.update_user(user_to_update)
             response = 'User updated'
             code = 200
 
         return {'Response':response}, code   
 
     def delete(self, email):
-        ''' This function handles DELETE requests to the '/user/<name>' route '''
+        ''' This function handles DELETE requests to the '/api_v1/user/<email>' route '''
 
-        if not User.find_user_by_email(email):
+        if not User_model.find_user_by_email(email):
             response = 'User not found'
             code = 400
 
         else:
-            User.delete_user(email)
+            User_model.delete_user(email)
             response = 'User deleted'
             code = 200
 
         return {'Response':response}, code
 
     def get(self, email):
-        ''' This function handles GET one requests to the '/user/<name>' route '''
+        ''' This function handles GET one requests to the '/api_v1/user/<email>' route '''
 
-        row_returned = User.find_user_by_email(email)
+        row_returned = User_model.find_user_by_email(email)
 
         if row_returned:
             return {'Response':{'name':row[1], 'email':row[3], 'user_type':row[4]}}, 200

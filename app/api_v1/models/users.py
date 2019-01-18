@@ -1,37 +1,54 @@
 ''' This module describes the API user models '''
 
-from app.api_v1.models.db_setup import Db_setup
+from app.api_v1.models.db_setup import Database_setup
 
 
-class User(object):
+class Users_model(object):
+    ''' This class handles the User model '''
+
+    @classmethod
+    def all_users(cls):
+        ''' Retrieves all users '''
+        
+        connection = Database_setup.setup_conn()
+        cursor = connection.cursor()
+
+        cursor.execute("SELECT id, name, email, type FROM users_table")
+        query_result = cursor.fetchall()
+        connection.close()
+
+        return query_result
+
+
+class User_model(object):
     ''' This class handles the User model '''
 
     @classmethod
     def find_user_by_email(cls, email):
         ''' Finds a user matching the email provided as an argument '''
         
-        connection = Db_setup.setup_conn()
+        connection = Database_setup.setup_conn()
         cursor = connection.cursor()
 
-        get_user_query = "SELECT * FROM users_table WHERE email=?"
-        result = cursor.execute(get_user_query, (email,))
-        row = result.fetchone()
-
+        query_result = cursor.execute(("SELECT id, name, email, type FROM users_table WHERE email=%s"), (email,))
+        query_result.fetchall()
         connection.close()
-
+        
         return row
 
     @classmethod
     def insert_user(cls, new_user):
         ''' Adds a new user to the database '''
 
-        connection = Db_setup.setup_conn()
+        connection = Database_setup.setup_conn()
         cursor = connection.cursor()
 
-        new_user_query = "INSERT INTO users_table VALUES (?, ?, ?, ?)"
-        cursor.execute(new_user_query, (new_user['name'], \ 
-        new_user['password'], new_user['email'], new_user['user_type']))
+        new_user_query = """ INSERT INTO users_table (Name, Password, Email, Type) VALUES (%s, %s, %s, %s); """
 
+        new_user_data = (new_user['name'], new_user['password'], 
+        new_user['email'], new_user['type'])
+
+        cursor.execute(new_user_query, new_user_data)
         connection.commit()
         connection.close()
 
@@ -39,7 +56,7 @@ class User(object):
     def update_user(cls, user_to_update):
         ''' Updates the user type '''
 
-        connection = Db_setup.setup_conn()
+        connection = Database_setup.setup_conn()
         cursor = connection.cursor()
 
         edit_user_query = "UPDATE users_table SET user_type=? WHERE email=?"
@@ -53,7 +70,7 @@ class User(object):
     def delete_user(cls, email):
         ''' Deletes a user '''
 
-        connection = Db_setup.setup_conn()
+        connection = Database_setup.setup_conn()
         cursor = connection.cursor()
 
         delete_item_query = "DELETE FROM users_table WHERE email=?"
@@ -61,24 +78,5 @@ class User(object):
 
         connection.commit()
         connection.close()
-
-
-class Users(object):
-    ''' This class handles the User model '''
-
-    @classmethod
-    def all_users(cls):
-        ''' Retrieves all users '''
-        
-        connection = Db_setup.setup_conn()
-        cursor = connection.cursor()
-
-        get_all_query = "SELECT * FROM users_table"
-        result = cursor.execute(get_all_query)
-    
-        connection.close()
-
-        return result
-
 
     
