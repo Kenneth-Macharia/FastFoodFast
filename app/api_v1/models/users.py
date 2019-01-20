@@ -7,7 +7,7 @@ class Users_model(object):
     ''' This class handles the User model '''
 
     @classmethod
-    def all_users(cls):
+    def find_all_users(cls):
         ''' Retrieves all users '''
         
         connection = Database_setup.setup_conn()
@@ -15,6 +15,7 @@ class Users_model(object):
 
         cursor.execute("SELECT id, name, email, type FROM users_table")
         query_result = cursor.fetchall()
+        cursor.close()
         connection.close()
 
         return query_result
@@ -30,11 +31,12 @@ class User_model(object):
         connection = Database_setup.setup_conn()
         cursor = connection.cursor()
 
-        query_result = cursor.execute(("SELECT id, name, email, type FROM users_table WHERE email=%s"), (email,))
-        query_result.fetchall()
+        cursor.execute("SELECT id, name, email, type FROM users_table WHERE email=%s", (email,))
+        query_result = cursor.fetchone()
+        cursor.close()
         connection.close()
-        
-        return row
+
+        return query_result
 
     @classmethod
     def insert_user(cls, new_user):
@@ -47,9 +49,9 @@ class User_model(object):
 
         new_user_data = (new_user['name'], new_user['password'], 
         new_user['email'], new_user['type'])
-
         cursor.execute(new_user_query, new_user_data)
         connection.commit()
+        cursor.close()
         connection.close()
 
     @classmethod
@@ -59,11 +61,11 @@ class User_model(object):
         connection = Database_setup.setup_conn()
         cursor = connection.cursor()
 
-        edit_user_query = "UPDATE users_table SET user_type=? WHERE email=?"
+        edit_user_query = """ UPDATE users_table SET type=%s WHERE email=%s """
         cursor.execute(edit_user_query,
-        (user_to_update['user_type'], user_to_update['email']))
-
+        (user_to_update['type'], user_to_update['email']))
         connection.commit()
+        cursor.close()
         connection.close()
 
     @classmethod
@@ -73,10 +75,11 @@ class User_model(object):
         connection = Database_setup.setup_conn()
         cursor = connection.cursor()
 
-        delete_item_query = "DELETE FROM users_table WHERE email=?"
+        delete_item_query = """ DELETE FROM users_table WHERE email=%s """
         cursor.execute(delete_item_query, (email,))
 
         connection.commit()
+        cursor.close()
         connection.close()
 
     

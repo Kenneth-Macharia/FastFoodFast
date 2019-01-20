@@ -13,23 +13,21 @@ class Database_setup(object):
         ''' Setup the connection to the database '''
 
         app_env = os.getenv('APP_SETTINGS')
+        main_db = os.getenv('DATABASE_URL_MAIN')
+        test_db = os.getenv('DATABASE_URL_TEST')
+        db_user = os.getenv('DATABASE_USERNAMES')
+        db_password = os.getenv('DATABASE_PASSWORDS')
 
-        # DATABASE ="devdb"
-        # DATABASE_USERNAME ="kmacharia"
-        # DATABASE_PASSWORD ="123456"
-        # db = env_app_configs(app_env).DATABASE_URL
-        # db_user = env_app_configs(app_env).DATABASE_USERNAME
-        # db_password = env_app_configs(app_env).DATABASE_USERNAME
-
-        db = "devdb"
-        db_user = "kmacharia"
-        db_password = "123456"
+        if app_env == 'testing':
+            db_to_connect_to = test_db
+        else:
+            db_to_connect_to = main_db
         
         connection = psycopg2.connect(user = db_user,
                                     password = db_password,
                                     host = "127.0.0.1",
                                     port = "5432",
-                                    database = db)
+                                    database = db_to_connect_to)
 
         db_configs = {'connection_obj':connection, 'app_run_env':app_env}
         Database_setup.setup_tables(db_configs)
@@ -59,7 +57,7 @@ class Database_setup(object):
 
 
 
-            cursor.execute(create_users_table)
+            cursor.execute(drop_users_table)
             connection.commit()
             
 
