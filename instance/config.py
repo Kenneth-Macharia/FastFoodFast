@@ -1,6 +1,6 @@
-''' This module include the various evirnonments to run the appself.
-    To switch enironments, type at the prompt before runing the app:
-        > export APP_SETTINGS="<the desired environment>" '''
+''' This module include the various evirnonments to run the app. '''
+''' To switch enironments, type at the prompt before runing the app:
+        > export APP_SETTINGS=<the desired environment> '''
         
 import os
 
