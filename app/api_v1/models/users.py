@@ -3,24 +3,6 @@
 from app.api_v1.models.db_setup import Database_setup
 
 
-class Users_model(object):
-    ''' This class handles the User model '''
-
-    @classmethod
-    def find_all_users(cls):
-        ''' Retrieves all users '''
-        
-        connection = Database_setup.setup_conn()
-        cursor = connection.cursor()
-
-        cursor.execute("SELECT id, name, email, type FROM users_table")
-        query_result = cursor.fetchall()
-        cursor.close()
-        connection.close()
-
-        return query_result
-
-
 class User_model(object):
     ''' This class handles the User model '''
 
@@ -53,33 +35,3 @@ class User_model(object):
         connection.commit()
         cursor.close()
         connection.close()
-
-    @classmethod
-    def update_user(cls, user_to_update):
-        ''' Updates the user type '''
-
-        connection = Database_setup.setup_conn()
-        cursor = connection.cursor()
-
-        edit_user_query = """ UPDATE users_table SET type=%s WHERE email=%s """
-        cursor.execute(edit_user_query,
-        (user_to_update['type'], user_to_update['email']))
-        connection.commit()
-        cursor.close()
-        connection.close()
-
-    @classmethod
-    def delete_user(cls, email):
-        ''' Deletes a user '''
-
-        connection = Database_setup.setup_conn()
-        cursor = connection.cursor()
-
-        delete_item_query = """ DELETE FROM users_table WHERE email=%s """
-        cursor.execute(delete_item_query, (email,))
-
-        connection.commit()
-        cursor.close()
-        connection.close()
-
-    
