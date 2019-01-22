@@ -10,10 +10,10 @@ class User_model(object):
     def find_user_by_email(cls, email):
         ''' Finds a user matching the email provided as an argument '''
         
-        connection = Database_setup.setup_conn()
+        connection = Database_setup.setup_conn('users')
         cursor = connection.cursor()
 
-        cursor.execute("SELECT id, name, email, type FROM users_table WHERE email=%s", (email,))
+        cursor.execute("SELECT user_id, name, email, type FROM users_table WHERE email=%s", (email,))
         query_result = cursor.fetchone()
         cursor.close()
         connection.close()
@@ -24,13 +24,14 @@ class User_model(object):
     def insert_user(cls, new_user):
         ''' Adds a new user to the database '''
 
-        connection = Database_setup.setup_conn()
+        connection = Database_setup.setup_conn('users')
         cursor = connection.cursor()
 
         new_user_query = """ INSERT INTO users_table (Name, Password, Email, Type) VALUES (%s, %s, %s, %s); """
 
         new_user_data = (new_user['name'], new_user['password'], 
         new_user['email'], new_user['type'])
+        
         cursor.execute(new_user_query, new_user_data)
         connection.commit()
         cursor.close()
