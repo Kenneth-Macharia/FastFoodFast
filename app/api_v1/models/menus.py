@@ -22,3 +22,21 @@ class Menu_model(object):
         connection.commit()
         cursor.close()
         connection.close()
+
+
+class Menus_model(object):
+    ''' This class handles the Menus model '''
+
+    @classmethod
+    def all_menu_items(cls):
+        ''' Retrieves all menus items '''
+        
+        connection = Database_setup.setup_conn('menus')
+        cursor = connection.cursor()
+
+        cursor.execute("SELECT menu_Id, name, Price, Availability FROM menus_table")
+        query_result = cursor.fetchall()
+        cursor.close()
+        connection.close()
+
+        return query_result

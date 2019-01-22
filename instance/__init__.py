@@ -4,7 +4,7 @@ from flask import Flask, Blueprint
 from flask_restful import Api
 from .config import env_app_configs
 from app.api_v1.controllers.users import User
-from app.api_v1.controllers.menus import Menu
+from app.api_v1.controllers.menus import Menu, Menus
 
 
 def create_app(run_time_config):
@@ -18,6 +18,7 @@ def create_app(run_time_config):
     api = Api(v1_blueprint, prefix='/v1')
     api.add_resource(User, '/auth/signup/<string:email>')
     api.add_resource(Menu, '/menu')
+    api.add_resource(Menus, '/menus')
 
     app.register_blueprint(v1_blueprint)
     app.config.from_object(env_app_configs[run_time_config])
