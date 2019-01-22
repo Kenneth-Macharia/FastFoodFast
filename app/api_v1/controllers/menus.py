@@ -1,7 +1,7 @@
 ''' This module defines the menu resources exposed by the API '''
 
 from flask_restful import Resource, reqparse
-from ..models.menus import Menu_model
+from ..models.menus import Menu_model, Menus_model
 
     
 class Menu(Resource):
@@ -26,3 +26,19 @@ class Menu(Resource):
 
         Menu_model.insert_menu(menu_to_add)
         return {'Response':'Menu item succesfully added'}, 201
+
+
+class Menus(Resource):
+    ''' This class manages the Menus resource '''
+
+    def get(self):
+        ''' This function handles GET all requests to the '/menus' route '''
+
+        menus = []
+        rows_returned = Menus_model.all_menu_items()
+
+        for row in rows_returned:
+            menus.append({'Menu_Id':row[0], 'Name':row[1], 'Price':row[2], 'Availability':row[3]})
+        
+        return {'All menu items':menus}, 200
+
