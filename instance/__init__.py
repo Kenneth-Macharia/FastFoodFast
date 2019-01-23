@@ -17,7 +17,7 @@ def create_app(run_time_config):
 
     api = Api(v1_blueprint, prefix='/v1')
     api.add_resource(User, '/auth/signup/<string:email>')
-    api.add_resource(Menu, '/menu')
+    api.add_resource(Menu, '/menu', '/menu/<int:menu_id>')
     api.add_resource(Menus, '/menus')
 
     app.register_blueprint(v1_blueprint)

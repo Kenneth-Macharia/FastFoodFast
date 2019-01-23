@@ -23,6 +23,22 @@ class Menu_model(object):
         cursor.close()
         connection.close()
 
+    @classmethod
+    def update_menu(cls, menu_to_update):
+        ''' Updates the menu availability status '''
+
+        connection = Database_setup.setup_conn('menus')
+        cursor = connection.cursor()
+
+        edit_menu_query = """ UPDATE menus_table SET Availability=%s WHERE menu_Id=%s """
+
+        cursor.execute(edit_menu_query,
+        (menu_to_update['availability'], menu_to_update['menu_id']))
+
+        connection.commit()
+        cursor.close()
+        connection.close()
+
 
 class Menus_model(object):
     ''' This class handles the Menus model '''
@@ -36,6 +52,7 @@ class Menus_model(object):
 
         cursor.execute("SELECT menu_Id, name, Price, Availability FROM menus_table")
         query_result = cursor.fetchall()
+        
         cursor.close()
         connection.close()
 

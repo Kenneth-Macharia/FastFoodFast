@@ -27,6 +27,19 @@ class Menu(Resource):
         Menu_model.insert_menu(menu_to_add)
         return {'Response':'Menu item succesfully added'}, 201
 
+    def put(self, menu_id):
+        ''' This function handles PUT requests to the '/menu/<menu_id>' route '''
+
+        Menu.parser.add_argument('availability', type=str, required=True, help='This field cant be left blank!')
+
+        json_payload = Menu.parser.parse_args()
+        menu_to_update = {'menu_id':menu_id, 
+        'availability':json_payload['availability']}
+
+        Menu_model.update_menu(menu_to_update)
+
+        return {'Response':'Menu item updated'}, 200    
+
 
 class Menus(Resource):
     ''' This class manages the Menus resource '''
