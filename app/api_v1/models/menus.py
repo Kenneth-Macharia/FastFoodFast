@@ -39,6 +39,20 @@ class Menu_model(object):
         cursor.close()
         connection.close()
 
+    @classmethod
+    def delete_menu(cls, menu_id):
+        ''' Deletes a menu item '''
+
+        connection = Database_setup.setup_conn('menus')
+        cursor = connection.cursor()
+
+        delete_menu_query = """ DELETE FROM menus_table WHERE menu_id=%s """
+        cursor.execute(delete_menu_query, (menu_id,))
+
+        connection.commit()
+        cursor.close()
+        connection.close()
+
 
 class Menus_model(object):
     ''' This class handles the Menus model '''

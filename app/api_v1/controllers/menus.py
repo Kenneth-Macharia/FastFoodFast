@@ -38,7 +38,14 @@ class Menu(Resource):
 
         Menu_model.update_menu(menu_to_update)
 
-        return {'Response':'Menu item updated'}, 200    
+        return {'Response':'Menu item updated'}, 200
+
+    def delete(self, menu_id):
+        ''' This function handles DELETE requests to the '/api_v1/menu/<menu_id>' route '''
+
+        Menu_model.delete_menu(menu_id)
+
+        return {'Response':'Menu item deleted'}, 200   
 
 
 class Menus(Resource):
