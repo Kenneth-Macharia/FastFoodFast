@@ -13,7 +13,6 @@ class AppDevelopmentConfigs(AppBaseConfigs):
     ''' Development app configs '''
     DEBUG = True
 
-
 class AppTestingConfigs(AppBaseConfigs):
     ''' Testing app configs '''
     DEBUG = True

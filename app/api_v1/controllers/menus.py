@@ -64,8 +64,8 @@ class Menus(Resource):
         menus = []
         rows_returned = MenusModel.all_menu_items()
 
-        for row in rows_returned:
-            menus.append({'Menu_Id':row[0], 'Name':row[1], 'Price':row[2], 'Availability':row[3]})
-
-        return {'All menu items':menus}, 200
-        
+        if rows_returned:
+            for row in rows_returned:
+                menus.append({'Menu_Id':row[0], 'Name':row[1], 'Price':row[2], 'Availability':row[3]})
+            return {'Items-found':menus}, 200
+        return {'No-items-found':menus}, 200
