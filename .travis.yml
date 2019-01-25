@@ -3,23 +3,27 @@ language: python
 python:
   - "2.7"
 
+install:
+  - pip install -r requirements.txt
+
 services:
   - postgresql
 
 env:
-  - APP_SETTINGS="testing"
-
-install:
-  - pip install -r requirements.txt
+  - global:
+    - CODECLIMATE_REPO_TOKEN=[8488413502f689967fdcacd53e142d1f416ced56]
+    - CC_TEST_REPORTER_ID=[356b3c2035f26ea03baf7c656c601d26ceec47c6423e6442d92f72eb9a7c4128]
 
 before_script:
-  - psql -c 'create database travis_ci_test;' -U postgres
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
 
 script:
+  - psql -c 'create database travis_ci_test;' -U postgres
   - pytest --cov=app/api_v1
 
 after_script:
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
 
 after_success:
-  - coveralls
 
