@@ -18,8 +18,6 @@ services:
 
 env:
   - global:
-    - GIT_COMMITTED_AT=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then git log -1 --pretty=format:%ct; else git log -1 --skip 1 --pretty=format:%ct; fi)
-    - CODECLIMATE_REPO_TOKEN=[token]
     - CODECLIMATE_REPO_TOKEN=[8488413502f689967fdcacd53e142d1f416ced56]
     - CC_TEST_REPORTER_ID=[356b3c2035f26ea03baf7c656c601d26ceec47c6423e6442d92f72eb9a7c4128]
 
