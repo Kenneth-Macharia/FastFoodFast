@@ -3,4 +3,4 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/27b3a3a8da654d6c0183/maintainability)](https://codeclimate.com/github/Kenneth-Macharia/FastFoodFast/maintainability)
 
 # FastFoodFast
-Fast-Food-Fast is an online food delivery service app for a restaurant.
+This repository hosts the development of an online app for FastFoodFast, a 5 star restaurant. On the front, users will iteractive with a website to order food for delivery from. The site will then be powered by a Flask RESTful API, with the data persisting to a PostgreSQL database.
