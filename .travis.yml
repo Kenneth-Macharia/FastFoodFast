@@ -6,7 +6,7 @@ python:
 env:
 
 services:
-  - postgresql: "9.5"
+  - postgresql
 
 install:
   - pip install -r requirements.txt
