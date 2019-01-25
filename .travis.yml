@@ -1,0 +1,25 @@
+language: python
+
+python:
+  - "2.7"
+
+services:
+  - postgresql
+
+env:
+  - APP_SETTINGS="testing"
+
+install:
+  - pip install -r requirements.txt
+
+before_script:
+  - psql -c 'create database travis_ci_test;' -U postgres
+
+script:
+  - pytest --cov=app/api_v1
+
+after_script:
+
+after_success:
+  - coveralls
+
