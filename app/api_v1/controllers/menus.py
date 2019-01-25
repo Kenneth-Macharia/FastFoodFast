@@ -29,7 +29,7 @@ class Menu(Resource):
                        'description':json_payload['description'],
                        'img_url': json_payload['img_url'],
                        'price':json_payload['price'],
-                       'availability':'unavailble'}
+                       'availability':'Unavailble'}
 
         MenuModel.insert_menu(menu_to_add)
         return {'Response':'Menu item succesfully added'}, 201

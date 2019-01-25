@@ -17,7 +17,7 @@ def test_menus(test_client):
     assert test_response1.status_code == 200
 
     # Test for items found
-    Menu_item_to_add = {"name":">Autumn pumpkin soup", 
+    Menu_item_to_add = {"name":"Autumn pumpkin soup", 
                         "description":"This lovely autumn pumpkin soup is packed with flavour and perfect for when the nights begin to draw in. Best served with some crusty bread.",
                         "img_url":"C:/website/menus/images/a_pumkin_soup.jpg",
                         "price":20}
