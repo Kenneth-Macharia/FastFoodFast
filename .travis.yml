@@ -22,7 +22,7 @@ env:
     - CC_TEST_REPORTER_ID=[356b3c2035f26ea03baf7c656c601d26ceec47c6423e6442d92f72eb9a7c4128]
 
 script:
-  - psql -c 'create database travis_ci_test;' -U postgres
+  - psql -c 'create database travis;' -U postgres
   - pytest --cov=app/api_v1
 
 after_script:
