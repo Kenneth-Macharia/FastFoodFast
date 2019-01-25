@@ -291,7 +291,7 @@ header {
    TESTIMONIALS SECTION
    --------------------------------- */
 .customer_testimonial {
-  background-image: linear-gradient(rgba(0 , 0, 0, 0.75), rgba(0, 0, 0, 0.7)),
+  background-image: linear-gradient(rgba(0 , 0, 0, 0.75), rgba(0, 0, 0, 0.75)),
   url(images/testimonials.jpg);
   background-size: cover;
   color:#fff;
@@ -405,7 +405,7 @@ cite img {
 .meal_desc p {
     /* word-spacing: 2px; */
     font-size: 90%;
-    text-align: justify;
+    text-align: centre;
 }
 
 /* ---------------------------------
@@ -555,10 +555,9 @@ footer p {
 
 .contacts p {
     font-size: 70%;
-    padding: 10px 0 10px 0;
-    line-height: 145%;
+    padding: 5px 0 8px 0;
+    line-height: 175%;
 }
-
 
 /* ---------------------------------
    ABOUT US PAGE
@@ -617,7 +616,7 @@ footer p {
 }
 
 .parag div:first-child {
-    margin-right: 27px;
+    margin-right: 24px;
 }
 
 .images_div figcaption {
