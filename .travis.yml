@@ -10,8 +10,8 @@ services:
   - postgresql
 
 env:
+  - APP_SETTINGS="testing"
   - global:
-    - APP_SETTINGS="testing"
     - CODECLIMATE_REPO_TOKEN=[8488413502f689967fdcacd53e142d1f416ced56]
     - CC_TEST_REPORTER_ID=[356b3c2035f26ea03baf7c656c601d26ceec47c6423e6442d92f72eb9a7c4128]
 
