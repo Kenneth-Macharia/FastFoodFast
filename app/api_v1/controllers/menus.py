@@ -4,8 +4,8 @@ from flask_restful import Resource, reqparse
 from ..models.menus import MenuModel, MenusModel
 
 
-class Menu(Resource):
-    ''' This class manages the Menu resource '''
+class AddMenu(Resource):
+    ''' This class manages the AddMenu resource '''
 
     parser = reqparse.RequestParser()
 
@@ -13,35 +13,42 @@ class Menu(Resource):
         ''' This function handles POST requests to the
         '/menu'route and controls creation of a new menu. '''
 
-        Menu.parser.add_argument('name', type=str, required=True,
+        AddMenu.parser.add_argument('name', type=str, required=True,
                                  help='This field cant be left blank!')
-        Menu.parser.add_argument('description', type=str,
+        AddMenu.parser.add_argument('description', type=str,
                                  required=True, help='This field cant be \
                                  left blank!')
-        Menu.parser.add_argument('img_url', type=str, required=True,
+        AddMenu.parser.add_argument('img_url', type=str, required=True,
                                  help='This field cant be left blank!')
-        Menu.parser.add_argument('price', type=int, required=True,
+        AddMenu.parser.add_argument('price', type=int, required=True,
                                  help='This field cant be left blank!')
 
-        json_payload = Menu.parser.parse_args()
+        json_payload = AddMenu.parser.parse_args()
 
         menu_to_add = {'name':json_payload['name'],
                        'description':json_payload['description'],
                        'img_url': json_payload['img_url'],
                        'price':json_payload['price'],
-                       'availability':'Unavailble'}
+                       'availability':'Unavailable'}
 
         MenuModel.insert_menu(menu_to_add)
         return {'Response':'Menu item succesfully added'}, 201
+
+        
+class EditMenu(Resource):
+    ''' This class manages the AddMenu resource '''
+
+    parser = reqparse.RequestParser()
 
     def put(self, menu_id):
         ''' This function handles PUT requests to the '/menu/<menu_id>'
         route '''
 
-        Menu.parser.add_argument('availability', type=str,
+        EditMenu.parser.add_argument('availability', type=str,
                                  required=True, help='This field cant be left blank!')
 
-        json_payload = Menu.parser.parse_args()
+        json_payload = EditMenu.parser.parse_args()
+
         menu_to_update = {'menu_id':menu_id,
                           'availability':json_payload['availability']}
 

@@ -4,17 +4,23 @@ from flask import json
 from instance.tests_config import test_client
 from test_dbsetup import TestDbSetup
 
-def test_menus(test_client):
-    '''Tests the menus GET ALL '/v1/menus' test endpoint '''
+def test_menus_get(test_client):
+    ''' Tests the menus GET ALL '/v1/menus' test endpoint '''
 
     # Ensure connection to the test database
     TestDbSetup.check_database()
 
-    # Test for no items found
+    # Ensure there are no items in the database
     TestDbSetup.drop_tables('menus')
-    test_response1 = test_client.get('/v1/menus')
-    assert 'No-items-found' in json.loads(test_response1.data)
-    assert test_response1.status_code == 200
+
+    # Test for no items found
+    test_response = test_client.get('/v1/menus')
+
+    assert 'No-items-found' in json.loads(test_response.data)
+    assert test_response.status_code == 200
+
+def test_menu_post(test_client):
+    ''' Tests the menus POST '/v1/menu' test endpoint '''
 
     # Test for items found
     Menu_item_to_add = {"name":"Autumn pumpkin soup", 
@@ -22,11 +28,63 @@ def test_menus(test_client):
                         "img_url":"C:/website/menus/images/a_pumkin_soup.jpg",
                         "price":20}
 
-    test_client.post('/v1/menu', data=json.dumps(Menu_item_to_add),                                 content_type='application/json')
+    test_response_post = test_client.post('/v1/menu', data=json.dumps                                                 (Menu_item_to_add),                                                          content_type='application/json')
+    # Test POST responses
+    assert 'Menu item succesfully added' in json.loads(test_response_post.data)                                                    ['Response']
+    assert test_response_post.status_code == 201
 
-    test_response2 = test_client.get('/v1/menus')
+    # Test POST effect
+    test_response_get = test_client.get('/v1/menus')
 
-    assert 'Items-found' in json.loads(test_response2.data)
-    assert 'Autumn pumpkin soup' in json.loads(test_response2.data)                                                        ["Items-found"][0]['Name']
-    assert json.loads(test_response2.data)["Items-found"][0]['Price'] == 20
+    assert 'Items-found' in json.loads(test_response_get.data)
+    assert 'Autumn pumpkin soup' in json.loads(test_response_get.data)                                                        ['Items-found'][0]['Name']
+    assert json.loads(test_response_get.data)['Items-found'][0]['Price'] == 20
+
+def test_menu_put(test_client):
+    ''' Tests the menus PUT '/v1/menu/<menu_id>' test endpoint '''
     
+    # Item to update not found will not be a possibility, as the the update buttons will be on the same row as an existing item in the admin dashboard.
+    # Update to where menu item status is set to something other than than 'Available or 'Unavailable' will also not be possible as there will two buttons on the item row to either activate one or the other.
+    # Check that a status value has been supplied will also be enforced by the button status, one of the buttons must be selected by default.
+
+    # Tests to verify update change from default {'Unavailable' to 'Available and vice versa}
+    # Verify the item created in POST above has the default status
+    test_response_get = test_client.get('/v1/menus')
+
+    assert 'Unavailable' in json.loads(test_response_get.data)['Items-found'][0]                                   ['Availability']
+    # Perform an update
+    status_update = {"availability":"Available"}
+
+    test_response_put = test_client.put('/v1/menu/1', data=json.dumps                                               (status_update),                                                            content_type='application/json')
+    
+    # Test PUT responses
+    assert 'Menu item updated' in json.loads(test_response_put.data)['Response']
+    assert test_response_put.status_code == 200
+
+    # Test PUT effect
+    test_response_get = test_client.get('/v1/menus')
+    assert 'Available' in json.loads(test_response_get.data)['Items-found'][0]                                   ['Availability']
+
+    # Perform a reverse update
+    status_update = {"availability":"Unavailable"}
+
+    test_client.put('/v1/menu/1', data=json.dumps(status_update),                               content_type='application/json')
+
+    # Test reverse PUT effect
+    test_response_get = test_client.get('/v1/menus')
+    assert 'Unavailable' in json.loads(test_response_get.data)['Items-found'][0]                                      ['Availability']
+
+def test_menu_delete(test_client):
+    ''' Tests the menus DELETE '/v1/menu/<menu_id>' test endpoint '''
+
+    # Perform a delete
+    test_response_delete = test_client.delete('/v1/menu/1')
+    
+    # Confirm DELETE responses
+    assert 'Menu item deleted' in json.loads(test_response_delete.data)['Response']
+    assert test_response_delete.status_code == 200
+
+    # Test DELETE effect
+    test_response_get = test_client.get('/v1/menus')
+    assert 'No-items-found' in json.loads(test_response_get.data)
+    assert test_response_get.status_code == 200
