@@ -9,22 +9,22 @@ class User(Resource):
 
     parser = reqparse.RequestParser()
 
-    def post(self, email):
+    def post(self, User_Email):
         ''' This function handles POST requests to the
-        '/auth/signup/<email>' route and controls creation of a
+        '/auth/signup/<User_Email>' route and controls creation of a
         new user. '''
 
-        User.parser.add_argument('name', type=str, required=True,
+        User.parser.add_argument('User_Name', type=str, required=True,
                                  help='This field cant be left blank!')
-        User.parser.add_argument('password', type=str, required=True,
+        User.parser.add_argument('User_Password', type=str, required=True,
                                  help='This field cant be left blank!')
 
-        if not UserModel.find_user_by_email(email):
+        if not UserModel.find_user_by_User_Email(User_Email):
             json_payload = User.parser.parse_args()
 
-            user_to_add = {'name':json_payload['name'],
-                           'password':json_payload['password'],
-                           'email': email, 'type': 'Guest'}
+            user_to_add = {'User_Name':json_payload['User_Name'],
+                           'User_Password':json_payload['User_Password'],
+                           'User_Email': User_Email, 'User_Type': 'Guest'}
 
             UserModel.insert_user(user_to_add)
             return {'Response':'Succesfully signed up'}, 201
