@@ -10,16 +10,16 @@ class MenuModel(object):
     def insert_menu(cls, new_menu):
         ''' Adds a new menu to the database '''
 
-        connection = DatabaseSetup.setup_conn('menus')
+        connection = DatabaseSetup.setup('menus')
         cursor = connection.cursor()
 
-        new_menu_query = """ INSERT INTO menus_table (Name,
-                        Description, Image_url, Price, Availability)
+        new_menu_query = """ INSERT INTO menus_table (Menu_Name,
+                        Menu_Description, Menu_ImageURL, Menu_Price, Menu_Availability)
                         VALUES (%s,%s, %s, %s, %s); """
         
-        new_menu_data = (new_menu['name'], new_menu['description'], 
-                         new_menu['img_url'], new_menu['price'], 
-                         new_menu['availability'])
+        new_menu_data = (new_menu['Menu_Name'], new_menu['Menu_Description'], 
+                         new_menu['Menu_ImageURL'], new_menu['Menu_Price'], 
+                         new_menu['Menu_Availability'])
 
         cursor.execute(new_menu_query, new_menu_data)
         connection.commit()
@@ -28,31 +28,31 @@ class MenuModel(object):
 
     @classmethod
     def update_menu(cls, menu_to_update):
-        ''' Updates the menu availability status '''
+        ''' Updates the Menu_Availability status '''
 
-        connection = DatabaseSetup.setup_conn('menus')
+        connection = DatabaseSetup.setup('menus')
         cursor = connection.cursor()
 
         edit_menu_query = """ UPDATE menus_table SET
-                          Availability=%s WHERE menu_Id=%s """
+                          Menu_Availability=%s WHERE Menu_Id=%s """
 
         cursor.execute(edit_menu_query,
-                       (menu_to_update['availability'],
-                        menu_to_update['menu_id']))
+                       (menu_to_update['Menu_Availability'],
+                        menu_to_update['Menu_Id']))
 
         connection.commit()
         cursor.close()
         connection.close()
 
     @classmethod
-    def delete_menu(cls, menu_id):
+    def delete_menu(cls, Menu_Id):
         ''' Deletes a menu item '''
 
-        connection = DatabaseSetup.setup_conn('menus')
+        connection = DatabaseSetup.setup('menus')
         cursor = connection.cursor()
 
-        delete_menu_query = """ DELETE FROM menus_table WHERE menu_id=%s """
-        cursor.execute(delete_menu_query, (menu_id,))
+        delete_menu_query = """ DELETE FROM menus_table WHERE Menu_Id=%s """
+        cursor.execute(delete_menu_query, (Menu_Id,))
 
         connection.commit()
         cursor.close()
@@ -66,10 +66,10 @@ class MenusModel(object):
     def all_menu_items(cls):
         ''' Retrieves all menus items '''
         
-        connection = DatabaseSetup.setup_conn('menus')
+        connection = DatabaseSetup.setup('menus')
         cursor = connection.cursor()
 
-        cursor.execute("SELECT menu_Id, name, Price, Availability FROM menus_table")
+        cursor.execute("SELECT menu_Id, Menu_Name, Menu_Price, Menu_Availability FROM menus_table")
         query_result = cursor.fetchall()
         
         cursor.close()

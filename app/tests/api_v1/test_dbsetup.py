@@ -20,7 +20,9 @@ class TestDbSetup(object):
 
         drop_menus_table = """ DROP TABLE IF EXISTS menus_table """
 
-        drop_orders_table = """ DROP TABLE IF EXISTS orders_table """
+        drop_order_headers_table = """ DROP TABLE IF EXISTS order_headers_table """
+
+        drop_order_listing_table = """ DROP TABLE IF EXISTS order_listing_table """
 
         if request_type == 'users':
             cursor.execute(drop_users_table)
@@ -29,6 +31,7 @@ class TestDbSetup(object):
             cursor.execute(drop_menus_table)
 
         elif request_type == 'orders':
-            cursor.execute(drop_orders_table)
+            cursor.execute(drop_order_headers_table)
+            cursor.execute(drop_order_listing_table)
 
         connection.commit()

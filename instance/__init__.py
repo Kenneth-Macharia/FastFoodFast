@@ -16,9 +16,9 @@ def create_app(run_time_config):
     app = Flask(__name__)
 
     api = Api(v1_blueprint, prefix='/v1')
-    api.add_resource(User, '/auth/signup/<string:email>')
+    api.add_resource(User, '/auth/signup/<string:User_Email>')
     api.add_resource(AddMenu, '/menu',)
-    api.add_resource(EditMenu, '/menu/<int:menu_id>')
+    api.add_resource(EditMenu, '/menu/<int:Menu_Id>')
     api.add_resource(Menus, '/menus')
 
     app.register_blueprint(v1_blueprint)

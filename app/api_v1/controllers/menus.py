@@ -13,23 +13,23 @@ class AddMenu(Resource):
         ''' This function handles POST requests to the
         '/menu'route and controls creation of a new menu. '''
 
-        AddMenu.parser.add_argument('name', type=str, required=True,
+        AddMenu.parser.add_argument('Menu_Name', type=str, required=True,
                                  help='This field cant be left blank!')
-        AddMenu.parser.add_argument('description', type=str,
+        AddMenu.parser.add_argument('Menu_Description', type=str,
                                  required=True, help='This field cant be \
                                  left blank!')
-        AddMenu.parser.add_argument('img_url', type=str, required=True,
+        AddMenu.parser.add_argument('Menu_ImageURL', type=str, required=True,
                                  help='This field cant be left blank!')
-        AddMenu.parser.add_argument('price', type=int, required=True,
+        AddMenu.parser.add_argument('Menu_Price', type=int, required=True,
                                  help='This field cant be left blank!')
 
         json_payload = AddMenu.parser.parse_args()
 
-        menu_to_add = {'name':json_payload['name'],
-                       'description':json_payload['description'],
-                       'img_url': json_payload['img_url'],
-                       'price':json_payload['price'],
-                       'availability':'Unavailable'}
+        menu_to_add = {'Menu_Name':json_payload['Menu_Name'],
+                       'Menu_Description':json_payload['Menu_Description'],
+                       'Menu_ImageURL': json_payload['Menu_ImageURL'],
+                       'Menu_Price':json_payload['Menu_Price'],
+                       'Menu_Availability':'Unavailable'}
 
         MenuModel.insert_menu(menu_to_add)
         return {'Response':'Menu item succesfully added'}, 201
@@ -40,25 +40,25 @@ class EditMenu(Resource):
 
     parser = reqparse.RequestParser()
 
-    def put(self, menu_id):
-        ''' This function handles PUT requests to the '/menu/<menu_id>'
+    def put(self, Menu_Id):
+        ''' This function handles PUT requests to the '/menu/<Menu_Id>'
         route '''
 
-        EditMenu.parser.add_argument('availability', type=str,
+        EditMenu.parser.add_argument('Menu_Availability', type=str,
                                  required=True, help='This field cant be left blank!')
 
         json_payload = EditMenu.parser.parse_args()
 
-        menu_to_update = {'menu_id':menu_id,
-                          'availability':json_payload['availability']}
+        menu_to_update = {'Menu_Id':Menu_Id,
+                          'Menu_Availability':json_payload['Menu_Availability']}
 
         MenuModel.update_menu(menu_to_update)
         return {'Response':'Menu item updated'}, 200
 
-    def delete(self, menu_id):
-        ''' This function handles DELETE requests to the '/api_v1/menu/<menu_id>' route '''
+    def delete(self, Menu_Id):
+        ''' This function handles DELETE requests to the '/api_v1/menu/<Menu_Id>' route '''
 
-        MenuModel.delete_menu(menu_id)
+        MenuModel.delete_menu(Menu_Id)
         return {'Response':'Menu item deleted'}, 200
 
 
@@ -73,6 +73,6 @@ class Menus(Resource):
 
         if rows_returned:
             for row in rows_returned:
-                menus.append({'Menu_Id':row[0], 'Name':row[1], 'Price':row[2], 'Availability':row[3]})
+                menus.append({'Menu_Id':row[0], 'Menu_Name':row[1], 'Menu_Price':row[2], 'Menu_Availability':row[3]})
             return {'Items-found':menus}, 200
         return {'No-items-found':menus}, 200
