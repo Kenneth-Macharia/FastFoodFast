@@ -53,7 +53,7 @@ class DatabaseSetup(object):
         
         create_order_headers_table = """ CREATE TABLE IF NOT EXISTS order_headers_table (
 
-        Order_Id            SERIAL PRIMARY KEY,
+        Order_Id            PRIMARY KEY NOT NULL,
         User_Id             INTEGER REFERENCES users_table(User_Id),
         Order_Time          TIMESTAMP NOT NULL,
         Order_Total         REAL NOT NULL,
