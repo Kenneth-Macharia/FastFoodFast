@@ -12,7 +12,7 @@ def create_app(run_time_config):
     module, wraps the environment configurations and registers
     a blueprint to version the app '''
 
-    v1_blueprint = Blueprint('version1_blueprint', __name__)
+    v1_blueprint = Blueprint('version1_blueprint', __name__)    
     app = Flask(__name__)
 
     api = Api(v1_blueprint, prefix='/v1')
@@ -21,6 +21,7 @@ def create_app(run_time_config):
     api.add_resource(AddMenu, '/menu')
     api.add_resource(MenuMgt, '/menu/<int:Menu_Id>')
     api.add_resource(Menus, '/menus')
+    api.add_resource(UserOrders, '/user/orders')
 
     app.register_blueprint(v1_blueprint)
     app.config.from_object(ENV_APP_CONFIGS[run_time_config])

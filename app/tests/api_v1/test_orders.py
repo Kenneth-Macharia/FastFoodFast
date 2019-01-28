@@ -3,7 +3,7 @@
 import datetime
 from flask import json
 from instance.tests_config import test_client
-from test_dbsetup import TestDbSetup
+from testsdb_setup import TestDbSetup
 
 
 def test_add_order(test_client):

@@ -2,7 +2,7 @@
 
 from flask import json
 from instance.tests_config import test_client
-from test_dbsetup import TestDbSetup
+from testsdb_setup import TestDbSetup
 
 def test_menus_get(test_client):
     ''' Tests the menus GET ALL '/v1/menus' test endpoint '''
