@@ -69,7 +69,7 @@ class MenusModel(object):
         connection = DatabaseSetup.setup('menus')
         cursor = connection.cursor()
 
-        cursor.execute("SELECT menu_Id, Menu_Name, Menu_Price, Menu_Availability FROM menus_table")
+        cursor.execute("SELECT Menu_Id, Menu_Name, Menu_Price, Menu_Availability FROM menus_table")
         query_result = cursor.fetchall()
         
         cursor.close()

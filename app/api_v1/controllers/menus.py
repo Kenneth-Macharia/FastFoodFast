@@ -5,7 +5,7 @@ from ..models.menus import MenuModel, MenusModel
 
 
 class AddMenu(Resource):
-    ''' This class manages the AddMenu resource '''
+    ''' This class adds the Menu resource '''
 
     parser = reqparse.RequestParser()
 
@@ -35,8 +35,8 @@ class AddMenu(Resource):
         return {'Response':'Menu item succesfully added'}, 201
 
         
-class EditMenu(Resource):
-    ''' This class manages the AddMenu resource '''
+class MenuMgt(Resource):
+    ''' This class manages the Menu resource '''
 
     parser = reqparse.RequestParser()
 
@@ -44,10 +44,10 @@ class EditMenu(Resource):
         ''' This function handles PUT requests to the '/menu/<Menu_Id>'
         route '''
 
-        EditMenu.parser.add_argument('Menu_Availability', type=str,
+        MenuMgt.parser.add_argument('Menu_Availability', type=str,
                                  required=True, help='This field cant be left blank!')
 
-        json_payload = EditMenu.parser.parse_args()
+        json_payload = MenuMgt.parser.parse_args()
 
         menu_to_update = {'Menu_Id':Menu_Id,
                           'Menu_Availability':json_payload['Menu_Availability']}
