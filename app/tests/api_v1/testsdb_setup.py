@@ -16,13 +16,13 @@ class TestDbSetup(object):
         connection = DatabaseSetup.connection
         cursor = connection.cursor()
 
-        drop_users_table = """ DROP TABLE IF EXISTS users_table """
+        drop_users_table = """ DROP TABLE IF EXISTS users_table CASCADE """
 
-        drop_menus_table = """ DROP TABLE IF EXISTS menus_table """
+        drop_menus_table = """ DROP TABLE IF EXISTS menus_table CASCADE """
 
-        drop_order_headers_table = """ DROP TABLE IF EXISTS order_headers_table """
+        drop_order_headers_table = """ DROP TABLE IF EXISTS order_headers_table CASCADE """
 
-        drop_order_listing_table = """ DROP TABLE IF EXISTS order_listing_table """
+        drop_order_listing_table = """ DROP TABLE IF EXISTS order_listing_table CASCADE """
 
         if request_type == 'users':
             cursor.execute(drop_users_table)

@@ -1,6 +1,5 @@
 ''' This module contains the TDD code for the users orders functionality and will test the users, menus and orders modules in controllers and models '''
 
-import datetime
 from flask import json
 from instance.tests_config import test_client
 from testsdb_setup import TestDbSetup
@@ -13,13 +12,11 @@ def test_add_order(test_client):
     TestDbSetup.check_database()
 
     # Ensure the test database is clean for this test run
-    TestDbSetup.drop_tables('users')
-    TestDbSetup.drop_tables('menus')
     TestDbSetup.drop_tables('orders')
-    
-    # STEP 1 : Test order item retrieval, when a user clicks the 'add to cart button on the: GET ONE '/v1/menus/<Menu_Id>' endpoint
-
-        # Add menu items to be ordered
+    TestDbSetup.drop_tables('menus')
+    TestDbSetup.drop_tables('users')
+        
+    # STEP 1 : Add items to order as all tables have been dropped for this test run at the route '/menu
     order_item_1 = {"Menu_Name":"Autumn pumpkin soup", 
                     "Menu_Description":"This lovely autumn pumpkin soup is packed with flavour and perfect for when the nights begin to draw in. Best served with some crusty bread.",
                     "Menu_ImageURL":"C:/website/menus/images/a_pumkin_soup.jpg",
@@ -32,23 +29,10 @@ def test_add_order(test_client):
 
     test_client.post('/v1/menu', data=json.dumps(order_item_1),                                  content_type='application/json')
     test_client.post('/v1/menu', data=json.dumps(order_item_2),                                  content_type='application/json')
-  
-    # STEP 2: Fetch the required menu info from HTML & JavaScript
-        # Ids Saved as #id attributes to the menu_box class
-        # Names from the menu_div h3
-        # Price from the meal_price class
-        # Qty will be collected an input elemenet and collected via JavaScript
-    item_1_id = 1
-    item_2_id = 2
-    item_1_Menu_Price = 20
-    item_2_Menu_Price = 18
-    item_1_qty = 2
-    item_2_qty = 2
-    item_1_total = item_1_Menu_Price * item_1_qty
-    item_2_total = item_2_Menu_Price * item_2_qty
 
-    # STEP 3: Log in a user on checking out the order. Verify user is registered at the route '/auth/login/<User_Email>
-    User_Id = 0
+    # STEP 2: Verify user is registered at the route '/auth/login/<User_Email> and retrieve their ID, if not found, register them first
+    user_id = 0
+
     response_get_user = test_client.get('/v1/auth/login/ken@abc.com')
 
         # Test for a 200 response if user is found else register user
@@ -56,9 +40,9 @@ def test_add_order(test_client):
         assert 'ken@abc.com' in json.loads(response_get_user.data)                                                 ['User-found']['User_Email']
 
         # Save the User_Id of the user placing the order
-        User_Id = json.loads(response_get_user.data)                                                 ['User-found']['User_Id']
+        user_id = json.loads(response_get_user.data)                                                 ['User-found']['User_Id']
     else:
-        # Collect the details of the user attempting to order and register
+        # Collect the details of the user attempting to order and register, these will be via JavaScript from an input form modal
         user_details = {"User_Name":"Ken", "User_Password":"abc"}
 
         response_post_user = test_client.post('/v1/auth/signup/ken@abc.com', data=json.dumps(user_details), content_type='application/json')
@@ -66,97 +50,71 @@ def test_add_order(test_client):
         # Test the user was registered successfully
         assert response_post_user.status_code == 201
 
-        # Save the new users id
+        # Retrieve their details
         response_get_user = test_client.get('/v1/auth/login/ken@abc.com')
-        User_Id = json.loads(response_get_user.data)                                                 ['User-found']['user_Id']
+        assert 'User-found' in json.loads(response_get_user.data)
 
-    # STEP 4: Prepare the order header on order checkout
-    order_header = {
+        # Save the new user's id
+        user_id = json.loads(response_get_user.data)                                                 ['User-found']['User_Id']
 
-        "User_Id": User_Id,
-        "Order_Time": datetime.datetime.now().strftime("%c"),
-        "Order_Total":(item_1_total + item_2_total),
-        "Order_Status":"New"
+    # STEP 3: Fetch the required menu info from HTML via JavaScript
+        # User_Id will be queried from the database when user logs in
+        # Menu_Ids saved as #id attributes in the HTML menu_box class
+        # Price saved in the HTML meal_price class
+        # Qty will be collected from input elements on checkout modal
+    item_1_id = 1
+    item_2_id = 2
+    item_1_Menu_Price = 20
+    item_2_Menu_Price = 18
+    item_1_qty = 2
+    item_2_qty = 2
+
+    # STEP 4: Compile the order payload as will be sent to the API
+    order_dict = {"order_payload": [
+
+        {"Menu_Id":item_1_id, "Menu_Price":item_1_Menu_Price, "Order_ItemQty":item_1_qty},
+        {"Menu_Id":item_2_id, "Menu_Price":item_2_Menu_Price, "Order_ItemQty":item_2_qty}
+
+        ],
+
+        "User_Id":user_id
+
     }
 
-        # POST the order header
-        #TODO:Add this functionality
-    response_post_header = test_client.post('/v1/users/orders', data=json.dumps                                         (order_header),                                                             content_type='application/json')
-
-        # Test the POST was successfull
-    assert response_post_header.status_code == 201
+        # POST the order
+    response_post_order = test_client.post('/v1/user/orders', data=json.dumps                                         (order_dict),                                                               content_type='application/json')
     
-    # STEP 5: Prepare the order listing  
-        # GET the order_id from the headers_table, there should only be one result in the JSON format: #TODO:Add this functionality
+    assert response_post_order.status_code == 201
+    assert 'Order succesfully added' in json.loads(response_get_user.data)                                                     ['Response']
 
-        # {
-        #     "Orders-found": [
-        #         "Order_Id":"some-id"
-        #         "User_Name":"some-name"
-        #         "Order_Total":"some-total"
-        #         "Order_Time":"some-time"
-        #         "Order_Status":"some-status"
-        #     ]
-        # }
+# def test_get_order(test_client):
+#     ''' Tests the GET user order functionality, at the route '/user/orders '''
 
-    order_response = test_client.get('/v1/users/orders')
-    
-    assert order_response.status_code == 200
-    assert json.loads(order_response.data)['Orders-found']['order_total'] ==                      (item_1_total + item_2_total)
+#     # Ensure connection to the test database
+#     TestDbSetup.check_database()
 
-    order_id = json.loads(order_response.data)['Order-found']['order_Id']
+#     # Verify user registered so that only their orders are retireved
+#     #TODO:Ensure this functionality is added
+#     response_get_user = test_client.get('/v1/auth/login/ken@abc.com')
 
-        # POST the order lists and test they were successfully created
-    order_item_1 = {
+#         # Test for a 200 response if user is found GET their details
+#     if response_get_user.status_code == 200:
+
+#         User_Id = json.loads(response_get_user.data)['User-found']['User_Id']
+#         User_Name = json.loads(response_get_user.data)['User-found']['User_Name']
         
-        "Order_Id":order_id,
-        "Menu_Id":item_1_id,
-        "Order_ItemQty":item_1_qty,
-        "order_item_total":item_1_total
+#         # Use the details above to fetch the users orders
+#         #TODO:Confirm that a separate resource will not be required for this
+#         response_get_user_orders = test_client.get('/v1/users/orders', data=json.dumps(User_Id), content_type='application/json')
 
-    }
-    response_post_list = test_client.post('/v1/users/orders', data=json.dumps                                         (order_item_1),                                                              content_type='application/json')
-    assert response_post_list.status_code == 201
+#         # Test that the right user orders have been retireved
+#         assert response_get_user_orders.status_code == 200
+#         assert json.loads(response_get_user_orders.data)['Orders-found']['User_Name'] == User_Name
 
-    order_item_2 = {
-        
-        "Order_Id":order_id,
-        "Menu_Id":item_2_id,
-        "Order_ItemQty":item_2_qty,
-        "Order_ItemTotal":item_2_total
+#     else:
 
-    }
-    response_post_list = test_client.post('/v1/users/orders', data=json.dumps                                         (order_item_2),                                                              content_type='application/json')
-    assert response_post_list.status_code == 201
-
-def test_get_order(test_client):
-    ''' Tests the GET user order functionality, at the route '/users/orders '''
-
-    # Ensure connection to the test database
-    TestDbSetup.check_database()
-
-    # Verify user registered so that only their orders are retireved
-    #TODO:Ensure this functionality is added
-    response_get_user = test_client.get('/v1/auth/login/ken@abc.com')
-
-        # Test for a 200 response if user is found GET their details
-    if response_get_user.status_code == 200:
-
-        User_Id = json.loads(response_get_user.data)['User-found']['User_Id']
-        User_Name = json.loads(response_get_user.data)['User-found']['User_Name']
-        
-        # Use the details above to fetch the users orders
-        #TODO:Confirm that a separate resource will not be required for this
-        response_get_user_orders = test_client.get('/v1/users/orders', data=json.dumps(User_Id), content_type='application/json')
-
-        # Test that the right user orders have been retireved
-        assert response_get_user_orders.status_code == 200
-        assert json.loads(response_get_user_orders.data)['Orders-found']['User_Name'] == User_Name
-
-    else:
-
-        # Test that the user is informed that they are not registered thus have no previous orders
-        assert 'User not found' in json.loads(response_get_user.data)
+#         # Test that the user is informed that they are not registered thus have no previous orders
+#         assert 'User not found' in json.loads(response_get_user.data)
 
 
 

@@ -4,6 +4,7 @@ from flask import Flask, Blueprint
 from flask_restful import Api
 from app.api_v1.controllers.users import AddUser, VerifyUser
 from app.api_v1.controllers.menus import Menus, AddMenu, MenuMgt
+from app.api_v1.controllers.orders import UserOrders
 from .config import ENV_APP_CONFIGS
 
 
