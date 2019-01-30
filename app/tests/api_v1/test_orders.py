@@ -20,7 +20,7 @@ def test_add_order(test_client):
     order_item_1 = {"Menu_Name":"Autumn pumpkin soup", 
                     "Menu_Description":"This lovely autumn pumpkin soup is packed with flavour and perfect for when the nights begin to draw in. Best served with some crusty bread.",
                     "Menu_ImageURL":"C:/website/menus/images/a_pumkin_soup.jpg",
-                    "Menu_Price":20}
+                    "Menu_Price":10}
 
     order_item_2 = {"Menu_Name":"Burger with cheddar and bacon", 
                     "Menu_Description":"An incredibly tasty bacon and blue-cheese stuffed burger. Made using a great American technique, which keeps the patty juicy, it's a sure crowd-pleaser.",
@@ -62,28 +62,28 @@ def test_add_order(test_client):
         # Menu_Ids saved as #id attributes in the HTML menu_box class
         # Price saved in the HTML meal_price class
         # Qty will be collected from input elements on checkout modal
-    item_1_id = 1
-    item_2_id = 2
-    item_1_Menu_Price = 20
-    item_2_Menu_Price = 18
-    item_1_qty = 2
-    item_2_qty = 2
 
-    # STEP 4: Compile the order payload as will be sent to the API
-    order_dict = {"order_payload": [
-
-        {"Menu_Id":item_1_id, "Menu_Price":item_1_Menu_Price, "Order_ItemQty":item_1_qty},
-        {"Menu_Id":item_2_id, "Menu_Price":item_2_Menu_Price, "Order_ItemQty":item_2_qty}
-
+    order_dict = {"Order": [
+            {
+                "Menu_Id":1, 
+                "Menu_Price":10,
+                "Order_ItemQty":2
+            },
+         
+            {
+                "Menu_Id":2,
+                "Menu_Price":18,
+                "Order_ItemQty":3
+            }
         ],
 
         "User_Id":user_id
-
     }
 
         # POST the order
     response_post_order = test_client.post('/v1/user/orders', data=json.dumps                                         (order_dict),                                                               content_type='application/json')
-    
+
+        # Test succesful order creation
     assert response_post_order.status_code == 201
     assert 'Order succesfully added' in json.loads(response_get_user.data)                                                     ['Response']
 
