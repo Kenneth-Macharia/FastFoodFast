@@ -20,7 +20,7 @@ class UserModel(object):
         query_result = cursor.fetchone()
 
         if query_result:
-            user = cls(*query_result)
+            user = query_result
         else:
             user = None
 
@@ -41,7 +41,7 @@ class UserModel(object):
         query_result = cursor.fetchone()
 
         if query_result:
-            user = cls(*query_result)
+            user = query_result
         else:
             user = None
 

@@ -30,7 +30,7 @@ def create_app(run_time_config):
     app.config.from_object(ENV_APP_CONFIGS[run_time_config])
 
     jwt = JWT(app, authenticate, identity)
-    app.config[JWT_AUTH_URL_RULE] = '/auth/login'
+    # app.config['JWT_AUTH_URL_RULE'] = '/auth/login'
     # app.config[JWT_ACCESS_TOKEN_EXPIRES] = new_options
 
     return app
