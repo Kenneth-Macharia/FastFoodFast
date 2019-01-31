@@ -14,13 +14,13 @@ class UserSignUp(Resource):
         '/auth/signup/<User_Email>' route and controls creation of a
         new user. '''
 
-        AddUser.parser.add_argument('User_Name', type=str, required=True,
+        UserSignUp.parser.add_argument('User_Name', type=str, required=True,
                                  help='This field cant be left blank!')
-        AddUser.parser.add_argument('User_Password', type=str, required=True,
+        UserSignUp.parser.add_argument('User_Password', type=str, required=True,
                                  help='This field cant be left blank!')
 
         if not UserModel.find_user_by_User_Email(User_Email):
-            json_payload = AddUser.parser.parse_args()
+            json_payload = UserSignUp.parser.parse_args()
 
             user_to_add = {'User_Name':json_payload['User_Name'],
                            'User_Password':json_payload['User_Password'],
