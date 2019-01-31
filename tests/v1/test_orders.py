@@ -1,14 +1,11 @@
 ''' This module contains the TDD code for the users orders functionality and will test the users, menus and orders modules in controllers and models '''
 
 from flask import json
-from configs import test_client, check_database, drop_tables
+from configs import test_client, drop_tables
 
 
 # def test_add_order(test_client):
 #     ''' Tests the entire add a user order functionality, at the route '/users/orders '''
-
-#     # Ensure connection to the test database
-#     check_database()
 
 #     # Ensure the test database is clean for this test run
 #     drop_tables('orders')

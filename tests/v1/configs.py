@@ -11,10 +11,6 @@ def test_client():
     app.config['TESTING'] = True
     return app.test_client()
 
-def check_database():
-    if DatabaseSetup.db != 'testdb':
-        assert False, 'Not connected to the test database'
-
 def drop_tables(request_type):
 
     connection = DatabaseSetup.connection
