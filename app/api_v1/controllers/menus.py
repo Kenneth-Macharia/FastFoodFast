@@ -1,7 +1,6 @@
 ''' This module defines the menu resources exposed by the API '''
 
 from flask_restful import Resource, reqparse
-from flask_jwt import jwt_required
 from ..models.menus import MenuModel, MenusModel
 
 
@@ -66,7 +65,6 @@ class MenuMgt(Resource):
 class Menus(Resource):
     ''' This class manages the Menus resource '''
 
-    @jwt_required()
     def get(self):
         ''' This function handles GET all requests to the '/menus' route '''
 

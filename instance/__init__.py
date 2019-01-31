@@ -2,7 +2,6 @@
 
 from flask import Flask, Blueprint
 from flask_restful import Api
-from flask_jwt import JWT
 from app.api_v1.models.users import authenticate, identity
 from app.api_v1.controllers.users import AddUser, VerifyUser
 from app.api_v1.controllers.menus import Menus, AddMenu, MenuMgt
@@ -28,9 +27,5 @@ def create_app(run_time_config):
 
     app.register_blueprint(v1_blueprint)
     app.config.from_object(ENV_APP_CONFIGS[run_time_config])
-
-    jwt = JWT(app, authenticate, identity)
-    # app.config['JWT_AUTH_URL_RULE'] = '/auth/login'
-    # app.config[JWT_ACCESS_TOKEN_EXPIRES] = new_options
 
     return app

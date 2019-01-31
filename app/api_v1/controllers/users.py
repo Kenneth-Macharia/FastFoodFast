@@ -1,7 +1,6 @@
 ''' This module defines the user resources exposed by the API '''
 
 from flask_restful import Resource, reqparse
-from flask_jwt import jwt_required
 from ..models.users import UserModel
 
 

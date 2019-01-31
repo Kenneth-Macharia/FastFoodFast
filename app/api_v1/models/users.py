@@ -66,26 +66,3 @@ class UserModel(object):
         connection.commit()
         cursor.close()
         connection.close()
-
-# Flask-JWT Authetication functions, class independent
-def authenticate(User_Email, User_Password):
-    ''' Verifys a user exist and generates a token for them to use to access protected endpoints '''
-
-    user_to_authenticate = UserModel.find_user_by_User_Email(User_Email)
-
-    if user_to_authenticate and safe_str_cmp(user_to_authenticate.password,                                              User_Password):
-        response = user_to_authenticate
-    else:
-        response = 'User not found'
-
-    return response
-
-def identity(payload):
-    ''' Returns the authenitcated user using the current_identity proxy used in a protected endpoint i.e
-            @jwt_required()
-            def protected():
-                return '%s' % current_identity
-     '''
-
-    authenticated_user_Id = payload['identity']
-    return UserModel.find_user_by_User_Id(authenticated_user_Id)
