@@ -1,6 +1,6 @@
 ''' This module describes the API menu models '''
 
-from db_setup import DatabaseSetup
+from ..configs import DatabaseSetup
 
 
 class MenuModel(object):

@@ -1,6 +1,6 @@
 ''' This module describes the API user models '''
 
-from app.api_v1.models.db_setup import DatabaseSetup
+from ..configs import DatabaseSetup
 
 
 class UserModel(object):

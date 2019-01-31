@@ -1,17 +1,16 @@
 ''' This module contains the test code for the menu functionality and will test the menu modules in controllers and models '''
 
 from flask import json
-from instance.tests_config import test_client
-from testsdb_setup import TestDbSetup
+from configs import test_client, check_database, drop_tables
 
 def test_menus_get(test_client):
     ''' Tests the menus GET ALL '/v1/menus' test endpoint '''
 
     # Ensure connection to the test database
-    TestDbSetup.check_database()
+    check_database()
 
     # Ensure there are no items in the database
-    TestDbSetup.drop_tables('menus')
+    drop_tables('menus')
 
     # Test for no items found
     test_response = test_client.get('/v1/menus')

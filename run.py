@@ -1,9 +1,24 @@
-''' This module runs the created app in instance.__init__.py '''
+''' This module runs the apps versions in their respective main.py modules '''
 
 import os
-from instance import create_app
+from app.v1.main import app
 
+# Blueprints umplemenations simultenously run available app versions
+    # v1_blueprint = Blueprint('version1_blueprint', __name__)
+    # api = Api(v1_blueprint, prefix='/v1')
+    # app.register_blueprint(v1_blueprint)
+
+# Set the app environment
+run_environment = os.getenv('FLASK_ENV')
+
+if not run_environment:
+    assert False, 'Set app runtime environment ie. "set FLASK_ENV=<env>"'
+elif run_environment == 'development':
+    debug_status = True
+else:
+    debug_status = False
+
+# Run the app
 if __name__ == "__main__":
-    app = create_app(os.getenv('APP_SETTINGS'))
-    app.run()
+    app.run(debug=debug_status)
     

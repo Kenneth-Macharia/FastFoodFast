@@ -4,7 +4,7 @@ from flask_restful import Resource, reqparse
 from ..models.users import UserModel
 
 
-class AddUser(Resource):
+class UserSignUp(Resource):
     ''' This class manages the creation of a User resource '''
 
     parser = reqparse.RequestParser()
@@ -29,4 +29,5 @@ class AddUser(Resource):
             UserModel.insert_user(user_to_add)
             return {'Response':'Succesfully signed up'}, 201
         return {'Response':'You are already registered'}, 400
+
         

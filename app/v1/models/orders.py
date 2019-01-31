@@ -1,6 +1,6 @@
 ''' This module describes the API user-orders models '''
 
-from db_setup import DatabaseSetup
+from ..configs import DatabaseSetup
 
 
 class UserOrdersModel(object):
