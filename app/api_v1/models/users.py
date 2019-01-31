@@ -1,6 +1,5 @@
 ''' This module describes the API user models '''
 
-from werkzeug.security import safe_str_cmp
 from app.api_v1.models.db_setup import DatabaseSetup
 
 

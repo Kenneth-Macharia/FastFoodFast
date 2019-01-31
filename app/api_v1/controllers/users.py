@@ -4,20 +4,6 @@ from flask_restful import Resource, reqparse
 from ..models.users import UserModel
 
 
-class VerifyUser(Resource):
-    ''' This class manges the verification of a User resource '''
-
-    def get(self, User_Email):
-        ''' This function handles GET requests to the route '/auth/login/<email> and returns a registered user '''
-
-        row_returned = UserModel.find_user_by_User_Email(User_Email)
-
-        if row_returned:
-            return {'User-found':{'User_Id':row_returned[0], 'User_Name':row_returned[1], 'User_Email':row_returned[2], 'User_Type':row_returned[3]}}, 200
-            
-        return {'Response':'User not found'}, 404    
-
-
 class AddUser(Resource):
     ''' This class manages the creation of a User resource '''
 
