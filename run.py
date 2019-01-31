@@ -12,7 +12,7 @@ from app.v1.main import app
 run_environment = os.getenv('FLASK_ENV')
 
 if not run_environment:
-    assert False, 'Set app runtime environment ie. "set FLASK_ENV=<env>"'
+    assert False, 'Set app runtime environment - See .env sample file'
 elif run_environment == 'development':
     debug_status = True
 else:

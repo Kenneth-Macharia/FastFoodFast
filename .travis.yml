@@ -4,7 +4,8 @@ python:
   - "2.7"
 
 env:
-  - APP_SETTINGS="testing"
+  - FLASK_ENV="development"
+  - SECRET="mysecret"
 
 services:
   - postgresql
@@ -16,7 +17,7 @@ before_script:
   - psql -c 'create database travis_ci_test;' -U postgres
 
 script:
-  - pytest --cov=app/api_v1
+  - pytest --cov=app
 
 after_script:
 

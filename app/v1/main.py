@@ -9,7 +9,7 @@ from controllers.orders import UserOrders
 
 SECRET = os.getenv('SECRET')
 if not SECRET:
-    assert False, 'Set app secret key ie. "set SECRET=<your secret key>"'
+    assert False, 'Set app secret key - See .env sample file'
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = SECRET

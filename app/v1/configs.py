@@ -12,7 +12,7 @@ class DatabaseSetup(object):
     db_password = os.getenv('DATABASE_PASSWORD')
 
     # For testing purposes only, will not be in the final production code
-    #TODO:Remove this test code in final prod code, also consider removing class abstraction
+    #TODO:Remove this test code in final prod code
     connection = psycopg2.connect(user=db_user,
                                   password=db_password,
                                   host="127.0.0.1",
