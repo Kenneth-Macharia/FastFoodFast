@@ -4,8 +4,7 @@ python:
   - "2.7"
 
 env:
-  - FLASK_ENV="development"
-  - SECRET="mysecret"
+
 
 services:
   - postgresql
