@@ -1,6 +1,7 @@
 ''' This module defines the menu resources exposed by the API '''
 
 from flask_restful import Resource, reqparse
+from flask_jwt_extended import (jwt_required, get_jwt_claims)
 from ..models.menus import MenuModel, MenusModel
 
 
@@ -9,9 +10,13 @@ class AddMenu(Resource):
 
     parser = reqparse.RequestParser()
 
+    @jwt_required
     def post(self):
         ''' This function handles POST requests to the
         '/menu'route and controls creation of a new menu. '''
+
+        if get_jwt_claims()['User_Type'] != 'Admin':
+            return {'Rights Error':'This an admin only function'}
 
         AddMenu.parser.add_argument('Menu_Name', type=str, required=True,
                                  help='This field cant be left blank!')
@@ -40,9 +45,13 @@ class MenuMgt(Resource):
 
     parser = reqparse.RequestParser()
 
+    @jwt_required
     def put(self, Menu_Id):
         ''' This function handles PUT requests to the '/menu/<Menu_Id>'
         route '''
+
+        if get_jwt_claims()['User_Type'] != 'Admin':
+            return {'Rights Error':'This an admin only function'}
 
         MenuMgt.parser.add_argument('Menu_Availability', type=str,
                                  required=True, help='This field cant be left blank!')
@@ -55,8 +64,12 @@ class MenuMgt(Resource):
         MenuModel.update_menu(menu_to_update)
         return {'Response':'Menu item updated'}, 200
 
+    @jwt_required
     def delete(self, Menu_Id):
         ''' This function handles DELETE requests to the '/api_v1/menu/<Menu_Id>' route '''
+
+        if get_jwt_claims()['User_Type'] != 'Admin':
+            return {'Rights Error':'This an admin only function'}
 
         MenuModel.delete_menu(Menu_Id)
         return {'Response':'Menu item deleted'}, 200
@@ -65,8 +78,12 @@ class MenuMgt(Resource):
 class Menus(Resource):
     ''' This class manages the Menus resource '''
 
+    @jwt_required
     def get(self):
         ''' This function handles GET all requests to the '/menus' route '''
+
+        if get_jwt_claims()['User_Type'] != 'Admin':
+            return {'Rights Error':'This an admin only function'}
 
         menus = []
         rows_returned = MenusModel.all_menu_items()
@@ -74,5 +91,8 @@ class Menus(Resource):
         if rows_returned:
             for row in rows_returned:
                 menus.append({'Menu_Id':row[0], 'Menu_Name':row[1], 'Menu_Price':row[2], 'Menu_Availability':row[3]})
-            return {'Items-found':menus}, 200
-        return {'No-items-found':menus}, 200
+            return {'Items found':menus}, 200
+        return {'No items found':menus}, 200
+    
+
+    
