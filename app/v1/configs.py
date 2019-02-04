@@ -39,7 +39,14 @@ class DatabaseSetup(object):
         User_Type           TEXT NOT NULL
 
         ) """
-        
+
+        create_token_blacklist_table = """ CREATE TABLE IF NOT EXISTS token_blacklist_table (
+
+        Token_Id            SERIAL PRIMARY KEY,
+        Token_jti           TEXT NOT NULL
+
+        ) """
+
         create_menus_table = """ CREATE TABLE IF NOT EXISTS menus_table (
 
         Menu_Id             SERIAL PRIMARY KEY,
@@ -74,6 +81,7 @@ class DatabaseSetup(object):
         # Only run the queries, relating to the request type made
         if request_type == 'users':
             cursor.execute(create_users_table)
+            cursor.execute(create_token_blacklist_table)
 
         elif request_type == 'menus':
             cursor.execute(create_menus_table)

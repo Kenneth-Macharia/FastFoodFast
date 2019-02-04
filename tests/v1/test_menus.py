@@ -3,6 +3,9 @@
 from flask import json
 from configs import test_client, drop_tables
 
+# Sign in
+
+
 def test_menus_get(test_client):
     ''' Tests the menus GET ALL '/v1/menus' test endpoint '''
 
@@ -12,7 +15,7 @@ def test_menus_get(test_client):
     # Test for no items found
     test_response = test_client.get('/v1/menus')
 
-    assert 'No-items-found' in json.loads(test_response.data)
+    assert 'No items found' in json.loads(test_response.data)
     assert test_response.status_code == 200
 
 def test_menu_post(test_client):
@@ -32,9 +35,9 @@ def test_menu_post(test_client):
     # Test POST effect
     test_response_get = test_client.get('/v1/menus')
 
-    assert 'Items-found' in json.loads(test_response_get.data)
-    assert 'Autumn pumpkin soup' in json.loads(test_response_get.data)                                                     ['Items-found'][0]                                                          ['Menu_Name']
-    assert json.loads(test_response_get.data)['Items-found'][0]['Menu_Price'] == 20
+    assert 'Items found' in json.loads(test_response_get.data)
+    assert 'Autumn pumpkin soup' in json.loads(test_response_get.data)                                                     ['Items found'][0]                                                          ['Menu_Name']
+    assert json.loads(test_response_get.data)['Items found'][0]['Menu_Price'] == 20
 
 def test_menu_put(test_client):
     ''' Tests the menus PUT '/v1/menu/<menu_id>' test endpoint '''
@@ -47,7 +50,7 @@ def test_menu_put(test_client):
     # Verify the item created in POST above has the default status
     test_response_get = test_client.get('/v1/menus')
 
-    assert 'Unavailable' in json.loads(test_response_get.data)['Items-found'][0]                                   ['Menu_Availability']
+    assert 'Unavailable' in json.loads(test_response_get.data)['Items found'][0]                                   ['Menu_Availability']
     # Perform an update
     status_update = {"Menu_Availability":"Available"}
 
@@ -59,7 +62,7 @@ def test_menu_put(test_client):
 
     # Test PUT effect
     test_response_get = test_client.get('/v1/menus')
-    assert 'Available' in json.loads(test_response_get.data)['Items-found'][0]                                   ['Menu_Availability']
+    assert 'Available' in json.loads(test_response_get.data)['Items found'][0]                                   ['Menu_Availability']
 
     # Perform a reverse update
     status_update = {"Menu_Availability":"Unavailable"}
@@ -68,7 +71,7 @@ def test_menu_put(test_client):
 
     # Test reverse PUT effect
     test_response_get = test_client.get('/v1/menus')
-    assert 'Unavailable' in json.loads(test_response_get.data)['Items-found'][0]                                      ['Menu_Availability']
+    assert 'Unavailable' in json.loads(test_response_get.data)['Items found'][0]                                      ['Menu_Availability']
 
 def test_menu_delete(test_client):
     ''' Tests the menus DELETE '/v1/menu/<Menu_Id>' test endpoint '''
@@ -82,6 +85,6 @@ def test_menu_delete(test_client):
 
     # Test DELETE effect
     test_response_get = test_client.get('/v1/menus')
-    assert 'No-items-found' in json.loads(test_response_get.data)
+    assert 'No items found' in json.loads(test_response_get.data)
     assert test_response_get.status_code == 200
     

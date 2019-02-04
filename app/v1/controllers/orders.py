@@ -66,15 +66,15 @@ class UserOrders(Resource):
         order_list = []
         item_dict = {}
 
-        for list_index in range(0, len(list)):
-            for list_item in list[list_index]:
-                item_dict.update({'Order_Id':(next_order_number)})
-                item_dict.update({'Menu_Id':list_item['Menu_Id']})
-                item_dict.update({'Order_ItemQty':list_item['Order_ItemQty']})
-                item_dict.update({'Order_ItemTotal':list_item['Menu_Price']*list_item['Order_ItemQty']})
+        # for list_index in range(0, len(list)):
+        #     for list_item in list[list_index]:
+        #         item_dict.update({'Order_Id':(next_order_number)})
+        #         item_dict.update({'Menu_Id':list_item['Menu_Id']})
+        #         item_dict.update({'Order_ItemQty':list_item['Order_ItemQty']})
+        #         item_dict.update({'Order_ItemTotal':list_item['Menu_Price']*list_item['Order_ItemQty']})
 
-                order_list.append(item_dict)
-                item_dict = {}
+        #         order_list.append(item_dict)
+        #         item_dict = {}
 
         # Compile order header data
         order_header = {}
@@ -82,9 +82,9 @@ class UserOrders(Resource):
         order_total = 0
         item_no = 0
 
-        for item in order_list:
-            order_total += item[item_no]['Order_ItemTotal']
-            item_no +=1
+        # for item in order_list:
+        #     order_total += item[item_no]['Order_ItemTotal']
+        #     item_no +=1
 
         # Create order header data
         ordering_user_id = json_payload['User_Id']
