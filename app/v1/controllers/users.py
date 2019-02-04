@@ -1,26 +1,27 @@
 ''' This module defines the user resources exposed by the API '''
 
 from flask_restful import Resource, reqparse
-from flask_jwt_extended import (create_access_token, get_jwt_identity, get_raw_jwt, jwt_required)
+from flask_jwt_extended import (create_access_token, get_jwt_identity, get_raw_jwt, jwt_required, get_jwt_claims)
 from ..models.users import UserModel
-
-parser = reqparse.RequestParser()
-parser.add_argument('User_Email', type=str, required=True,
-                                 help='This field cant be left blank!')
-parser.add_argument('User_Password', type=str, required=True,
-                                 help='This field cant be left blank!')
-parser.add_argument('User_Name', type=str)
-parser.add_argument('User_Type', type=str)
 
 
 class User(Resource):
     ''' This class manages the User resource '''
 
+    parser = reqparse.RequestParser()
+
     def post(self):
         ''' This function handles POST requests to the
         '/auth/signup' route for a new user registration. '''
 
-        json_payload = parser.parse_args()
+        User.parser.add_argument('User_Email', type=str, required=True,
+                                 help='This field cant be left blank!')
+        User.parser.add_argument('User_Password', type=str, required=True,
+                                 help='This field cant be left blank!')
+        User.parser.add_argument('User_Name', type=str, required=True,
+                                 help='This field cant be left blank!')
+
+        json_payload = User.parser.parse_args()
         if not UserModel.find_user_by_User_Email(json_payload['User_Email']):
             
             user_to_add = {'User_Name':json_payload['User_Name'],
@@ -37,11 +38,16 @@ class User(Resource):
         ''' This function handles PUT requests to the
         '/auth/signup' route for updating user privileges '''
 
-        if get_jwt_claims()['User_Type'] != 'Admin':
+        User.parser.add_argument('User_Email', type=str, required=True,
+                                 help='This field cant be left blank!')
+        User.parser.add_argument('User_Type', type=str, required=True,
+                                 help='This field cant be left blank!')
+
+        if get_jwt_claims()['User_Type'] != 'Admin' and UserModel.check_if_admin_exists():
             return {'Rights Error':'This an admin only function'}
 
         valid_user_types = ['Admin', 'Guest']
-        json_payload = parser.parse_args()
+        json_payload = User.parser.parse_args()
 
         if 'User_Type' not in json_payload.keys():
             message = 'User_Type input missing'
@@ -68,15 +74,21 @@ class User(Resource):
 class UserLogin(Resource):
     ''' This class manages user login '''
 
+    parser = reqparse.RequestParser()
+    parser.add_argument('User_Email', type=str, required=True,
+                                 help='This field cant be left blank!')
+    parser.add_argument('User_Password', type=str, required=True,
+                                 help='This field cant be left blank!')
+
     def post(self):
         ''' This function handles POST requests to the
         '/auth/login' route and ensure all user are logged in '''
 
-        json_payload = parser.parse_args()
+        json_payload = UserLogin.parser.parse_args()
         current_user = UserModel.find_user_by_User_Email(json_payload['User_Email'])
 
         if not current_user:
-            message = '{} is registered'.format(json_payload['User_Email'])
+            message = '{} not found, please sign up'.format(json_payload['User_Email'])
             code = 404
             access_token = ''
         

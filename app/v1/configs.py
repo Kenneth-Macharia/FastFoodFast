@@ -7,7 +7,7 @@ import psycopg2
 class DatabaseSetup(object):
     ''' This class sets up the required database for use '''
 
-    db = os.getenv('DATABASE_URL')
+    db = os.getenv('DATABASE_NAME')
     db_user = os.getenv('DATABASE_USERNAME')
     db_password = os.getenv('DATABASE_PASSWORD')
 
