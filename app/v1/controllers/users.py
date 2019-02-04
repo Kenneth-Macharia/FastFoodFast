@@ -43,11 +43,11 @@ class User(Resource):
         User.parser.add_argument('User_Type', type=str, required=True,
                                  help='This field cant be left blank!')
 
-        if get_jwt_claims()['User_Type'] != 'Admin':
+        if get_jwt_claims()['User_Type'] != 'Admin' and UserModel.check_if_admin_exists():
             return {'Rights Error':'This an admin only function'}
 
         valid_user_types = ['Admin', 'Guest']
-        json_payload = parser.parse_args()
+        json_payload = User.parser.parse_args()
 
         if 'User_Type' not in json_payload.keys():
             message = 'User_Type input missing'
@@ -88,7 +88,7 @@ class UserLogin(Resource):
         current_user = UserModel.find_user_by_User_Email(json_payload['User_Email'])
 
         if not current_user:
-            message = '{} is registered'.format(json_payload['User_Email'])
+            message = '{} not found, please sign up'.format(json_payload['User_Email'])
             code = 404
             access_token = ''
         

@@ -41,6 +41,20 @@ class UserModel(object):
         return query_result
 
     @classmethod
+    def check_if_admin_exists(cls):
+        ''' Checks if a user with the 'Admin' status exist in the database '''
+
+        connection = DatabaseSetup.setup('users')
+        cursor = connection.cursor()
+
+        cursor.execute("SELECT User_Email FROM users_table WHERE User_Type=%s", ('Admin',))
+        query_result = cursor.fetchone()
+
+        cursor.close()
+        connection.close()
+        return query_result
+
+    @classmethod
     def update_user(cls, user_to_update):
         ''' Updates the User_Type '''
 
