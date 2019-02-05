@@ -5,7 +5,7 @@ from flask import Flask, Blueprint
 from flask_restful import Api
 from flask_jwt_extended import JWTManager
 from models.users import UserModel
-from controllers.users import User, UserLogin, UserLogout
+from controllers.users import UserRegistration, UserUpdate, UserLogin, UserLogout
 from controllers.menus import Menus, AddMenu, MenuMgt
 from controllers.orders import UserOrders
 
@@ -36,7 +36,8 @@ def check_if_token_in_blacklist(decrypted_token):
     return UserModel.is_token_blacklisted(jti)
 
 api = Api(app)
-api.add_resource(User, '/v1/auth/signup')
+api.add_resource(UserRegistration, '/v1/auth/signup')
+api.add_resource(UserUpdate, '/v1/auth/update')
 api.add_resource(UserLogin, '/v1/auth/login')
 api.add_resource(UserLogout, '/v1/auth/logout')
 api.add_resource(AddMenu, '/v1/menu')

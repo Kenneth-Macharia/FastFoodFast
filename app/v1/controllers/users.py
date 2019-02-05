@@ -5,23 +5,24 @@ from flask_jwt_extended import (create_access_token, get_jwt_identity, get_raw_j
 from ..models.users import UserModel
 
 
-class User(Resource):
-    ''' This class manages the User resource '''
+class UserRegistration(Resource):
+    ''' This class manages the user registration resource '''
 
     parser = reqparse.RequestParser()
+
+    parser.add_argument('User_Email', type=str, required=True,
+                                 help='This field cant be left blank!')
+    parser.add_argument('User_Password', type=str, required=True,
+                                 help='This field cant be left blank!')
+    parser.add_argument('User_Name', type=str, required=True,
+                                 help='This field cant be left blank!')
 
     def post(self):
         ''' This function handles POST requests to the
         '/auth/signup' route for a new user registration. '''
 
-        User.parser.add_argument('User_Email', type=str, required=True,
-                                 help='This field cant be left blank!')
-        User.parser.add_argument('User_Password', type=str, required=True,
-                                 help='This field cant be left blank!')
-        User.parser.add_argument('User_Name', type=str, required=True,
-                                 help='This field cant be left blank!')
+        json_payload = UserRegistration.parser.parse_args()
 
-        json_payload = User.parser.parse_args()
         if not UserModel.find_user_by_User_Email(json_payload['User_Email']):
             
             user_to_add = {'User_Name':json_payload['User_Name'],
@@ -33,27 +34,29 @@ class User(Resource):
             return {'Response':'Succesfully signed up'}, 201
         return {'Response':'You are already registered'}, 400
 
+
+class UserUpdate(Resource):
+    ''' This class manages the user update resource '''
+
+    parser = reqparse.RequestParser()
+
+    parser.add_argument('User_Email', type=str, required=True,
+                                 help='This field cant be left blank!')
+    parser.add_argument('User_Type', type=str, required=True,
+                                 help='This field cant be left blank!')
+
     @jwt_required
     def put(self):
         ''' This function handles PUT requests to the
         '/auth/signup' route for updating user privileges '''
 
-        User.parser.add_argument('User_Email', type=str, required=True,
-                                 help='This field cant be left blank!')
-        User.parser.add_argument('User_Type', type=str, required=True,
-                                 help='This field cant be left blank!')
-
         if get_jwt_claims()['User_Type'] != 'Admin' and UserModel.check_if_admin_exists():
             return {'Rights Error':'This an admin only function'}
 
         valid_user_types = ['Admin', 'Guest']
-        json_payload = User.parser.parse_args()
+        json_payload = UserUpdate.parser.parse_args()
 
-        if 'User_Type' not in json_payload.keys():
-            message = 'User_Type input missing'
-            code = 400
-
-        elif json_payload['User_Type'] not in valid_user_types:
+        if json_payload['User_Type'] not in valid_user_types:
             message = 'Invalid user type'
             code = 400
 
@@ -121,6 +124,6 @@ class UserLogout(Resource):
         jti = get_raw_jwt()['jti']
         UserModel.add_blacklisted_token(jti)
 
-        return {'Response': 'Succesfully signed out'}
+        return {'Response': 'Succesfully signed out'}, 200
 
         

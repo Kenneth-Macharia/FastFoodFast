@@ -16,16 +16,19 @@ def drop_tables(request_type):
     connection = DatabaseSetup.connection
     cursor = connection.cursor()
 
-    drop_users_table = """ DROP TABLE IF EXISTS users_table CASCADE """
+    drop_users_table = """DROP TABLE IF EXISTS users_table CASCADE"""
 
-    drop_menus_table = """ DROP TABLE IF EXISTS menus_table CASCADE """
+    drop_token_blacklist_table = """DROP TABLE IF EXISTS token_blacklist_table CASCADE"""
 
-    drop_order_headers_table = """ DROP TABLE IF EXISTS order_headers_table CASCADE """
+    drop_menus_table = """DROP TABLE IF EXISTS menus_table CASCADE"""
 
-    drop_order_listing_table = """ DROP TABLE IF EXISTS order_listing_table CASCADE """
+    drop_order_headers_table = """DROP TABLE IF EXISTS order_headers_table CASCADE"""
+
+    drop_order_listing_table = """DROP TABLE IF EXISTS order_listing_table CASCADE"""
 
     if request_type == 'users':
         cursor.execute(drop_users_table)
+        cursor.execute(drop_token_blacklist_table)
 
     elif request_type == 'menus':
         cursor.execute(drop_menus_table)
