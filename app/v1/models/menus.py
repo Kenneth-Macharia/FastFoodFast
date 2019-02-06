@@ -45,14 +45,14 @@ class MenuModel(object):
         connection.close()
 
     @classmethod
-    def delete_menu(cls, Menu_Id):
+    def delete_menu(cls, menu_id):
         ''' Deletes a menu item '''
 
         connection = DatabaseSetup.setup('menus')
         cursor = connection.cursor()
 
         delete_menu_query = """ DELETE FROM menus_table WHERE Menu_Id=%s """
-        cursor.execute(delete_menu_query, (Menu_Id,))
+        cursor.execute(delete_menu_query, (menu_id,))
 
         connection.commit()
         cursor.close()

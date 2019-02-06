@@ -1,7 +1,7 @@
 ''' This module contains the test code for the menu functionality and will test the menu modules in controllers and models '''
 
 from flask import json
-from configs import test_client, drop_tables
+from tests.v1.configs import test_client, drop_tables
 
 
 def login_helper(test_client):
@@ -67,7 +67,7 @@ def test_menu_post(test_client):
                         "Menu_Price":20}
 
     test_response = test_client.post('/v1/menu', data=json.dumps                                                 (Menu_item_to_add),
-                                           headers=token_data,                  content_type='application/json')
+                                     headers=token_data,                  content_type='application/json')
     # Test POST responses
     assert 'Menu item succesfully added' in json.loads(test_response.data)                                                    ['Response']
     assert test_response.status_code == 201
@@ -98,7 +98,7 @@ def test_menu_put(test_client):
     status_update = {"Menu_Availability":"Available"}
 
     test_response = test_client.put('/v1/menu/1', data=json.dumps                                               (status_update),
-                                        headers=token_data,                  content_type='application/json')
+                                    headers=token_data,                  content_type='application/json')
     
     # Test PUT responses
     assert 'Menu item updated' in json.loads(test_response.data)['Response']

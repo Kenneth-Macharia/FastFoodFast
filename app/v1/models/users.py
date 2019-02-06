@@ -16,7 +16,7 @@ class UserModel(object):
 
         new_user_query = """ INSERT INTO users_table (User_Name, User_Password,
         User_Email, User_Type) VALUES (%s, %s, %s, %s); """
-
+        
         new_user_data = (new_user['User_Name'], new_user['User_Password'], 
                          new_user['User_Email'], new_user['User_Type'])
         cursor.execute(new_user_query, new_user_data)
@@ -26,7 +26,7 @@ class UserModel(object):
         connection.close()
 
     @classmethod
-    def find_user_by_user_email(cls, User_Email):
+    def find_user_by_user_email(cls, user_email):
         ''' Finds a user matching the User_Email
         provided as an argument and returend to the autheniticate JWT
         function to generate a token for the user '''
@@ -35,7 +35,7 @@ class UserModel(object):
         cursor = connection.cursor()
 
         cursor.execute("SELECT User_Id, User_Name, User_Password, \
-        User_Email, User_Type FROM users_table WHERE User_Email=%s", (User_Email,))
+        User_Email, User_Type FROM users_table WHERE User_Email=%s", (user_email,))
         query_result = cursor.fetchone()
 
         cursor.close()
@@ -111,5 +111,3 @@ class UserModel(object):
     def verify_hash(password, hash):
         ''' Verifies hashed user passwords '''
         return sha256.verify(password, hash)
-
-    

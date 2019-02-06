@@ -19,14 +19,14 @@ class AddMenu(Resource):
             return {'Rights Error':'This an admin only function'}, 401
 
         AddMenu.parser.add_argument('Menu_Name', type=str, required=True,
-                                 help='This field cant be left blank!')
+                                    help='This field cant be left blank!')
         AddMenu.parser.add_argument('Menu_Description', type=str,
-                                 required=True, help='This field cant be \
-                                 left blank!')
+                                    required=True, help='This field cant be \
+                                    left blank!')
         AddMenu.parser.add_argument('Menu_ImageURL', type=str, required=True,
-                                 help='This field cant be left blank!')
+                                    help='This field cant be left blank!')
         AddMenu.parser.add_argument('Menu_Price', type=int, required=True,
-                                 help='This field cant be left blank!')
+                                    help='This field cant be left blank!')
 
         json_payload = AddMenu.parser.parse_args()
 
@@ -39,14 +39,14 @@ class AddMenu(Resource):
         MenuModel.insert_menu(menu_to_add)
         return {'Response':'Menu item succesfully added'}, 201
 
-        
+
 class MenuMgt(Resource):
     ''' This class manages the Menu resource '''
 
     parser = reqparse.RequestParser()
 
     @jwt_required
-    def put(self, Menu_Id):
+    def put(self, menu_id):
         ''' This function handles PUT requests to the '/menu/<Menu_Id>'
         route '''
 
@@ -54,24 +54,24 @@ class MenuMgt(Resource):
             return {'Rights Error':'This an admin only function'}, 401
 
         MenuMgt.parser.add_argument('Menu_Availability', type=str,
-                                 required=True, help='This field cant be left blank!')
+                                    required=True, help='This field cant be left blank!')
 
         json_payload = MenuMgt.parser.parse_args()
 
-        menu_to_update = {'Menu_Id':Menu_Id,
+        menu_to_update = {'Menu_Id':menu_id,
                           'Menu_Availability':json_payload['Menu_Availability']}
 
         MenuModel.update_menu(menu_to_update)
         return {'Response':'Menu item updated'}, 200
 
     @jwt_required
-    def delete(self, Menu_Id):
+    def delete(self, menu_id):
         ''' This function handles DELETE requests to the '/api_v1/menu/<Menu_Id>' route '''
 
         if get_jwt_claims()['User_Type'] != 'Admin':
             return {'Rights Error':'This an admin only function'}, 401
 
-        MenuModel.delete_menu(Menu_Id)
+        MenuModel.delete_menu(menu_id)
         return {'Response':'Menu item deleted'}, 200
 
 
@@ -93,6 +93,4 @@ class Menus(Resource):
                 menus.append({'Menu_Id':row[0], 'Menu_Name':row[1], 'Menu_Price':row[2], 'Menu_Availability':row[3]})
             return {'Items found':menus}, 200
         return {'No items found':menus}, 200
-    
-
-    
+        

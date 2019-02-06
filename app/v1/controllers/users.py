@@ -1,7 +1,8 @@
 ''' This module defines the user resources exposed by the API '''
 
 from flask_restful import Resource, reqparse
-from flask_jwt_extended import (create_access_token, get_jwt_identity, get_raw_jwt, jwt_required, get_jwt_claims)
+from flask_jwt_extended import (create_access_token,
+get_raw_jwt, jwt_required, get_jwt_claims)
 from ..models.users import UserModel
 
 
@@ -11,18 +12,18 @@ class UserRegistration(Resource):
     parser = reqparse.RequestParser()
 
     parser.add_argument('User_Email', type=str, required=True,
-                                 help='This field cant be left blank!')
+                        help='This field cant be left blank!')
     parser.add_argument('User_Password', type=str, required=True,
-                                 help='This field cant be left blank!')
+                        help='This field cant be left blank!')
     parser.add_argument('User_Name', type=str, required=True,
-                                 help='This field cant be left blank!')
+                        help='This field cant be left blank!')
 
     def post(self):
         ''' This function handles POST requests to the
         '/auth/signup' route for a new user registration. '''
 
         json_payload = UserRegistration.parser.parse_args()
-
+        
         if not UserModel.find_user_by_user_email(json_payload['User_Email']):
             
             user_to_add = {'User_Name':json_payload['User_Name'],
@@ -41,9 +42,9 @@ class UserUpdate(Resource):
     parser = reqparse.RequestParser()
 
     parser.add_argument('User_Email', type=str, required=True,
-                                 help='This field cant be left blank!')
+                        help='This field cant be left blank!')
     parser.add_argument('User_Type', type=str, required=True,
-                                 help='This field cant be left blank!')
+                        help='This field cant be left blank!')
 
     @jwt_required
     def put(self):
@@ -79,9 +80,9 @@ class UserLogin(Resource):
 
     parser = reqparse.RequestParser()
     parser.add_argument('User_Email', type=str, required=True,
-                                 help='This field cant be left blank!')
+                        help='This field cant be left blank!')
     parser.add_argument('User_Password', type=str, required=True,
-                                 help='This field cant be left blank!')
+                        help='This field cant be left blank!')
 
     def post(self):
         ''' This function handles POST requests to the
@@ -94,8 +95,8 @@ class UserLogin(Resource):
             message = '{} not found, please sign up'.format(json_payload['User_Email'])
             code = 404
             access_token = ''
-        
-        elif not UserModel.verify_hash(json_payload['User_Password'],current_user[2]):
+            
+        elif not UserModel.verify_hash(json_payload['User_Password'], current_user[2]):
             message = 'Password is incorrect, try again'
             code = 400
             access_token = ''
@@ -111,7 +112,7 @@ class UserLogin(Resource):
 
         return {'Response': message,
                 'Access_token':access_token}, code
-      
+                
       
 class UserLogout(Resource):
     ''' This class manages user logout '''

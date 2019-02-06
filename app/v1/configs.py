@@ -31,7 +31,8 @@ class DatabaseSetup(object):
 
         cursor = connection.cursor()
 
-        # Create tables if they don't exist, this will be checked before        every query to the database is actioned
+        # Create tables if they don't exist, this will be checked
+        #  before every query to the database is actioned
         create_users_table = """ CREATE TABLE IF NOT EXISTS users_table (
 
         User_Id             SERIAL PRIMARY KEY,
@@ -57,7 +58,7 @@ class DatabaseSetup(object):
         Menu_ImageURL       TEXT UNIQUE NOT NULL,
         Menu_Price          REAL NOT NULL,
         Menu_Availability   TEXT NOT NULL
-
+        
         ) """
         
         create_order_headers_table = """ CREATE TABLE IF NOT EXISTS order_headers_table (

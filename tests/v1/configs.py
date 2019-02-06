@@ -12,6 +12,8 @@ def test_client():
     return app.test_client()
 
 def drop_tables(request_type):
+    ''' This functions drops the required table in order to have
+    a clean database for the test runs '''
 
     connection = DatabaseSetup.connection
     cursor = connection.cursor()
