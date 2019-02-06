@@ -16,7 +16,7 @@ class AddMenu(Resource):
         '/menu'route and controls creation of a new menu. '''
 
         if get_jwt_claims()['User_Type'] != 'Admin':
-            return {'Rights Error':'This an admin only function'}
+            return {'Rights Error':'This an admin only function'}, 401
 
         AddMenu.parser.add_argument('Menu_Name', type=str, required=True,
                                  help='This field cant be left blank!')
@@ -51,7 +51,7 @@ class MenuMgt(Resource):
         route '''
 
         if get_jwt_claims()['User_Type'] != 'Admin':
-            return {'Rights Error':'This an admin only function'}
+            return {'Rights Error':'This an admin only function'}, 401
 
         MenuMgt.parser.add_argument('Menu_Availability', type=str,
                                  required=True, help='This field cant be left blank!')
@@ -69,7 +69,7 @@ class MenuMgt(Resource):
         ''' This function handles DELETE requests to the '/api_v1/menu/<Menu_Id>' route '''
 
         if get_jwt_claims()['User_Type'] != 'Admin':
-            return {'Rights Error':'This an admin only function'}
+            return {'Rights Error':'This an admin only function'}, 401
 
         MenuModel.delete_menu(Menu_Id)
         return {'Response':'Menu item deleted'}, 200
@@ -83,7 +83,7 @@ class Menus(Resource):
         ''' This function handles GET all requests to the '/menus' route '''
 
         if get_jwt_claims()['User_Type'] != 'Admin':
-            return {'Rights Error':'This an admin only function'}
+            return {'Rights Error':'This an admin only function'}, 401
 
         menus = []
         rows_returned = MenusModel.all_menu_items()

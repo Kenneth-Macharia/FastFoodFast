@@ -1,13 +1,13 @@
 ''' This module hosts the flask app to be ran '''
 
 import os
-from flask import Flask, Blueprint
+from flask import Flask
 from flask_restful import Api
 from flask_jwt_extended import JWTManager
-from models.users import UserModel
-from controllers.users import UserRegistration, UserUpdate, UserLogin, UserLogout
-from controllers.menus import Menus, AddMenu, MenuMgt
-from controllers.orders import UserOrders
+from app.v1.models.users import UserModel
+from app.v1.controllers.users import UserRegistration, UserUpdate, UserLogin, UserLogout
+from app.v1.controllers.menus import Menus, AddMenu, MenuMgt
+from app.v1.controllers.orders import UserOrders
 
 SECRET = os.getenv('SECRET')
 if not SECRET:
@@ -21,12 +21,15 @@ app.config['JWT_BLACKLIST_TOKEN_CHECKS'] = ['access']
 
 @jwt.user_claims_loader
 def add_claims_to_access_token(user):
-    ''' Called whenever create_access_token is called and defines what custom claims should be added to the access token, in this case the user type '''
+    ''' Called whenever create_access_token is called and defines
+    what custom claims should be added to the access token, in this
+    case the user type '''
     return {'User_Type': user['User_Type']}
 
 @jwt.user_identity_loader
 def user_identity_lookup(user):
-    ''' Called whenever create_access_token is called and defines what the identity of the access token should be '''
+    ''' Called whenever create_access_token is called and defines
+    what the identity of the access token should be '''
     return user['User_Email']
 
 @jwt.token_in_blacklist_loader

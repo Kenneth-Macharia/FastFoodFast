@@ -26,14 +26,16 @@ class UserModel(object):
         connection.close()
 
     @classmethod
-    def find_user_by_User_Email(cls, User_Email):
+    def find_user_by_user_email(cls, User_Email):
         ''' Finds a user matching the User_Email
-        provided as an argument and returend to the autheniticate JWT function to generate a token for the user '''
+        provided as an argument and returend to the autheniticate JWT
+        function to generate a token for the user '''
 
         connection = DatabaseSetup.setup('users')
         cursor = connection.cursor()
 
-        cursor.execute("SELECT User_Id, User_Name, User_Password, User_Email, User_Type FROM users_table WHERE User_Email=%s", (User_Email,))
+        cursor.execute("SELECT User_Id, User_Name, User_Password, \
+        User_Email, User_Type FROM users_table WHERE User_Email=%s", (User_Email,))
         query_result = cursor.fetchone()
 
         cursor.close()
@@ -74,7 +76,8 @@ class UserModel(object):
 
     @classmethod
     def add_blacklisted_token(cls, jti):
-        ''' Adds revoked tokens to the database for cross-checking agaist all request tokens, for validity '''
+        ''' Adds revoked tokens to the database for cross-checking
+        agaist all request tokens, for validity '''
 
         connection = DatabaseSetup.setup('users')
         cursor = connection.cursor()
@@ -92,7 +95,7 @@ class UserModel(object):
         connection = DatabaseSetup.setup('users')
         cursor = connection.cursor()
 
-        cursor.execute("SELECT * FROM token_blacklist_table WHERE Token_jti=%s",(jti,))
+        cursor.execute("SELECT * FROM token_blacklist_table WHERE Token_jti=%s", (jti,))
         query_result = cursor.fetchone()
 
         cursor.close()

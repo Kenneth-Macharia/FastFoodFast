@@ -23,7 +23,7 @@ class UserRegistration(Resource):
 
         json_payload = UserRegistration.parser.parse_args()
 
-        if not UserModel.find_user_by_User_Email(json_payload['User_Email']):
+        if not UserModel.find_user_by_user_email(json_payload['User_Email']):
             
             user_to_add = {'User_Name':json_payload['User_Name'],
                            'User_Password':UserModel.generate_hash(json_payload['User_Password']),
@@ -51,7 +51,7 @@ class UserUpdate(Resource):
         '/auth/signup' route for updating user privileges '''
 
         if get_jwt_claims()['User_Type'] != 'Admin' and UserModel.check_if_admin_exists():
-            return {'Rights Error':'This an admin only function'}
+            return {'Rights Error':'This an admin only function'}, 401
 
         valid_user_types = ['Admin', 'Guest']
         json_payload = UserUpdate.parser.parse_args()
@@ -60,8 +60,8 @@ class UserUpdate(Resource):
             message = 'Invalid user type'
             code = 400
 
-        elif not UserModel.find_user_by_User_Email(json_payload['User_Email']):
-            message = 'Email: {}, not registered'.format(json_payload['User_Email'])
+        elif not UserModel.find_user_by_user_email(json_payload['User_Email']):
+            message = '{} not found, check and try again'.format(json_payload['User_Email'])
             code = 404
         
         else:
@@ -88,7 +88,7 @@ class UserLogin(Resource):
         '/auth/login' route and ensure all user are logged in '''
 
         json_payload = UserLogin.parser.parse_args()
-        current_user = UserModel.find_user_by_User_Email(json_payload['User_Email'])
+        current_user = UserModel.find_user_by_user_email(json_payload['User_Email'])
 
         if not current_user:
             message = '{} not found, please sign up'.format(json_payload['User_Email'])
@@ -125,5 +125,3 @@ class UserLogout(Resource):
         UserModel.add_blacklisted_token(jti)
 
         return {'Response': 'Succesfully signed out'}, 200
-
-        

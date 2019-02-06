@@ -16,20 +16,22 @@ class DatabaseSetup(object):
     connection = psycopg2.connect(user=db_user,
                                   password=db_password,
                                   host="127.0.0.1",
-                                  port="5432",                                  database=db)
+                                  port="5432",
+                                  database=db)
 
     @classmethod
-    def setup(cls, request_type): 
+    def setup(cls, request_type):
         ''' Setup the database connection and schema '''
 
         connection = psycopg2.connect(user=DatabaseSetup.db_user,
                                       password=DatabaseSetup.db_password,
                                       host="127.0.0.1",
-                                      port="5432",                              database=DatabaseSetup.db)
+                                      port="5432",
+                                      database=DatabaseSetup.db)
 
         cursor = connection.cursor()
 
-        # Create tables if they don't exist, this will be checked before every query to the database is actioned
+        # Create tables if they don't exist, this will be checked before        every query to the database is actioned
         create_users_table = """ CREATE TABLE IF NOT EXISTS users_table (
 
         User_Id             SERIAL PRIMARY KEY,
