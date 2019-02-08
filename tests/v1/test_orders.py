@@ -12,12 +12,12 @@ def test_add_order(test_client):
     drop_tables('menus')
 
     # Log in the admin to add menu items
-    user = {"User_Email":"ken@abc.com",
+    admin_user = {"User_Email":"ken@abc.com",
             "User_Password":"abc"}
-    test_response = test_client.post('/v1/auth/login', data=json.dumps(user),                                    content_type='application/json')
+    test_response = test_client.post('/v1/auth/login', data=json.dumps                                          (admin_user),                                                               content_type='application/json')
 
     assert test_response.status_code == 200
-    token_data = dict(Authorization="Bearer " + json.loads(test_response.data)                    ["Access_token"])
+    token_data_admim = dict(Authorization="Bearer " + json.loads                                       (test_response.data)["Access_token"])
         
     # Add items to order
     order_item_1 = {"Menu_Name":"Autumn pumpkin soup", 
@@ -30,31 +30,27 @@ def test_add_order(test_client):
                     "Menu_ImageURL":"C:/website/menus/images/bacon-burger.jpg",
                     "Menu_Price":18}
 
-    test_client.post('/v1/menu', data=json.dumps(order_item_1),                                  headers=token_data, content_type='application/json')
-    test_response = test_client.post('/v1/menu', data=json.dumps(order_item_2),                                  headers=token_data,                                                         content_type='application/json')
+    test_client.post('/v1/menu', data=json.dumps(order_item_1),                                  headers=token_data_admim, content_type='application/json')
+    test_response = test_client.post('/v1/menu', data=json.dumps(order_item_2),                                  headers=token_data_admim,                                                   content_type='application/json')
 
     assert test_response.status_code == 201
 
     # log in a 'Guest' user to place an order as 'Admin' users can't order
-    user = {"User_Email":"shee@xyz.com",
+    guest_user = {"User_Email":"shee@xyz.com",
             "User_Password":"xyz"}
 
     test_response = test_client.post('/v1/auth/login',
-                                     data=json.dumps(user),              content_type='application/json')
+                                     data=json.dumps(guest_user),              content_type='application/json')
 
     assert test_response.status_code == 200
-    token_data = dict(Authorization="Bearer " + json.loads(test_response.data)                    ["Access_token"])
-
-    # Save the User_Id of the user placing the order
-    user_id = json.loads(test_response.data)['User-found']['User_Id']
+    token_data_guest = dict(Authorization="Bearer " + json.loads                                        (test_response.data)["Access_token"])
 
     # Fetch the required menu info from HTML via JavaScript
-        # User_Id will be queried from the database when user logs in
         # Menu_Ids saved as #id attributes in the HTML menu_box class
         # Price saved in the HTML meal_price class
         # Qty will be collected from input elements on checkout modal
 
-    order_dict = {"Order": [
+    order_dict = {"Current_Order": [
             {
                 "Menu_Id":1, 
                 "Menu_Price":10,
@@ -66,17 +62,29 @@ def test_add_order(test_client):
                 "Menu_Price":18,
                 "Order_ItemQty":3
             }
-        ],
-
-        "User_Id":user_id
+        ]
     }
 
-        # POST the order
-    test_response = test_client.post('/v1/users/orders', data=json.dumps                                         (dict(order_dict)), headers=token_data,                                     content_type='application/json')
+        # Test for succesful order creation
+    test_response = test_client.post('/v1/users/orders', data=json.dumps                                         (order_dict), headers=token_data_guest,                                     content_type='application/json')
 
-        # Test succesful order creation
     assert test_response.status_code == 201
-    assert 'Order succesfully added' in json.loads(response_get_user.data)                                                     ['Response']
+    assert 'Order succesfully added' in json.loads(test_response.data)                                                         ['Response']
+
+        # Test for no order details
+    order_dict_2 = {}
+
+    test_response = test_client.post('/v1/users/orders', data=json.dumps                                         (order_dict_2), headers=token_data_guest,                                   content_type='application/json')
+
+    assert test_response.status_code == 400
+    assert 'Missing order details' in json.loads(test_response.data)                                                         ['Response']
+
+        # Test an admin can't place an order
+    test_response = test_client.post('/v1/users/orders', data=json.dumps                                         (order_dict), headers=token_data_admim,                                     content_type='application/json')
+
+    assert test_response.status_code == 401
+    assert 'Only Guest users can place orders' in json.loads(test_response.data)                                                         ['Rights Error']
+
 
 def test_get_order(test_client):
     ''' Tests the GET user order functionality, at the route '/user/orders '''

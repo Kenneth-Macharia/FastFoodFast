@@ -3,8 +3,9 @@
 import datetime
 from flask import request, json
 from flask_restful import Resource, reqparse
-from flask_jwt_extended import (jwt_required, get_jwt_claims)
+from flask_jwt_extended import (jwt_required, get_jwt_claims, get_jwt_identity)
 from app.v1.models.orders import UserOrdersModel 
+from app.v1.models.users import UserModel
 
 
 class UserOrders(Resource):
@@ -18,21 +19,16 @@ class UserOrders(Resource):
         /v1/users/orders route and controls creation of a user order. '''
 
         if get_jwt_claims()['User_Type'] == 'Admin':
-            return {'Rights Error':'Only Guest users can place orders'}, 401
-        #TODO: Try without reqparse
-        # UserOrders.parser.add_argument('Order', action='append',                                               required=True, help='This field \
-        #                                cant be left blank!')
-        # UserOrders.parser.add_argument('User_Id', type=int,                                                    required=True, help='This field cant                                    be left blank!')
+            return {'Rights Error':'Only Guest users can place orders'}, 401 
 
-        # order_input = UserOrders.parser.parse_args()
-        # order_details = order_input['Order']
-        order_details = [
-	
-                {"Menu_Id":1, "Menu_Price":10, "Order_ItemQty":2},
-                {"Menu_Id":2, "Menu_Price":18, "Order_ItemQty":3}
+        # Get the order details
+        request_data = request.get_json()
+
+        if 'Current_Order' not in request_data.keys():
+            return {'Response':"Missing order details"}, 400
             
-        ]
-
+        current_order = request_data['Current_Order']
+      
          # Get an order id for the current order
         returned_row = UserOrdersModel.get_last_order_id()
         if returned_row:
@@ -44,13 +40,13 @@ class UserOrders(Resource):
         final_order_list = []  # Final order list
         item_dict = {}  # Dict to populate the final ordr list
      
-        for item in order_details:
+        for item in current_order:
 
             item_dict.update({'Order_Id':order_number})
             item_dict.update({'Menu_Id':item['Menu_Id']})
             item_dict.update({'Order_ItemQty':item['Order_ItemQty']})
-            item_dict.update({'Order_ItemTotal':item['Menu_Price']*
-                             item['Order_ItemQty']})
+            item_dict.update({'Order_ItemTotal':int(item['Menu_Price'])*
+                             int(item['Order_ItemQty'])})
 
             final_order_list.append(item_dict)
             item_dict = {}
@@ -60,8 +56,8 @@ class UserOrders(Resource):
         order_time = datetime.datetime.now().strftime("%c")
 
             # Get the user id of the user making placing the order
-        # user_id = order_input['User_Id']
-        user_id = 1 #TODO: How to get the correct user!
+        user_email = current_user = get_jwt_identity()
+        user_id = UserModel.find_user_by_user_email(user_email)[0]
 
             # Set the order status to default 'New' for all new orders,
             # which can later be updated to 'Processing', 'Cancelled' or #'Complete'
