@@ -59,3 +59,27 @@ class UserOrdersModel(object):
         connection.commit()
         cursor.close()
         connection.close()
+
+    @classmethod
+    def get_user_orders(cls, user_id):
+        ''' Retrieves a users orders '''
+
+        connection = DatabaseSetup.setup('orders')
+        cursor = connection.cursor()
+
+        cursor.execute = ("SELECT  \
+        order_headers_table.Order_Id  \
+        users_table.User_Name,  \
+        order_headers_table.Order_Time,  \
+        order_headers_table.Order_Total,  \
+        order_headers_table.Order_Status  \
+        FROM  \
+        users_table  \
+        INNER JOIN order_headers_table ON order_headers_table.User_Id = users_table.User_Id  \
+        WHERE users_table.User_Id = %s",(user_id,))
+
+        query_result = cursor.fetchall()
+
+        cursor.close()
+        connection.close()
+        return query_result
