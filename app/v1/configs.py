@@ -75,9 +75,10 @@ class DatabaseSetup(object):
 
         Order_ItemId        SERIAL PRIMARY KEY,
         Order_Id            INTEGER REFERENCES order_headers_table(Order_Id),
-        Menu_Id             INTEGER REFERENCES menus_table(Menu_Id),
+        Order_ItemName      TEXT NOT NULL,
+        Order_ItemPrice     INTEGER NOT NULL,
         Order_ItemQty       INTEGER NOT NULL,
-        Order_ItemTotal     REAL NOT NULL 
+        Order_ItemTotal     INTEGER NOT NULL
 
         ) """
 

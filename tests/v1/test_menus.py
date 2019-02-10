@@ -51,7 +51,7 @@ def test_menus_get(test_client):
     # Test for no menu items found
     test_response = test_client.get('/v1/menus', headers=token_data)
 
-    assert 'No items found' in json.loads(test_response.data)
+    assert 'No menu items found' in json.loads(test_response.data)['Response']
     assert test_response.status_code == 200
 
 def test_menu_post(test_client):

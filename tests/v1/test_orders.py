@@ -50,18 +50,16 @@ def test_add_order(test_client):
         # Price saved in the HTML meal_price class
         # Qty will be collected from input elements on checkout modal
 
-    order_dict = {"Current_Order": [
-            {
-                "Menu_Id":1, 
-                "Menu_Price":10,
-                "Order_ItemQty":2
-            },
-         
-            {
-                "Menu_Id":2,
-                "Menu_Price":18,
-                "Order_ItemQty":3
-            }
+    order_dict = {"current_order": [
+        
+            {"Order_ItemName":"Chicken breast steak with vegetables",
+            "Order_ItemPrice":15,
+            "Order_ItemQty":2},
+            
+            {"Order_ItemName":"Autumn pumpkin soup",
+            "Order_ItemPrice":10,
+            "Order_ItemQty":3}
+            
         ]
     }
 
@@ -104,7 +102,7 @@ def test_get_order(test_client):
         
     # Fetch the user's orders
     test_response = test_client.get('/v1/users/orders', 
-                                    data=json.dumps(User_Id), content_type='application/json', headers=token_data)
+                                    data=json.dumps(user_id), content_type='application/json', headers=token_data)
 
     # Test that the right user orders have been retireved
     assert test_response.status_code == 200

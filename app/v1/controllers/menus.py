@@ -92,5 +92,5 @@ class Menus(Resource):
             for row in rows_returned:
                 menus.append({'Menu_Id':row[0], 'Menu_Name':row[1], 'Menu_Price':row[2], 'Menu_Availability':row[3]})
             return {'Items found':menus}, 200
-        return {'No items found':menus}, 200
+        return {'Response':'No menu items found'}, 404
         
