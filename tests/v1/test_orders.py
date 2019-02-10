@@ -105,8 +105,8 @@ def test_get_all_order(test_client):
     ''' Tests the GET all orders admin functionality, at the route '/orders '''
 
     # Log a Guest user and test that they can't access this endpoint
-    guest_user = {"User_Email":"chris@jkl.com",
-                "User_Password":"jkl"}
+    guest_user = {"User_Email":"shee@xyz.com",
+                "User_Password":"xyz"}
 
     test_response = test_client.post('/v1/auth/login',
                                      data=json.dumps(guest_user),              content_type='application/json')
@@ -117,7 +117,7 @@ def test_get_all_order(test_client):
     test_response = test_client.get('/v1/orders', headers=token_data)
     
     assert test_response.status_code == 401
-    assert 'This is an admin only feature' in json.loads(test_response.data)                                                         ['Rights Error']
+    assert 'This an admin only function' in json.loads(test_response.data)                                                         ['Rights Error']
 
     # Log in an admin and test for successful orders retrival
     admin_user = {"User_Email":"ken@abc.com",
@@ -147,8 +147,8 @@ def test_get_order_byid(test_client):
     ''' Tests the GET an order admin functionality, at the route '/orders/<orderId> '''
 
     # Log in a 'Guest'
-    guest_user = {"User_Email":"chris@jkl.com",
-                "User_Password":"jkl"}
+    guest_user = {"User_Email":"shee@xyz.com",
+                "User_Password":"xyz"}
 
     test_response = test_client.post('/v1/auth/login',
                                      data=json.dumps(guest_user),              content_type='application/json')
@@ -160,7 +160,7 @@ def test_get_order_byid(test_client):
     test_response = test_client.get('/v1/orders/1', headers=token_data)
     
     assert test_response.status_code == 401
-    assert 'This is an admin only feature' in json.loads(test_response.data)                                                         ['Rights Error']
+    assert 'This an admin only function' in json.loads(test_response.data)                                                         ['Rights Error']
 
     # Create an order for the guest (All orders were dropped in previous test)
     order_dict = {"current_order": [
@@ -198,8 +198,8 @@ def test_get_order_byid(test_client):
 
     # Test for succesful retrival i.e correct order id
     assert test_response.status_code == 200
-    assert "Chris's orders" in json.loads(test_response.data)
-    assert json.loads(test_response.data)["Chris's orders"]
+    assert "Shee's orders" in json.loads(test_response.data)
+    assert json.loads(test_response.data)["Shee's orders"]
 
     # Test for failed retrival
         # No exsisting order
@@ -238,8 +238,8 @@ def test_update_order(test_client):
     ''' Tests the PUT an order admin functionality, at the route '/orders/<orderId> '''
 
     # Log a Guest user and test that they can't access this endpoint
-    guest_user = {"User_Email":"chris@jkl.com",
-                "User_Password":"jkl"}
+    guest_user = {"User_Email":"shee@xyz.com",
+                "User_Password":"xyz"}
 
     test_response = test_client.post('/v1/auth/login',
                                      data=json.dumps(guest_user),              content_type='application/json')
@@ -250,7 +250,7 @@ def test_update_order(test_client):
     test_response = test_client.put('/v1/orders/1', headers=token_data)
     
     assert test_response.status_code == 401
-    assert 'This is an admin only feature' in json.loads(test_response.data)                                                         ['Rights Error']
+    assert 'This an admin only function' in json.loads(test_response.data)                                                         ['Rights Error']
 
     # Log in an 'Admin'
     admin_user = {"User_Email":"ken@abc.com",
@@ -282,6 +282,6 @@ def test_update_order(test_client):
     test_response = test_client.get('/v1/orders/1',                                                              headers=token_data)
 
     assert test_response.status_code == 200
-    assert json.loads(test_response.data)["Chris's orders"]
+    assert json.loads(test_response.data)["Shee's orders"]
     ['OrderStatus'] == 'Processing'
     

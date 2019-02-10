@@ -4,8 +4,8 @@ import datetime
 from flask import request
 from flask_restful import Resource, reqparse
 from flask_jwt_extended import (jwt_required, get_jwt_claims, get_jwt_identity)
-from app.v1.models.orders import UserOrdersModel 
 from app.v1.models.users import UserModel
+from app.v1.models.orders import (UserOrdersModel, AdminOrdersModel)
 
 
 class UserOrders(Resource):
@@ -77,7 +77,7 @@ class UserOrders(Resource):
         order_header.update({'Order_Total':order_total})
         order_header.update({'Order_Status':order_status})
         
-        # Send order data to the database
+        # Persist order data to the database
         UserOrdersModel.insert_order_header(order_header)
         UserOrdersModel.insert_order_listing(final_order_list)
         
@@ -108,7 +108,7 @@ class UserOrders(Resource):
         #         temp_list = []
 
         #         if start_order_id not in orders['OrderId']:
-        #             orders.append({'OrderId':row[0], 'OrderTime':str(row[1]), 'OrderTotal':row[2], 'OrderStatus':row[3]})
+        #             orders.append({'OrderId':row[0], 'OrderTime':str(row[1]),         'OrderTotal':row[2], 'OrderStatus':row[3]})
 
         #         for row in rows_returned:
         #             next_order_id = row[0]
@@ -126,3 +126,41 @@ class UserOrders(Resource):
             
             return {"{}'s orders".format(user_details[1]):orders}, 200
         return {'Response':'No orders found for {}'.format(user_details[1])}, 404
+
+    
+class AdminOrders(Resource):
+    ''' This class manages the Admin orders resource '''
+
+    @jwt_required
+    def get(self):
+        ''' This function handles GET requests to the
+        /v1/orders route and controls retireval of all orders. '''
+    
+        if get_jwt_claims()['User_Type'] != 'Admin':
+                return {'Rights Error':'This an admin only function'}, 401
+
+        orders = []
+        rows_returned = AdminOrdersModel.get_all_orders()
+
+        if rows_returned:
+            for row in rows_returned:
+                orders.append({'OrderId':row[0], 'UserName':row[1],'OrderTime':str(row[2]), 'OrderItemTotal':row[3], 'OrderStatus':row[4]})
+
+            return {'Orders found':orders}, 200
+        return {'Response':'No orders items found'}, 404
+
+
+class AdminOrder(Resource):
+    ''' This class manages the Admin order resource '''
+
+    @jwt_required
+    def get(self, order_id):
+            ''' This function handles GET requests to the
+    /v1/orders/<order_id> route and controls retireval of an order by order_id.'''
+    pass
+
+    @jwt_required
+    def put(self, order_id):
+            ''' This function handles PUT requests to the
+    /v1/orders/<order_id> route and controls the updating of an order status. '''
+    pass
