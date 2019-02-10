@@ -106,3 +106,24 @@ class AdminOrdersModel(object):
         cursor.close()
         connection.close()
         return query_result
+
+    @classmethod
+    def get_one_order_byid(cls, order_id):
+        ''' Retrieves an order by it's id '''
+
+        connection = DatabaseSetup.setup('orders')
+        cursor = connection.cursor()
+
+        cursor.execute(
+            "SELECT \
+               order_listing_table.Order_ItemName, order_listing_table.Order_ItemPrice, order_listing_table.Order_ItemQty, order_listing_table.Order_ItemTotal \
+            FROM order_headers_table \
+            INNER JOIN order_listing_table \
+            ON order_listing_table.Order_Id=order_headers_table.Order_Id \
+            WHERE order_headers_table.Order_Id=%s", (order_id,))
+
+        query_result = cursor.fetchall()
+
+        cursor.close()
+        connection.close()
+        return query_result
