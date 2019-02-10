@@ -101,29 +101,6 @@ class UserOrders(Resource):
             for row in rows_returned:
                 orders.append({'OrderId':row[0], 'OrderTime':str(row[1]), 'OrderItemTotal':row[8], 'OrderStatus':row[3], 'OrderItem':row[4], 'OrderItemPrice':row[5], 'OrderItemQty':row[6], 'OrderTotal':row[2]})
 
-        #     row_counter = 0
-
-        #     for row in rows_returned:
-        #         start_order_id = row[0]
-        #         temp_list = []
-
-        #         if start_order_id not in orders['OrderId']:
-        #             orders.append({'OrderId':row[0], 'OrderTime':str(row[1]),         'OrderTotal':row[2], 'OrderStatus':row[3]})
-
-        #         for row in rows_returned:
-        #             next_order_id = row[0]
-        #             temp_dict = {}
-
-        #             if row_counter > row[7] or start_order_id != next_order_id:
-        #                 break
-
-        #             temp_dict.update({'OrderItem':row[4],                                        'OrderItemPrice':row[5],                                    'OrderItemQty':row[6]})
-
-        #             temp_list.append(temp_dict)
-        #             row_counter +=1
-                    
-        #         orders.append({'Order {} listing'.format(start_order_id)                  :temp_list})    
-            
             return {"{}'s orders".format(user_details[1]):orders}, 200
         return {'Response':'No orders found for {}'.format(user_details[1])}, 404
 
@@ -144,7 +121,7 @@ class AdminOrders(Resource):
 
         if rows_returned:
             for row in rows_returned:
-                orders.append({'OrderId':row[0], 'UserName':row[1],'OrderTime':str(row[2]), 'OrderItemTotal':row[3], 'OrderStatus':row[4]})
+                orders.append({'OrderId':row[0], 'UserName':row[1], 'OrderTime':str(row[2]), 'OrderItemTotal':row[3], 'OrderStatus':row[4]})
 
             return {'Orders found':orders}, 200
         return {'Response':'No orders items found'}, 404
@@ -165,14 +142,12 @@ class AdminOrder(Resource):
         if get_jwt_claims()['User_Type'] != 'Admin':
             return {'Rights Error':'This an admin only function'}, 401
         
-        #TODO: Check arguments in url for type and blank
-        
         rows_returned = AdminOrdersModel.get_one_order_byid(order_id)
         order = []
 
         if rows_returned:
             for row in rows_returned:
-                order.append({'OrderItemName':row[0], 'OrderItemPrice':row[1],'OrderItemQty':row[2], 'OrderItemTotal':row[3]})
+                order.append({'OrderItemName':row[0], 'OrderItemPrice':row[1], 'OrderItemQty':row[2], 'OrderItemTotal':row[3]})
 
             return {'Order # {} found'.format(order_id):order}, 200
         return {'Response':'Order # {} does not exist!'.format(order_id)}, 404

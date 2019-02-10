@@ -5,7 +5,7 @@ from flask import Flask
 from flask_restful import Api
 from flask_jwt_extended import JWTManager
 from app.v1.models.users import UserModel
-from app.v1.controllers.users import (UserRegistration, UserUpdate, UserLogin,                                        UserLogout)
+from app.v1.controllers.users import (UserRegistration, UserUpdate, UserLogin, UserLogout)
 from app.v1.controllers.menus import Menus, AddMenu, MenuMgt
 from app.v1.controllers.orders import UserOrders, AdminOrders, AdminOrder 
 

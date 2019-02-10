@@ -138,7 +138,7 @@ class AdminOrdersModel(object):
         edit_order_query = """ UPDATE order_headers_table SET
                           Order_Status=%s WHERE Order_Id=%s """
 
-        cursor.execute(edit_order_query, (update_data['update_status'],                        update_data['order_id']))
+        cursor.execute(edit_order_query, (update_data['update_status'], update_data['order_id']))
 
         connection.commit()
         cursor.close()
