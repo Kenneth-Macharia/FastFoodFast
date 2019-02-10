@@ -69,16 +69,15 @@ class UserOrdersModel(object):
         connection = DatabaseSetup.setup('orders')
         cursor = connection.cursor()
 
-        cursor.execute("SELECT order_headers_table.Order_Id, order_headers_table.Order_Time, order_headers_table.Order_Total,order_headers_table.Order_Status, order_listing_table.Order_ItemName, order_listing_table.Order_ItemPrice, order_listing_table.Order_ItemQty,order_listing_table.Order_ItemId \
+        cursor.execute("SELECT order_headers_table.Order_Id, order_headers_table.Order_Time, order_headers_table.Order_Total,order_headers_table.Order_Status, order_listing_table.Order_ItemName, order_listing_table.Order_ItemPrice, order_listing_table.Order_ItemQty,order_listing_table.Order_ItemId, order_listing_table.Order_ItemTotal \
         FROM order_headers_table \
         INNER JOIN order_listing_table \
         ON order_listing_table.Order_Id=order_headers_table.Order_Id \
-        WHERE order_headers_table.User_Id=%s",(user_id,))
+        WHERE order_headers_table.User_Id=%s", (user_id,))
 
         query_result = cursor.fetchall()
 
         cursor.close()
         connection.close()
         return query_result
-
         

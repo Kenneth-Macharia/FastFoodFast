@@ -52,7 +52,7 @@ def test_menus_get(test_client):
     test_response = test_client.get('/v1/menus', headers=token_data)
 
     assert 'No menu items found' in json.loads(test_response.data)['Response']
-    assert test_response.status_code == 200
+    assert test_response.status_code == 404
 
 def test_menu_post(test_client):
     ''' Tests the menus POST '/v1/menu' test endpoint '''
@@ -132,6 +132,6 @@ def test_menu_delete(test_client):
 
     # Test DELETE effect
     test_response = test_client.get('/v1/menus', headers=token_data)
-    assert 'No items found' in json.loads(test_response.data)
-    assert test_response.status_code == 200
+    assert 'No menu items found' in json.loads(test_response.data)['Response']
+    assert test_response.status_code == 404
     

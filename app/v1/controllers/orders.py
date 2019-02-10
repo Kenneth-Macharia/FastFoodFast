@@ -1,7 +1,7 @@
 ''' This module defines the menu resources exposed by the API '''
 
 import datetime
-from flask import request, json
+from flask import request
 from flask_restful import Resource, reqparse
 from flask_jwt_extended import (jwt_required, get_jwt_claims, get_jwt_identity)
 from app.v1.models.orders import UserOrdersModel 
@@ -47,7 +47,7 @@ class UserOrders(Resource):
             item_dict.update({'Order_ItemPrice':item['Order_ItemPrice']})
             item_dict.update({'Order_ItemQty':item['Order_ItemQty']})
             item_dict.update({'Order_ItemTotal':int(item['Order_ItemPrice'])*
-                             int(item['Order_ItemQty'])})
+                                                int(item['Order_ItemQty'])})
 
             final_order_list.append(item_dict)
             item_dict = {}
@@ -94,46 +94,35 @@ class UserOrders(Resource):
         user_email = get_jwt_identity()
         user_details = UserModel.find_user_by_user_email(user_email)
         rows_returned = UserOrdersModel.get_user_orders(user_details[0])
+        orders = []
 
         if rows_returned:
-            orders = []
 
             for row in rows_returned:
-                start_order_id = row[0]
-                temp_list = []
+                orders.append({'OrderId':row[0], 'OrderTime':str(row[1]), 'OrderItemTotal':row[8], 'OrderStatus':row[3], 'OrderItem':row[4], 'OrderItemPrice':row[5], 'OrderItemQty':row[6], 'OrderTotal':row[2]})
 
-                if start_order_id not in orders['OrderId']:
-                    orders.append({'OrderId':row[0], 'OrderTime':str(row[1]), 'OrderTotal':row[2], 'OrderStatus':row[3]})
+        #     row_counter = 0
 
-                for row in rows_returned:
-                    next_order_id = row[0]
-                    temp_dict = {}
+        #     for row in rows_returned:
+        #         start_order_id = row[0]
+        #         temp_list = []
 
-                    if next_order_id != start_order_id and :
-                        start_order_id = next_order_id
-                        break
+        #         if start_order_id not in orders['OrderId']:
+        #             orders.append({'OrderId':row[0], 'OrderTime':str(row[1]), 'OrderTotal':row[2], 'OrderStatus':row[3]})
 
-                    temp_dict.update({'OrderItem':row[4],                                        'OrderItemPrice':row[5],                                    'OrderItemQty':row[6]})
+        #         for row in rows_returned:
+        #             next_order_id = row[0]
+        #             temp_dict = {}
 
-                    temp_list.append(temp_dict)
+        #             if row_counter > row[7] or start_order_id != next_order_id:
+        #                 break
+
+        #             temp_dict.update({'OrderItem':row[4],                                        'OrderItemPrice':row[5],                                    'OrderItemQty':row[6]})
+
+        #             temp_list.append(temp_dict)
+        #             row_counter +=1
                     
-                orders.append({'Order {} listing'.format(start_order_id)                  :temp_list})
-                    
-                                 
-                
-
+        #         orders.append({'Order {} listing'.format(start_order_id)                  :temp_list})    
+            
             return {"{}'s orders".format(user_details[1]):orders}, 200
-        return {'Response':'No orders found for {}'.format(user_details[1])},           404
-        
-
-class UserOrdersList(Resource):
-    ''' This class manages the User orders list resource '''
-
-    @jwt_required
-    def get(self):
-        ''' This function handles GET requests to the
-        /v1/users/orders/list route and controls retireval of a user order listing. '''
-
-        if get_jwt_claims()['User_Type'] == 'Admin':
-            return {'Rights Error':'This is a Guest only feature'}, 401
-        pass
+        return {'Response':'No orders found for {}'.format(user_details[1])}, 404

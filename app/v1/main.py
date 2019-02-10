@@ -7,7 +7,7 @@ from flask_jwt_extended import JWTManager
 from app.v1.models.users import UserModel
 from app.v1.controllers.users import UserRegistration, UserUpdate, UserLogin, UserLogout
 from app.v1.controllers.menus import Menus, AddMenu, MenuMgt
-from app.v1.controllers.orders import UserOrders, UserOrdersList
+from app.v1.controllers.orders import UserOrders
 
 SECRET = os.getenv('SECRET')
 if not SECRET:
@@ -47,4 +47,3 @@ api.add_resource(AddMenu, '/v1/menu')
 api.add_resource(MenuMgt, '/v1/menu/<int:menu_id>')
 api.add_resource(Menus, '/v1/menus')
 api.add_resource(UserOrders, '/v1/users/orders')
-api.add_resource(UserOrdersList, '/v1/users/orders/list')

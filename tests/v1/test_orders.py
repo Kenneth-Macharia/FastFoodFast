@@ -96,14 +96,11 @@ def test_get_order(test_client):
 
     assert test_response.status_code == 200
     token_data = dict(Authorization="Bearer " + json.loads(test_response.data)                    ["Access_token"])
-    
-    # User id to retrieve orders for
-    user_id = json.loads(test_response.data)['User-found']['User_Id']
         
     # Fetch the user's orders
     test_response = test_client.get('/v1/users/orders', 
-                                    data=json.dumps(user_id), content_type='application/json', headers=token_data)
+                                    content_type='application/json', headers=token_data)
 
     # Test that the right user orders have been retireved
     assert test_response.status_code == 200
-    assert 'Shee' in json.loads(test_response.data)['User_Name']
+    assert "Shee's orders" in json.loads(test_response.data)

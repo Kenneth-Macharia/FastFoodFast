@@ -2,7 +2,8 @@
 
 from flask_restful import Resource, reqparse
 from flask_jwt_extended import (create_access_token,
-get_raw_jwt, jwt_required, get_jwt_claims)
+                                get_raw_jwt, jwt_required,
+                                get_jwt_claims)
 from ..models.users import UserModel
 
 
