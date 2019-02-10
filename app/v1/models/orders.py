@@ -127,3 +127,19 @@ class AdminOrdersModel(object):
         cursor.close()
         connection.close()
         return query_result
+
+    @classmethod
+    def update_order(cls, update_data):
+        ''' Updates the order status defined by the order id inputed '''
+
+        connection = DatabaseSetup.setup('orders')
+        cursor = connection.cursor()
+
+        edit_order_query = """ UPDATE order_headers_table SET
+                          Order_Status=%s WHERE Order_Id=%s """
+
+        cursor.execute(edit_order_query, (update_data['update_status'],                        update_data['order_id']))
+
+        connection.commit()
+        cursor.close()
+        connection.close()

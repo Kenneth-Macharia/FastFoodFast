@@ -219,9 +219,9 @@ def test_update_order(test_client):
                                      data=json.dumps(guest_user),              content_type='application/json')
 
     assert test_response.status_code == 200
-    token_data = dict(Authorization="Bearer " + json.loads(test_response.data)                    ["Access_token"])
+    token_data_guest = dict(Authorization="Bearer " + json.loads(test_response.data)                    ["Access_token"])
     
-    test_response = test_client.put('/v1/orders/1', headers=token_data)
+    test_response = test_client.put('/v1/orders/1', headers=token_data_guest)
     
     assert test_response.status_code == 401
     assert 'This an admin only function' in json.loads(test_response.data)                                                         ['Rights Error']
@@ -234,28 +234,28 @@ def test_update_order(test_client):
                                      data=json.dumps(admin_user),              content_type='application/json')
 
     assert test_response.status_code == 200
-    token_data = dict(Authorization="Bearer " + json.loads(test_response.data)                    ["Access_token"])
+    token_data_admin = dict(Authorization="Bearer " + json.loads(test_response.data)                    ["Access_token"])
 
     # Test new orders have the default 'New' status
-    test_response = test_client.get('/v1/orders/1',                                                              headers=token_data)
+    test_response = test_client.get('/v1/users/orders',                                                         headers=token_data_guest)
 
     assert test_response.status_code == 200
-    assert json.loads(test_response.data)["Chris's orders"]
+    assert json.loads(test_response.data)["Shee's orders"][0]
     ['OrderStatus'] == 'New'
 
     # Test for succesful order status update from the default 'New' to 'Processing'
     # This feature will be via input buttons thus an invalid status can't be set
     # Check that a status value has been supplied will also be enforced by the button status, one of the buttons must be selected by default.
-    status_update = 'Processing'
-    test_response = test_client.put('/v1/orders/1', headers=token_data,                                         data=json.dumps(status_update),                                             content_type='application/json')
+    status_update = {"Order_Status":"Processing"}
+    test_response = test_client.put('/v1/orders/1', headers=token_data_admin,                                    data=json.dumps(status_update),                                             content_type='application/json')
 
     assert test_response.status_code == 200
     assert 'Order updated' in json.loads(test_response.data)['Response']
 
     # Test update effect
-    test_response = test_client.get('/v1/orders/1',                                                              headers=token_data)
+    test_response = test_client.get('/v1/users/orders',                                                          headers=token_data_guest)
 
     assert test_response.status_code == 200
-    assert json.loads(test_response.data)["Shee's orders"]
+    assert json.loads(test_response.data)["Shee's orders"][0]
     ['OrderStatus'] == 'Processing'
     

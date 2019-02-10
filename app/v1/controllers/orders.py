@@ -154,8 +154,8 @@ class AdminOrder(Resource):
     ''' This class manages the Admin order resource '''
 
     parser = reqparse.RequestParser()
-    parser.add_argument('Menu_Name', type=str, required=True,
-                                    help='This field cant be left blank!')
+    parser.add_argument('Order_Status', type=str, required=True,
+                        help='This field cant be left blank!')
 
     @jwt_required
     def get(self, order_id):
@@ -181,4 +181,13 @@ class AdminOrder(Resource):
     def put(self, order_id):
         ''' This function handles PUT requests to the
         /v1/orders/<order_id> route and controls the updating of an order status. '''
-        pass
+        
+        if get_jwt_claims()['User_Type'] != 'Admin':
+            return {'Rights Error':'This an admin only function'}, 401
+
+        status_update = AdminOrder.parser.parse_args()['Order_Status']
+
+        order_update_data = {'order_id':order_id, 'update_status':status_update}
+
+        AdminOrdersModel.update_order(order_update_data)
+        return {'Response':'Order updated'}, 200
