@@ -81,7 +81,6 @@ def test_add_order(test_client):
     assert test_response.status_code == 401
     assert 'Only Guest users can place orders' in json.loads(test_response.data)['Rights Error']
 
-
 def test_get_order(test_client):
     ''' Tests the GET user order functionality, at the route '/user/orders '''
 
@@ -101,11 +100,16 @@ def test_get_order(test_client):
     assert test_response.status_code == 200
     assert "Shee's orders" in json.loads(test_response.data)
 
+    # Test no user order found
+    drop_tables('orders')
+    test_response = test_client.get('/v1/users/orders', headers=token_data)
+    assert test_response.status_code == 404
+    assert "No orders found for Shee" in json.loads(test_response.data)['Response']
 
 def test_get_all_order(test_client):
     ''' Tests the GET all orders admin functionality, at the route '/orders '''
 
-    # Log a Guest user and test that they can't access this endpoint
+    # Log a Guest user
     guest_user = {"User_Email":"shee@xyz.com",
                   "User_Password":"xyz"}
 
@@ -114,6 +118,25 @@ def test_get_all_order(test_client):
     assert test_response.status_code == 200
     token_data = dict(Authorization="Bearer " + json.loads(test_response.data)["Access_token"])
     
+    # Create an order for the guest (All orders were dropped in previous test)
+    order_dict = {"current_order": [
+
+        {"Order_ItemName":"Chicken breast steak with vegetables",
+         "Order_ItemPrice":15,
+         "Order_ItemQty":2},
+                
+        {"Order_ItemName":"Autumn pumpkin soup",
+         "Order_ItemPrice":10,
+         "Order_ItemQty":3}
+            
+                                   ]
+                 }
+
+    test_response = test_client.post('/v1/users/orders', data=json.dumps(order_dict), headers=token_data, content_type='application/json')
+
+    assert test_response.status_code == 201
+
+    # Test that they can't access this endpoint
     test_response = test_client.get('/v1/orders', headers=token_data)
     
     assert test_response.status_code == 401
