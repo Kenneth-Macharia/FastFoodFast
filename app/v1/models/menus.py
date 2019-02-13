@@ -58,7 +58,7 @@ class MenuModel(object):
             MenuModel.cursor.execute(new_menu_query, new_menu_data)
             MenuModel.connection.commit()
         except:
-            return ("Menu item appears to already exist, check the menu details")
+            return "Menu item appears to already exist, check the menu details"
         
         MenuModel._destroy()
 
@@ -72,8 +72,8 @@ class MenuModel(object):
                           Menu_Availability=%s WHERE Menu_Id=%s """
 
         MenuModel.cursor.execute(edit_menu_query,
-                       (menu_to_update['Menu_Availability'],
-                        menu_to_update['Menu_Id']))
+                                 (menu_to_update['Menu_Availability'],
+                                  menu_to_update['Menu_Id']))
 
         MenuModel.connection.commit()
         MenuModel._destroy()

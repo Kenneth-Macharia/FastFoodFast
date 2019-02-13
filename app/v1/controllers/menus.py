@@ -39,7 +39,7 @@ class AddMenu(Resource):
         response = MenuModel.insert_menu(menu_to_add)
 
         if response:
-             return {'Response':{'Failure':response}}, 400
+            return {'Response':{'Failure':response}}, 400
         return {'Response':{'Success':'Menu item succesfully added'}}, 201
 
 

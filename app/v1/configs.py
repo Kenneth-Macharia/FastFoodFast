@@ -18,11 +18,11 @@ class DatabaseSetup(object):
 
         try:
             connection = psycopg2.connect(user=db_user,
-                                        password=db_password,
-                                        host=db_host,
-                                        database=db_name,
-                                        port="5432")
-        except:
+                                          password=db_password,
+                                          host=db_host,
+                                          database=db_name,
+                                          port="5432")
+        except RuntimeError:
             exit("Could not connect to the database, check the connection configurations")
         return connection
 
@@ -94,4 +94,5 @@ class DatabaseSetup(object):
         elif request_type == 'orders':
             cursor.execute(create_order_headers_table)
             cursor.execute(create_order_listing_table)
+            
         connection.commit()

@@ -81,8 +81,8 @@ class UserModel(object):
                           User_Type=%s WHERE User_Email=%s """
 
         UserModel.cursor.execute(edit_user_query,
-                       (user_to_update['User_Type'],
-                        user_to_update['User_Email']))
+                                 (user_to_update['User_Type'],
+                                  user_to_update['User_Email']))
 
         UserModel.connection.commit()
         UserModel._destroy()

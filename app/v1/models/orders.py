@@ -55,7 +55,7 @@ class UserOrdersModel(object):
                                  new_order_header['Order_Total'],
                                  new_order_header['Order_Status'])
 
-        UserOrdersModel.cursor.execute(new_order_header_query,                                                 new_order_header_data)
+        UserOrdersModel.cursor.execute(new_order_header_query, new_order_header_data)
 
         UserOrdersModel.connection.commit()
         UserOrdersModel._destroy()
@@ -72,7 +72,7 @@ class UserOrdersModel(object):
                                   %(Order_ItemPrice)s, %(Order_ItemQty)s, 
                                   %(Order_ItemTotal)s); """
 
-        UserOrdersModel.cursor.executemany(new_order_listing_query,                                                new_order_list)
+        UserOrdersModel.cursor.executemany(new_order_listing_query, new_order_list)
 
         UserOrdersModel.connection.commit()
         UserOrdersModel._destroy()

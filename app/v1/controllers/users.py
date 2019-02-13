@@ -33,8 +33,8 @@ class UserRegistration(Resource):
 
             UserModel.insert_user(user_to_add)
 
-            return {'Response':{'Success':'Succesfully signed up {}'.format             (json_payload['User_Name'])}}, 201
-        return {'Response':{'Failure':'{} is already registered'.format                 (json_payload['User_Email'])}}, 400
+            return {'Response':{'Success':'Succesfully signed up {}'.format(json_payload['User_Name'])}}, 201
+        return {'Response':{'Failure':'{} is already registered'.format(json_payload['User_Email'])}}, 400
 
 
 class UserUpdate(Resource):

@@ -25,16 +25,6 @@ def login_helper(test_client):
 
     token_data = dict(Authorization="Bearer " + json.loads(test_response.data)["Access_token"])
 
-    # Attempt to access any of the menu functions as a 'Guest' user
-        # POST menu
-
-        # GET menus
-
-        # PUT menu
-
-        # DELETE menu
-    
-
     # Upgrade new user to 'Admin' status
     user_to_update = {"User_Email":"ken@abc.com", "User_Type":"Admin"}
 

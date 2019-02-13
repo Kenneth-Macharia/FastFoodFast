@@ -19,11 +19,11 @@ class UserOrders(Resource):
         /v1/users/orders route and controls creation of a user order. '''
 
         if get_jwt_claims()['User_Type'] == 'Admin':
-            return {'Response':{'Failure':'Only Guest users can place orders'}},        401
+            return {'Response':{'Failure':'Only Guest users can place orders'}}, 401
 
         # Get the order details
         request_data = request.get_json()
-
+        
         if 'current_order' not in request_data.keys():
             return {'Response':{'Failure':'Missing order details'}}, 400
             
@@ -51,7 +51,7 @@ class UserOrders(Resource):
             item_dict.update({'Order_ItemQty':item['Order_ItemQty']})
 
             current_item_total = (int(item['Order_ItemPrice'])*
-                                 int(item['Order_ItemQty']))
+                                  int(item['Order_ItemQty']))
 
             item_dict.update({'Order_ItemTotal':current_item_total})
 
@@ -92,7 +92,7 @@ class UserOrders(Resource):
         /v1/users/orders route and controls retireval of a user order. '''
 
         if get_jwt_claims()['User_Type'] == 'Admin':
-            return {'Response':{'Failure':'Only Guest users can place orders'}},        401
+            return {'Response':{'Failure':'Only Guest users can place orders'}}, 401
 
         user_email = get_jwt_identity()
         user_details = UserModel.find_user_by_user_email(user_email)
@@ -117,7 +117,7 @@ class AdminOrders(Resource):
         /v1/orders route and controls retireval of all orders. '''
     
         if get_jwt_claims()['User_Type'] != 'Admin':
-                return {'Response':{'Failure':'This an admin only function'}},          401
+                return {'Response':{'Failure':'This an admin only function'}}, 401
 
         orders = []
         rows_returned = AdminOrdersModel.get_all_orders()
@@ -143,7 +143,7 @@ class AdminOrder(Resource):
         /v1/orders/<order_id> route and controls retireval of an order by order_id.'''
 
         if get_jwt_claims()['User_Type'] != 'Admin':
-            return {'Response':{'Failure':'This an admin only function'}},          401
+            return {'Response':{'Failure':'This an admin only function'}}, 401
         
         rows_returned = AdminOrdersModel.get_one_order_byid(order_id)
         order = []
@@ -161,7 +161,7 @@ class AdminOrder(Resource):
         /v1/orders/<order_id> route and controls the updating of an order status. '''
         
         if get_jwt_claims()['User_Type'] != 'Admin':
-            return {'Response':{'Failure':'This an admin only function'}},          401
+            return {'Response':{'Failure':'This an admin only function'}}, 401
 
         elif not AdminOrdersModel.get_one_order_byid(order_id):
             return {'Response':{'Failure':'Order not found'}}, 404
