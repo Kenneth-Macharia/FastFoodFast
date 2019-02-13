@@ -3,7 +3,7 @@
 from flask_restful import Resource, reqparse
 from flask_jwt_extended import (create_access_token,
                                 get_raw_jwt, jwt_required,
-                                get_jwt_claims)
+                                get_jwt_claims, get_jwt_identity)
 from ..models.users import UserModel
 
 
@@ -33,8 +33,8 @@ class UserRegistration(Resource):
 
             UserModel.insert_user(user_to_add)
 
-            return {'Response':'Succesfully signed up'}, 201
-        return {'Response':'You are already registered'}, 400
+            return {'Response':{'Success':'Succesfully signed up {}'.format             (json_payload['User_Name'])}}, 201
+        return {'Response':{'Failure':'{} is already registered'.format                 (json_payload['User_Email'])}}, 400
 
 
 class UserUpdate(Resource):
@@ -53,24 +53,24 @@ class UserUpdate(Resource):
         '/auth/signup' route for updating user privileges '''
 
         if get_jwt_claims()['User_Type'] != 'Admin' and UserModel.check_if_admin_exists():
-            return {'Rights Error':'This an admin only function'}, 401
+            return {'Response':{'Failure':'This an admin only function'}}, 401
 
         valid_user_types = ['Admin', 'Guest']
         json_payload = UserUpdate.parser.parse_args()
 
         if json_payload['User_Type'] not in valid_user_types:
-            message = 'Invalid user type'
+            message = {'Failure':'Invalid user type'}
             code = 400
 
         elif not UserModel.find_user_by_user_email(json_payload['User_Email']):
-            message = '{} not found, check and try again'.format(json_payload['User_Email'])
+            message = {'Failure':'{} not found, check and try again'.format(json_payload['User_Email'])}
             code = 404
         
         else:
             user_to_update = {'User_Email':json_payload['User_Email'],
                               'User_Type':json_payload['User_Type']}
             UserModel.update_user(user_to_update)
-            message = 'User updated'
+            message = {'Success':'User updated'}
             code = 200
 
         return {'Response': message}, code
@@ -93,12 +93,12 @@ class UserLogin(Resource):
         current_user = UserModel.find_user_by_user_email(json_payload['User_Email'])
 
         if not current_user:
-            message = '{} not found, please sign up'.format(json_payload['User_Email'])
+            message = {'Failure':'{} not found, please sign up'.format(json_payload['User_Email'])}
             code = 404
             access_token = ''
             
         elif not UserModel.verify_hash(json_payload['User_Password'], current_user[2]):
-            message = 'Password is incorrect, try again'
+            message = {'Failure':'Password is incorrect, try again'}
             code = 400
             access_token = ''
         
@@ -108,7 +108,7 @@ class UserLogin(Resource):
 
             # Generate an access token for the authenticated user, used as follows: 'Bearer <JWT>'
             access_token = create_access_token(user)
-            message = 'Succesfully signed in'
+            message = {'Success':'Succesfully signed in {}'.format(current_user[1])}
             code = 200
 
         return {'Response': message,
@@ -123,7 +123,8 @@ class UserLogout(Resource):
         ''' This function handles POST requests to the
         '/auth/logout' route and logs out a user by blacklisting their token '''
 
+        current_user = UserModel.find_user_by_user_email(get_jwt_identity())
         jti = get_raw_jwt()['jti']
         UserModel.add_blacklisted_token(jti)
 
-        return {'Response': 'Succesfully signed out'}, 200
+        return {'Response':{'Success':'Succesfully signed out {}'.format(current_user[1])}}, 200

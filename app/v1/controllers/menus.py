@@ -16,7 +16,7 @@ class AddMenu(Resource):
         '/menu'route and controls creation of a new menu. '''
 
         if get_jwt_claims()['User_Type'] != 'Admin':
-            return {'Rights Error':'This an admin only function'}, 401
+            return {'Response':{'Failure':'This an admin only function'}}, 401
 
         AddMenu.parser.add_argument('Menu_Name', type=str, required=True,
                                     help='This field cant be left blank!')
@@ -36,8 +36,11 @@ class AddMenu(Resource):
                        'Menu_Price':json_payload['Menu_Price'],
                        'Menu_Availability':'Unavailable'}
 
-        MenuModel.insert_menu(menu_to_add)
-        return {'Response':'Menu item succesfully added'}, 201
+        response = MenuModel.insert_menu(menu_to_add)
+
+        if response:
+             return {'Response':{'Failure':response}}, 400
+        return {'Response':{'Success':'Menu item succesfully added'}}, 201
 
 
 class MenuMgt(Resource):
@@ -51,7 +54,10 @@ class MenuMgt(Resource):
         route '''
 
         if get_jwt_claims()['User_Type'] != 'Admin':
-            return {'Rights Error':'This an admin only function'}, 401
+            return {'Response':{'Failure':'This an admin only function'}}, 401
+
+        elif not MenuModel.find_menu_byid(menu_id):
+            return {'Response':{'Failure':'Menu item not found'}}, 404
 
         MenuMgt.parser.add_argument('Menu_Availability', type=str,
                                     required=True, help='This field cant be left blank!')
@@ -62,17 +68,20 @@ class MenuMgt(Resource):
                           'Menu_Availability':json_payload['Menu_Availability']}
 
         MenuModel.update_menu(menu_to_update)
-        return {'Response':'Menu item updated'}, 200
+        return {'Response':{'Success':'Menu item updated'}}, 200
 
     @jwt_required
     def delete(self, menu_id):
         ''' This function handles DELETE requests to the '/api_v1/menu/<Menu_Id>' route '''
 
         if get_jwt_claims()['User_Type'] != 'Admin':
-            return {'Rights Error':'This an admin only function'}, 401
+            return {'Response':{'Failure':'This an admin only function'}}, 401
+
+        elif not MenuModel.find_menu_byid(menu_id):
+            return {'Response':{'Failure':'Menu item not found'}}, 404
 
         MenuModel.delete_menu(menu_id)
-        return {'Response':'Menu item deleted'}, 200
+        return {'Response':{'Success':'Menu item deleted'}}, 200
 
 
 class Menus(Resource):
@@ -83,7 +92,7 @@ class Menus(Resource):
         ''' This function handles GET all requests to the '/menus' route '''
 
         if get_jwt_claims()['User_Type'] != 'Admin':
-            return {'Rights Error':'This an admin only function'}, 401
+            return {'Response':{'Failure':'This an admin only function'}}, 401
 
         menus = []
         rows_returned = MenusModel.all_menu_items()
@@ -91,6 +100,6 @@ class Menus(Resource):
         if rows_returned:
             for row in rows_returned:
                 menus.append({'Menu_Id':row[0], 'Menu_Name':row[1], 'Menu_Price':row[2], 'Menu_Availability':row[3]})
-            return {'Items found':menus}, 200
-        return {'Response':'No menu items found'}, 404
+            return {'Response':{'Success':menus}}, 200
+        return {'Response':{'Success':'No menu items found'}}, 200
         

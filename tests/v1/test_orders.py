@@ -65,7 +65,7 @@ def test_add_order(test_client):
     test_response = test_client.post('/v1/users/orders', data=json.dumps(order_dict), headers=token_data_guest, content_type='application/json')
 
     assert test_response.status_code == 201
-    assert 'Order succesfully added' in json.loads(test_response.data)['Response']
+    assert 'Order succesfully added' in json.loads(test_response.data)['Response']['Success']
 
         # Test for no order details
     order_dict_2 = {}
@@ -73,13 +73,13 @@ def test_add_order(test_client):
     test_response = test_client.post('/v1/users/orders', data=json.dumps(order_dict_2), headers=token_data_guest, content_type='application/json')
 
     assert test_response.status_code == 400
-    assert 'Missing order details' in json.loads(test_response.data)['Response']
+    assert 'Missing order details' in json.loads(test_response.data)['Response']['Failure']
 
         # Test an admin can't place an order
     test_response = test_client.post('/v1/users/orders', data=json.dumps(order_dict), headers=token_data_admim, content_type='application/json')
 
     assert test_response.status_code == 401
-    assert 'Only Guest users can place orders' in json.loads(test_response.data)['Rights Error']
+    assert 'Only Guest users can place orders' in json.loads(test_response.data)['Response']['Failure']
 
 def test_get_order(test_client):
     ''' Tests the GET user order functionality, at the route '/user/orders '''
@@ -98,13 +98,13 @@ def test_get_order(test_client):
 
     # Test that the right user orders have been retireved
     assert test_response.status_code == 200
-    assert "Shee's orders" in json.loads(test_response.data)
+    assert "Shee's orders" in json.loads(test_response.data)['Response']['Success']
 
     # Test no user order found
     drop_tables('orders')
     test_response = test_client.get('/v1/users/orders', headers=token_data)
-    assert test_response.status_code == 404
-    assert "No orders found for Shee" in json.loads(test_response.data)['Response']
+    assert test_response.status_code == 200
+    assert "No orders found for Shee" in json.loads(test_response.data)['Response']['Success']
 
 def test_get_all_order(test_client):
     ''' Tests the GET all orders admin functionality, at the route '/orders '''
@@ -140,7 +140,7 @@ def test_get_all_order(test_client):
     test_response = test_client.get('/v1/orders', headers=token_data)
     
     assert test_response.status_code == 401
-    assert 'This an admin only function' in json.loads(test_response.data)['Rights Error']
+    assert 'This an admin only function' in json.loads(test_response.data)['Response']['Failure']
 
     # Log in an admin and test for successful orders retrival
     admin_user = {"User_Email":"ken@abc.com",
@@ -154,16 +154,16 @@ def test_get_all_order(test_client):
     test_response = test_client.get('/v1/orders', headers=token_data)
 
     assert test_response.status_code == 200
-    assert 'Orders found' in json.loads(test_response.data)
+    assert 'Orders found' in json.loads(test_response.data)['Response']['Success']
         # Check respsonse list is not empty
-    assert json.loads(test_response.data)['Orders found']
+    assert json.loads(test_response.data)['Response']['Success']['Orders found']
 
     # Test for no orders found
     drop_tables('orders')
 
     test_response = test_client.get('/v1/orders', headers=token_data)
-    assert test_response.status_code == 404
-    assert 'No orders items found' in json.loads(test_response.data)['Response']
+    assert test_response.status_code == 200
+    assert 'No orders items found' in json.loads(test_response.data)['Response']['Success']
 
 def test_get_order_byid(test_client):
     ''' Tests the GET an order admin functionality, at the route '/orders/<orderId> '''
@@ -181,7 +181,7 @@ def test_get_order_byid(test_client):
     test_response = test_client.get('/v1/orders/1', headers=token_data)
     
     assert test_response.status_code == 401
-    assert 'This an admin only function' in json.loads(test_response.data)['Rights Error']
+    assert 'This an admin only function' in json.loads(test_response.data)['Response']['Failure']
 
     # Create an order for the guest (All orders were dropped in previous test)
     order_dict = {"current_order": [
@@ -217,8 +217,8 @@ def test_get_order_byid(test_client):
 
     # Test for succesful retrival i.e correct order id
     assert test_response.status_code == 200
-    assert "Order # 1 found" in json.loads(test_response.data)
-    assert json.loads(test_response.data)["Order # 1 found"]
+    assert "Order # 1 found" in json.loads(test_response.data)['Response']['Success']
+    assert json.loads(test_response.data)['Response']['Success']["Order # 1 found"]
 
     # Test for failed retrival
         # No exsisting order
@@ -226,7 +226,7 @@ def test_get_order_byid(test_client):
     test_response = test_client.get('/v1/orders/{}'.format(order_id), headers=token_data)
 
     assert test_response.status_code == 404
-    assert "Order # 2 does not exist!" in json.loads(test_response.data)['Response']
+    assert "Order # 2 does not exist!" in json.loads(test_response.data)['Response']['Failure']
 
 def test_update_order(test_client):
     ''' Tests the PUT an order admin functionality, at the route '/orders/<orderId> '''
@@ -243,7 +243,7 @@ def test_update_order(test_client):
     test_response = test_client.put('/v1/orders/1', headers=token_data_guest)
     
     assert test_response.status_code == 401
-    assert 'This an admin only function' in json.loads(test_response.data)['Rights Error']
+    assert 'This an admin only function' in json.loads(test_response.data)['Response']['Failure']
 
     # Log in an 'Admin'
     admin_user = {"User_Email":"ken@abc.com",
@@ -258,23 +258,24 @@ def test_update_order(test_client):
     test_response = test_client.get('/v1/users/orders', headers=token_data_guest)
 
     assert test_response.status_code == 200
-    assert json.loads(test_response.data)["Shee's orders"][0]['OrderStatus'] == 'New'
+    assert json.loads(test_response.data)['Response']['Success']["Shee's orders"][0]['OrderStatus'] == 'New'
 
     # Test for succesful order status update from the default 'New' to 'Processing'
-    # This feature will be via input buttons thus an invalid status can't
-    # be set.
-    # Check that a status value has been supplied will also be enforced
-    # by the button status, one of the buttons must be selected by default.
     status_update = {"Order_Status":"Processing"}
     test_response = test_client.put('/v1/orders/1', headers=token_data_admin, data=json.dumps(status_update), content_type='application/json')
 
     assert test_response.status_code == 200
-    assert 'Order updated' in json.loads(test_response.data)['Response']
+    assert 'Order updated' in json.loads(test_response.data)['Response']['Success']
 
     # Test update effect
     test_response = test_client.get('/v1/users/orders', headers=token_data_guest)
 
     assert test_response.status_code == 200
-    assert json.loads(test_response.data)["Shee's orders"][0]
+    assert json.loads(test_response.data)['Response']['Success']["Shee's orders"][0]
     ['OrderStatus'] == 'Processing'
+
+    # Test for order not found
+    test_response = test_client.put('/v1/orders/10', headers=token_data_admin, data=json.dumps(status_update), content_type='application/json')
     
+    assert test_response.status_code == 404
+    assert 'Order not found' in json.loads(test_response.data)['Response']['Failure']

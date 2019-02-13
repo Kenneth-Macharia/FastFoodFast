@@ -7,6 +7,21 @@ class MenuModel(object):
     ''' This class handles the Menu model '''
 
     @classmethod
+    def find_menu_byid(cls, menu_id):
+        ''' Checks to ensure no duplicate menu image url, a duplicate menu risk '''
+        connection = DatabaseSetup.setup('menus')
+        cursor = connection.cursor()
+
+        cursor.execute("SELECT Menu_Id, Menu_Name, Menu_ImageURL \
+        FROM menus_table WHERE Menu_Id=%s", (menu_id,))
+        query_result = cursor.fetchone()
+
+        cursor.close()
+        connection.close()
+        return query_result
+
+
+    @classmethod
     def insert_menu(cls, new_menu):
         ''' Adds a new menu to the database '''
 
@@ -21,8 +36,12 @@ class MenuModel(object):
                          new_menu['Menu_ImageURL'], new_menu['Menu_Price'], 
                          new_menu['Menu_Availability'])
 
-        cursor.execute(new_menu_query, new_menu_data)
-        connection.commit()
+        try:
+            cursor.execute(new_menu_query, new_menu_data)
+            connection.commit()
+        except:
+            return ("Menu item appears to already exist, check the menu details")
+        
         cursor.close()
         connection.close()
 
