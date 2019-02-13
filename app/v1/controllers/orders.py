@@ -39,18 +39,26 @@ class UserOrders(Resource):
         # Prepare the order listing
         final_order_list = []  # Final order list
         item_dict = {}  # Dict to populate the final ordr list
-     
+
+            # Sum up the order total as the items are enumerated in the loop
+        order_total = 0
+
         for item in current_order:
 
             item_dict.update({'Order_Id':order_number})
             item_dict.update({'Order_ItemName':item['Order_ItemName']})
             item_dict.update({'Order_ItemPrice':item['Order_ItemPrice']})
             item_dict.update({'Order_ItemQty':item['Order_ItemQty']})
-            item_dict.update({'Order_ItemTotal':int(item['Order_ItemPrice'])*
-                                                int(item['Order_ItemQty'])})
+
+            current_item_total = (int(item['Order_ItemPrice'])*
+                                 int(item['Order_ItemQty']))
+
+            item_dict.update({'Order_ItemTotal':current_item_total})
 
             final_order_list.append(item_dict)
             item_dict = {}
+            # Generate an order total
+            order_total += current_item_total
 
         # Prepare the order header data
             # Get the order time
@@ -63,11 +71,6 @@ class UserOrders(Resource):
             # Set the order status to default 'New' for all new orders,
             # which can later be updated to 'Processing', 'Cancelled' or #'Complete'
         order_status = 'New'
-
-            # Generate an order total
-        order_total = 0
-        for item in final_order_list:
-            order_total += item['Order_ItemTotal']
 
             # Compile final header dict
         order_header = {}

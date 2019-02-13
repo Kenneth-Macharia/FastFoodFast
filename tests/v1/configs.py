@@ -15,7 +15,7 @@ def drop_tables(request_type):
     ''' This functions drops the required table in order to have
     a clean database for the test runs '''
 
-    connection = DatabaseSetup.connection
+    connection = DatabaseSetup.database_connection()
     cursor = connection.cursor()
 
     drop_users_table = """DROP TABLE IF EXISTS users_table CASCADE"""
