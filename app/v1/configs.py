@@ -7,27 +7,28 @@ import psycopg2
 class DatabaseSetup(object):
     ''' This class sets up the required database for use '''
 
-    db = os.getenv('DATABASE_NAME')
-    db_user = os.getenv('DATABASE_USERNAME')
-    db_password = os.getenv('DATABASE_PASSWORD')
+    @classmethod
+    def database_connection(cls):
+        ''' Establishes a connection to the specified database '''
 
-    # For testing purposes only, will not be in the final production code
-    #TODO:Remove this test code in final prod code
-    connection = psycopg2.connect(user=db_user,
-                                  password=db_password,
-                                  host="127.0.0.1",
-                                  port="5432",
-                                  database=db)
+        db_host = os.getenv('DATABASE_HOST')
+        db_name = os.getenv('DATABASE_NAME')
+        db_user = os.getenv('DATABASE_USERNAME')
+        db_password = os.getenv('DATABASE_PASSWORD')
+
+        try:
+            connection = psycopg2.connect(user=db_user,
+                                          password=db_password,
+                                          host=db_host,
+                                          database=db_name,
+                                          port="5432")
+        except:
+            exit('Database connection error, check the connection configurations - See .env sample file')
+        return connection
 
     @classmethod
-    def setup(cls, request_type):
-        ''' Setup the database connection and schema '''
-
-        connection = psycopg2.connect(user=DatabaseSetup.db_user,
-                                      password=DatabaseSetup.db_password,
-                                      host="127.0.0.1",
-                                      port="5432",
-                                      database=DatabaseSetup.db)
+    def database_schema(cls, connection, request_type):
+        ''' Sets up the database schema '''
 
         cursor = connection.cursor()
 
@@ -93,6 +94,5 @@ class DatabaseSetup(object):
         elif request_type == 'orders':
             cursor.execute(create_order_headers_table)
             cursor.execute(create_order_listing_table)
-
+            
         connection.commit()
-        return connection

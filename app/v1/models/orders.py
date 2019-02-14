@@ -6,28 +6,44 @@ from ..configs import DatabaseSetup
 class UserOrdersModel(object):
     ''' This class handles the User Orders model '''
 
+    connection = None
+    cursor = None
+
+    @classmethod
+    def _init(cls):
+        ''' Sets up the database features for this model '''
+
+        # Create a conection object for this model
+        UserOrdersModel.connection = DatabaseSetup.database_connection()
+        # Create a cursor object for this model
+        UserOrdersModel.cursor = UserOrdersModel.connection.cursor()
+        # Set up the necessary tables for this model
+        DatabaseSetup.database_schema(UserOrdersModel.connection, 'orders')
+
+    @classmethod
+    def _destroy(cls):
+        ''' Closes the link to the database '''
+
+        UserOrdersModel.cursor.close()
+        UserOrdersModel.connection.close()
+
     @classmethod
     def get_last_order_id(cls):
         ''' Retrieves the last Order_Id from the headers_table '''
 
-        connection = DatabaseSetup.setup('orders')
-        cursor = connection.cursor()
+        UserOrdersModel._init()
 
-        cursor.execute("SELECT Order_Id FROM order_headers_table \
-                        ORDER BY Order_Id DESC LIMIT 1")
-        query_result = cursor.fetchone()
+        UserOrdersModel.cursor.execute("SELECT Order_Id FROM                                                   order_headers_table ORDER BY Order_Id                                   DESC LIMIT 1")
 
-        cursor.close()
-        connection.close()
+        query_result = UserOrdersModel.cursor.fetchone()
+        UserOrdersModel._destroy()
         return query_result
-
 
     @classmethod
     def insert_order_header(cls, new_order_header):
         ''' Adds a new user order header to the database '''
 
-        connection = DatabaseSetup.setup('orders')
-        cursor = connection.cursor()
+        UserOrdersModel._init()
 
         new_order_header_query = """ INSERT INTO order_headers_table (Order_Id,
                                  User_Id, Order_Time, Order_Total, Order_Status)
@@ -39,17 +55,16 @@ class UserOrdersModel(object):
                                  new_order_header['Order_Total'],
                                  new_order_header['Order_Status'])
 
-        cursor.execute(new_order_header_query, new_order_header_data)
-        connection.commit()
-        cursor.close()
-        connection.close()
+        UserOrdersModel.cursor.execute(new_order_header_query, new_order_header_data)
+
+        UserOrdersModel.connection.commit()
+        UserOrdersModel._destroy()
 
     @classmethod
     def insert_order_listing(cls, new_order_list):
         ''' Adds a new user order listing to the database '''
 
-        connection = DatabaseSetup.setup('orders')
-        cursor = connection.cursor()
+        UserOrdersModel._init()
 
         new_order_listing_query = """ INSERT INTO order_listing_table
                                   (Order_Id, Order_ItemName, Order_ItemPrice, Order_ItemQty, Order_ItemTotal) VALUES (
@@ -57,19 +72,18 @@ class UserOrdersModel(object):
                                   %(Order_ItemPrice)s, %(Order_ItemQty)s, 
                                   %(Order_ItemTotal)s); """
 
-        cursor.executemany(new_order_listing_query, new_order_list)
-        connection.commit()
-        cursor.close()
-        connection.close()
+        UserOrdersModel.cursor.executemany(new_order_listing_query, new_order_list)
+
+        UserOrdersModel.connection.commit()
+        UserOrdersModel._destroy()
 
     @classmethod
     def get_user_orders(cls, user_id):
         ''' Retrieves a users orders '''
 
-        connection = DatabaseSetup.setup('orders')
-        cursor = connection.cursor()
+        UserOrdersModel._init()
 
-        cursor.execute(
+        UserOrdersModel.cursor.execute(
             "SELECT \
                 order_headers_table.Order_Id, order_headers_table.Order_Time, order_headers_table.Order_Total,order_headers_table.Order_Status, order_listing_table.Order_ItemName, order_listing_table.Order_ItemPrice, order_listing_table.Order_ItemQty,order_listing_table.Order_ItemId, order_listing_table.Order_ItemTotal \
             FROM order_headers_table \
@@ -77,44 +91,61 @@ class UserOrdersModel(object):
             ON order_listing_table.Order_Id=order_headers_table.Order_Id \
             WHERE order_headers_table.User_Id=%s", (user_id,))
 
-        query_result = cursor.fetchall()
+        query_result = UserOrdersModel.cursor.fetchall()
 
-        cursor.close()
-        connection.close()
+        UserOrdersModel._destroy()
         return query_result
 
         
 class AdminOrdersModel(object):
     ''' This class handles the Admin Orders model '''
 
+    connection = None
+    cursor = None
+
+    @classmethod
+    def _init(cls):
+        ''' Sets up the database features for this model '''
+
+        # Create a conection object for this model
+        AdminOrdersModel.connection = DatabaseSetup.database_connection()
+        # Create a cursor object for this model
+        AdminOrdersModel.cursor = AdminOrdersModel.connection.cursor()
+        # Set up the necessary tables for this model
+        DatabaseSetup.database_schema(AdminOrdersModel.connection, 'orders')
+
+    @classmethod
+    def _destroy(cls):
+        ''' Closes the link to the database '''
+
+        AdminOrdersModel.cursor.close()
+        AdminOrdersModel.connection.close()
+
     @classmethod
     def get_all_orders(cls):
         ''' Retrieves all orders '''
         
-        connection = DatabaseSetup.setup('orders')
-        cursor = connection.cursor()
+        AdminOrdersModel._init()
 
-        cursor.execute(
+        AdminOrdersModel.cursor.execute(
             "SELECT \
                 order_headers_table.Order_Id, users_table.User_Name, order_headers_table.Order_Time, order_headers_table.Order_Total,order_headers_table.Order_Status \
             FROM users_table \
             INNER JOIN order_headers_table \
             ON order_headers_table.User_Id=users_table.User_Id")
 
-        query_result = cursor.fetchall()
+        query_result = AdminOrdersModel.cursor.fetchall()
         
-        cursor.close()
-        connection.close()
+        AdminOrdersModel._destroy()
         return query_result
 
     @classmethod
     def get_one_order_byid(cls, order_id):
         ''' Retrieves an order by it's id '''
 
-        connection = DatabaseSetup.setup('orders')
-        cursor = connection.cursor()
+        AdminOrdersModel._init()
 
-        cursor.execute(
+        AdminOrdersModel.cursor.execute(
             "SELECT \
                order_listing_table.Order_ItemName, order_listing_table.Order_ItemPrice, order_listing_table.Order_ItemQty, order_listing_table.Order_ItemTotal \
             FROM order_headers_table \
@@ -122,24 +153,21 @@ class AdminOrdersModel(object):
             ON order_listing_table.Order_Id=order_headers_table.Order_Id \
             WHERE order_headers_table.Order_Id=%s", (order_id,))
 
-        query_result = cursor.fetchall()
+        query_result = AdminOrdersModel.cursor.fetchall()
 
-        cursor.close()
-        connection.close()
+        AdminOrdersModel._destroy()
         return query_result
 
     @classmethod
     def update_order(cls, update_data):
         ''' Updates the order status defined by the order id inputed '''
 
-        connection = DatabaseSetup.setup('orders')
-        cursor = connection.cursor()
+        AdminOrdersModel._init()
 
         edit_order_query = """ UPDATE order_headers_table SET
                           Order_Status=%s WHERE Order_Id=%s """
 
-        cursor.execute(edit_order_query, (update_data['update_status'], update_data['order_id']))
+        AdminOrdersModel.cursor.execute(edit_order_query, (update_data['update_status'], update_data['order_id']))
 
-        connection.commit()
-        cursor.close()
-        connection.close()
+        AdminOrdersModel.connection.commit()
+        AdminOrdersModel._destroy()
