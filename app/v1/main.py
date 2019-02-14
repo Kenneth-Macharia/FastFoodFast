@@ -11,8 +11,8 @@ from app.v1.controllers.orders import UserOrders, AdminOrders, AdminOrder
 
 # Ensures a secret key has been set in the os envirnement before the app can run
 SECRET = os.getenv('SECRET')
-if not SECRET:
-    assert False, 'Set app secret key - See .env sample file'
+if not SECRET or SECRET == '':
+    exit('Set app secret key - See .env sample file')
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = SECRET

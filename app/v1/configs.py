@@ -22,8 +22,8 @@ class DatabaseSetup(object):
                                           host=db_host,
                                           database=db_name,
                                           port="5432")
-        except RuntimeError:
-            exit("Could not connect to the database, check the connection configurations")
+        except:
+            exit('Database connection error, check the connection configurations - See .env sample file')
         return connection
 
     @classmethod

@@ -4,11 +4,11 @@ import os
 from app.v1.main import app
 
 # Set the app environment
-run_environment = os.getenv('FLASK_ENV')
+RUN = os.getenv('FLASK_ENV')
 
-if not run_environment:
-    assert False, 'Set app runtime environment - See .env sample file'
-elif run_environment == 'development':
+if not RUN or RUN == '':
+    exit('Set app runtime environment - See .env sample file')
+elif RUN == 'development':
     debug_status = True
 else:
     debug_status = False
