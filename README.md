@@ -19,14 +19,12 @@ Before any of the above components can be tested, the following must be done:
     1.Clone this repo to a local machine
     2.Checkout the 'develop' branch while in the project root folder: 
         /FastFoodFast~$git checkout develop
-    3.To view the UI templates, navigate to the 'templates' folder and open index.html
-        /FastFoodFast/app/v1/views/templates
-    4.To test the API, first install PostgreSQL on the local machine
-    5.Create a database to use for the testing
-    6.Create a user with full right to the database above
-    7.Install virtulenv to create a virtual environement for the API:
+    3.Install PostgreSQL on the local machine
+    4.Create a database to use for the testing
+    5.Create a user with full right to the database above
+    6.Install virtulenv to create a virtual environement for the API:
         /FastFoodFast~$pip install virualenv
-    8.While in the project root folder create a virtual environment to isolate the app
+    7.While in the project root folder create a virtual environment to isolate the app
         /FastFoodFast~$virtualenv <your-virtual-environment-name>
     8.Active the virtual environment, the prompt is now preceeded by '(your_env_name)'
         /FastFoodFast~$. <your-virtual-environment-name>/bin/activate
@@ -34,13 +32,24 @@ Before any of the above components can be tested, the following must be done:
         (your_env_name)/FastFoodFast~$pip install -r requirements.txt
     10.Export the OS environment variable required to run the API (See .env sample file)
         /FastFoodFast~$export <the_environement_variable>=<the_environment_value>
-    11.Test to ensure the API runs and start the Flask server on the local machine:
-        /FastFoodFast~$python run.py
+        
+## Viewing the UI templates
+To view the UI templates, navigate to the 'templates' folder and open index.html
+    /FastFoodFast/app/v1/views/templates
 
 ## Running the automated tests on the API
 To run the test suite on the app source code:
 
-    1.Ensure steps 1 to 10 are done from the 'Getting started' section above.
+    1.Ensure all the steps are done from the 'Getting started' section above.
     2.Run the test and generate a test report: /FastFoodFast~$py.test --cov=app
 
-## Testing the
+## Testing the API
+To test the API endpoints: 
+    1.Run the API and ensure the Flask server is running:
+        /FastFoodFast~$python run.py
+    2.Follow the link to the API documentation below:
+        https://documenter.getpostman.com/view/5300721/Rztsom84
+    3.Test the endpoints as illustrated in the documentation, on postman or in terminal.
+
+## Author
+Kenneth Macharia
