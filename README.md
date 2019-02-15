@@ -67,7 +67,7 @@ To test the API endpoints:
     2.Follow the link to the API documentation below:
         https://documenter.getpostman.com/view/5300721/Rztsom84
         
-    3.Test the endpoints as illustrated in the documentation, on postman or in terminal.
+    3.Test the endpoints as illustrated in the documentation, in postman or terminal.
 
 ## Author
 Kenneth Macharia
