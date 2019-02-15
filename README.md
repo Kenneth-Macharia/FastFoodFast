@@ -56,7 +56,7 @@ To run the test suite on the app source code:
     1.Ensure all the steps are done from the 'Getting started' section above.
 
     2.Run the test and generate a test report:
-        /FastFoodFast~$py.test --cov=app
+        /FastFoodFast~$pytest --cov=app
 
 ## Testing the API
 To test the API endpoints: 
