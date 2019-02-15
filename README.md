@@ -26,7 +26,7 @@ Before any of the above components can be tested, the following must be done:
 
     3.Install PostgreSQL, create a database and a full rights user to the database:
     
-        https://www.tutorialspoint.com/postgresql/index.htm
+    https://www.tutorialspoint.com/postgresql/index.htm
   
     4.Install virtulenv to create a virtual environement for the API:
     
