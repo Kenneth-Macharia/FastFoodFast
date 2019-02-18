@@ -6,6 +6,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  /* border: 1px solid #3611db; */
 }
 
 *:focus {
@@ -654,10 +655,9 @@ footer p {
     font-size: 100%;
     margin:0 0 0 20px;
     padding:0;
-    text-transform: capitalize;
 }
 
-.view_section {height:600px;}
+.view_section {height:570px;}
 
 .view_header {
     box-shadow: 0 0 1px 0 #6b6767;
@@ -671,8 +671,8 @@ footer p {
 }
 
 .view_info {
-    height: 550px;
-    padding: 10px;
+    height: 520px;
+    padding: 5px;
 }
 
 table {
@@ -731,4 +731,14 @@ tr:nth-child(even) {
     margin-top: 1px;
     text-decoration: none;
     font-size: 80%;
+}
+
+.admin_nav li a:link,
+.admin_nav li a:active {
+    color: #fff;
+}
+
+.admin_nav li a:hover,
+.admin_nav li a:active {
+    color: #e67e22;
 }
