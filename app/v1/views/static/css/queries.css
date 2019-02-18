@@ -1,26 +1,76 @@
 /* Media queries for various viewport widths */
 
 @media only screen and (max-width:1150px) {
-    /* 1023 - 1150px */ 
-    .row { padding: 0 2%; }
-    .box { padding: 0.5%; }
-    .works_list { margin-top: 7px;}
-    blockquote:first-child { margin-left: 10px; }
-
+   /* 1081 - 1150px */ 
+   .row { padding: 0 2%; }
+   .box { padding: 0.5%; }
+   .intro { text-align: center; }
+   .works_list { margin-top: 7px;}
+   blockquote:first-child { margin-left: 10px; }
+   .menu_box {
+      width: 95%;
+      margin-left: 2%;
+   }
+   .footer_col { margin: 0px; }
 }
 
- @media only screen and (max-width:1023px) {
-    /* 768 - 1023px */
-  
-
+ @media only screen and (max-width:1080px) {
+   /* 981 - 1080px */
+   .sell_section p { font-size: 87%; }
+   .menu_box {
+      width: 95%;
+      margin-left: 1%;
+   }
+   .meal_price { font-size: 150%; }
  }
 
- @media only screen and (max-width:767px) {
-    /* 481 - 767px */
+ @media only screen and (max-width:980px) {
+   /* 769 - 980px */
+
+   .row { padding: 0 1%;}
+   .intro {
+      width:690px;
+      margin-left: 110px; 
+   }
+   .box { margin-left: 10px; }
+   .box h3 { font-size: 85%; }
+   .box p { font-size: 80%; }
+   .works_list { font-size: 68%; }
+   .icon-big { font-size: 200%; }
+   blockquote { font-size: 95%; }
+   .single_line_2_h3 {
+      margin-top: 1px;
+   }
+ }
+
+ @media only screen and (max-width:768px) {
+   /* 481 - 768px */
+   h1 { font-size: 190%; }
+   h2 { font-size: 130%; }
+   .header_texbox p { font-size: 110%; }
+   .box h3 {
+      font-size: 77%;
+      margin-bottom: 10px;
+   }
+   .works_list {
+      font-size: 66%;
+      margin-top: 0;
+   }
+   .box { margin-left: 0px; }
+   .box p { font-size: 70%; }
+   .intro {
+      width:660px;
+      margin-left: 40px; 
+   }
+   .single_line_3_h3 {
+      padding: 9px 0 9px 0px;
+   }
+   .icon-big { font-size: 170%; }
+   .span-1-of-4 { width: 25%; }
 
  }
 
  @media only screen and (max-width:480px) {
-    /* 0 - 480px */
+   /* 0 - 480px */
 
  }
