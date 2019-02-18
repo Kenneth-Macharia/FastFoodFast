@@ -1,0 +1,26 @@
+/* Media queries for various viewport widths */
+
+@media only screen and (max-width:1150px) {
+    /* 1023 - 1150px */ 
+    .row { padding: 0 2%; }
+    .box { padding: 0.5%; }
+    .works_list { margin-top: 7px;}
+    blockquote:first-child { margin-left: 10px; }
+
+}
+
+ @media only screen and (max-width:1023px) {
+    /* 768 - 1023px */
+  
+
+ }
+
+ @media only screen and (max-width:767px) {
+    /* 481 - 767px */
+
+ }
+
+ @media only screen and (max-width:480px) {
+    /* 0 - 480px */
+
+ }
