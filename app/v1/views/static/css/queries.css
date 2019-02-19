@@ -1,5 +1,9 @@
 /* Media queries for various viewport widths */
 
+/* ---------------------------------
+   INDEX.HTML QUERIES
+   --------------------------------- */
+
 @media only screen and (max-width:1150px) {
    /* 1081 - 1150px */ 
    .row { padding: 0 2%; }
@@ -54,24 +58,26 @@
    h2 { font-size: 120%; }
    .header_texbox p { font-size: 110%; }
    .box h3 {
-      font-size: 77%;
+      font-size: 76%;
       margin-bottom: 10px;
    }
    .works_list {
-      font-size: 66%;
+      font-size: 65%;
       margin-top: 0;
    }
    .box { margin-left: 0px; }
    .box p {
-      font-size: 70%;
+      font-size: 65%;
       text-align: left;
+      line-height: 180%;
+      padding: 9px 0 0 2px;
    }
    .intro {
       width:660px;
       margin-left: 40px;
    }
    .single_line_3_h3 {
-      padding: 9px 0 9px 0px;
+      padding: 9px 0 9px 2px;
    }
    .blockquote { font-size: 85%; }
    .icon-big { font-size: 170%; }
@@ -96,17 +102,17 @@
       height: 100px;
       width: auto;
    } 
-   .header_texbox { width:450px; }
+   .header_texbox { width:417px; }
    .main_nav { visibility: hidden; }
    h1 { font-size: 200%; }
-   .header_texbox p { font-size: 110%; }
+   .header_texbox p { font-size: 90%; }
    .btn:link,
    .btn:visited,
    .btn:active,
    .btn:hover {
       font-size: 90%;
       padding: 5px 5px;
-      margin-left: 165px;
+      margin: 30px 0 0 165px;
    }
    h2 {
       font-size: 100%;
@@ -114,9 +120,9 @@
    }
    h2:after { margin-top: 15px; }
    .intro {
-      line-height: 110%;
+      line-height: 120%;
       width:90%;
-      margin-left: 17px;
+      margin: 30px 17px 30px 7px;
    }
    .box {
       width: 100%;     
@@ -159,7 +165,28 @@
       padding: 5px 5px;
       margin-left: 16px;
    }
+   .feedback_form { margin-top: 20px; }
    .feedback_form,
    .feedback_row { width: 100%; }
-
+   .feedback_row input[type='submit'] { font-size: 70%; }
+   .footer_row { padding: 0; }
+   .footer_col {
+      width: 33%;
+      padding-top: 5px;
+   }
+   .contacts p,
+   .socal_links li,
+   .footer_nav li { font-size: 55%; }
+   .copyright p {
+      margin:0;
+      padding:0;
+   }
+   .contacts p:after {
+      display: block;
+      background-color: #fcfcfc;
+   }
  }
+
+/* ---------------------------------
+   ABOUTUS.HTML QUERIES
+   --------------------------------- */
