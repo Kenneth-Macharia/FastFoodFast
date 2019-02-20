@@ -559,7 +559,10 @@ footer p {
 /* ---------------------------------
    ABOUT US PAGE
    --------------------------------- */
-.about_section {padding: 50px;}
+.about_section {
+  padding: 20px;
+  margin-left: 15px;
+}
 
 .head,
 .parag,
@@ -584,13 +587,13 @@ footer p {
 
 .showcase li {
     display: block;
-    width: 24%;
+    width: 22%;
     float: left;
 }
 
 .images_li {
     width: 100%;
-    margin: 20px 0px 20px 0px;
+    margin: 20px 0px 20px 20px;
 }
 
 .images_li img {
@@ -603,13 +606,13 @@ footer p {
 }
 
 .parag {
-    font-size: 90%;
-    text-align: justify;
+    font-size: 85%;
+    text-align: left;
     line-height: 140%;
 }
 
 .parag div {
-    width: 48%;
+    width: 47%;
 }
 
 .parag div:first-child {
