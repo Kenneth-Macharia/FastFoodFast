@@ -226,7 +226,7 @@ header {
     vertically centre it */
     position: absolute;
     width: 700px;
-    top: 60%;
+    top: 55%;
     left: 50%;
     /* Translates 50% of the element's width & length, up & left */
     transform: translate(-50%, -50%);
@@ -302,7 +302,7 @@ header {
 .cart:visited,
 .cart:active,
 .cart:hover {
-  padding: 2px 20px 0 20px;
+  padding: 2px 30px 0 30px;
   border: 0;
   text-decoration: none;
   border-bottom: none;
@@ -310,6 +310,7 @@ header {
 
 .cart i {
   font-size: 170%;
+  font-weight: bolder;
   color: #fff;
 }
 
