@@ -1,5 +1,3 @@
-/* Media queries for various viewport widths */
-
 /* ---------------------------------
    INDEX.HTML QUERIES
    --------------------------------- */
@@ -23,16 +21,15 @@
    .footer_col { padding-top: 10px; }
 }
 
-@media only screen and (max-width:720px) {
+@media only screen and (max-width:730px) {
 
    section { padding: 40px 0; }
    .row { padding: 0 2%; }
    .logo {
-      height: 150px;
+      height: 130px;
       width: auto;
    } 
    .header_texbox { width:417px; }
-   .main_nav { visibility: hidden; }
    h1 { font-size: 200%; }
    .header_texbox p { font-size: 90%; }
    .btn:link,
@@ -122,6 +119,47 @@
       display: block;
       background-color: #fcfcfc;
    }
+
+   /* Style the mobile nav */
+   .main_nav { display: none; }
+   .mobile_nav_icon { display: inline-block; }
+
+   .main_nav {
+     float: left;
+     margin-top: 10px;
+     margin-left: 55px;
+   }
+
+   .main_nav li {
+     /* blocks force line breaks so that they are stacked om top of each other */
+     display: block;
+   }
+
+   .main_nav li a:link,
+   .main_nav li a:visited {
+     display: block;
+     border: 0;  /* no hover on a mobile display hence no need for a border */
+     padding: 5px 0;
+     font-size: 70%;
+   }
+
+   .sticky_nav {
+     height: auto;
+     padding-bottom: 5px;
+   }
+
+   .sticky_nav .main_nav li a:link,
+   .sticky_nav .main_nav li a:visited {
+     /* These only apply if inside the sticky_nav class */
+       padding: 5px 0;
+       font-size: 65%;
+       margin: 13px 0 0 35px;
+
+   }
+
+   .sticky_nav .mobile_nav_icon,
+   .sticky_nav .cart { margin-top: 13px; }
+   .sticky_nav .mobile_nav_icon i { color: #555; }
 }
 
 @media only screen and (max-width:480px) {

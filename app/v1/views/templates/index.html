@@ -18,6 +18,13 @@
     <!-- Google fonts -->
     <link href="https://fonts.googleapis.com/css?family=Lato:100,300,300i,400"
     rel="stylesheet" type="text/css">
+    <!-- js scripts execution deferred until the webpage is fully loaded -->
+    <!-- Import JQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js" defer></script>
+    <!-- JQuery waypoints plugin for the sticky nav implementation -->
+    <script src="../static/js/jquery.waypoints.min.js" defer></script>
+    <!-- Custom JavaScript -->
+    <script src="../static/js/script.js" defer></script>
     <title>FastFoodFast | Home</title>
     <!-- Favicons pack -->
     <link rel="apple-touch-icon" sizes="180x180" href="../static/favicons/apple-touch-icon.png">
@@ -35,13 +42,16 @@
     <header>
       <nav>
         <div class="row">
-          <img src="../static/images/logo-white.png" alt="Fastfoodfast logo" class="logo">
-          <ul class="main_nav">
+          <a href="#"><img src="../static/images/logo-white.png" alt="Fastfoodfast logo" class="logo"></a>
+          <a href="#"><img src="../static/images/logo-black.png" alt="Fastfoodfast logo" class="logo_black"></a>
+          <ul class="main_nav js_main_nav">
             <li><a href="#">Previous orders</a></li>
             <li><a href="#sell">What we do</a></li>
             <li><a href="#testimonials">Testimonials</a></li>
             <li><a href="#feedback">Give us feedback</a></li>
           </ul>
+          <a class="cart" href="#"><i class="ion-ios-cart-outline"></i></a>
+          <a class="mobile_nav_icon js_nav_icon"><i class="ion-navicon-round"></i></a>
         </div>
       </nav>
       <div class='header_texbox'>
@@ -53,7 +63,7 @@
         <a class="btn" href="#menu">Order Now</a>
       </div>
     </header>
-    <section class="sell_section" id="sell">
+    <section class="sell_section js_sell_section" id="sell">
        <div class="row">
          <h2>WE TAKE CARE OF YOUR DIETARY NEEDS</h2>
          <p class="intro">
@@ -340,9 +350,9 @@
                 </p>
             </div>
             <div class="row contacts copyright">
-                <p>
+                <h6>
                     Copyright &copy; 2018 by FastFoodFast. All rights reserved.
-                </p>
+                </h>
             </div>
         </div>
   </footer>
