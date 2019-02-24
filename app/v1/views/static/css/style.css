@@ -839,15 +839,23 @@ tr:nth-child(even) {
   --------------------------------- */
 /* Code credit to https://www.w3schools.com/howto */
 .modal {
-  /* display: none; */
   position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */
   left: 35%;
   top: 28%;
   width: 35%; 
-  height: 45%;
+  height: 43%;
   /* overflow: auto; Enable scroll if needed */
   background-color: rgba(0,0,0,0); /*Black w/ opacity*/
+}
+
+.modal-content {
+  display: none;
+  position: relative;
+  background-color:#f4f4f4f6;
+  border: 1px solid #888;
+  width: 100%;
+  height: 100%;
 }
 
 .close {
@@ -862,16 +870,6 @@ tr:nth-child(even) {
 .close:focus {
   color: #e67e22;
   cursor: pointer;
-}
-
-.modal-content {
-  position: relative;
-  background-color:#f4f4f4f6;
-  border: 1px solid #888;
-  width: 100%;
-  height: 100%;
-  animation-name: animatetop;
-  animation-duration: 0.4s;
 }
 
 .imgcontainer {
@@ -893,10 +891,8 @@ tr:nth-child(even) {
 
 .container label {
   font-size: 55%;
-  /* color: red; */
   color: #f4f4f4f6;
 }
-
 
 .container input[type=email], 
 .container input[type=password] {
@@ -913,7 +909,7 @@ tr:nth-child(even) {
 button {
   background-color: transparent;
   color: #e67e22;
-  margin: 21px 0 0 155px;
+  margin: 27px 0 0 155px;
   padding: 5px 2px 5px 2px;
   border: none;
   cursor: pointer;
@@ -929,7 +925,12 @@ button:hover {
   border: 1px solid#e67e22;
 }
 
-@keyframes animatetop {
-  from {top:-300px; opacity:0}
-  to {top:0; opacity:1}
+@keyframes slide_from_top {
+  0% {top:-300px; opacity:0;}
+  100% {top:0; opacity:1;}
+}
+
+@keyframes slide_back_to_top {
+  0% {top:0; opacity:1;}
+  100% {top:-300px; opacity:0;}
 }

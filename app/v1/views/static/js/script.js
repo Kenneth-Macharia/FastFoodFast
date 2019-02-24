@@ -1,23 +1,100 @@
 /* JAVASCRIPT CODE */
-//Show login modal
-document.querySelector("#prev_ord")
-        .addEventListener("click", function(e) {
-          e.preventDefault();        
-  document.querySelector("#login").hidden = false;
-}, false);
+//Show login modal - Customer previous orders link
+document.querySelector("#prev_ord").addEventListener("click", loginModal ('openCustomer'), false);
 
 //Hide login modal
-document.querySelector("#close")
-        .addEventListener("click", function(e) {
-          e.preventDefault();
-  document.querySelector("#login").hidden = true;
-}, false);
+document.querySelector("#close").addEventListener("click", loginModal ('close'), false);
 
 //Login logic
+AccessToken = '';
 function login() {
-  
+  // Reset login modal on wrong inputs correction
+  document.querySelector("#uemail").addEventListener("focus", resetLoginModal ('resetEmail'), false);
+  document.querySelector("#upsw").addEventListener("focus", resetLoginModal ('resetPassword'), false);
 
+  //Get the login form data
+  var email = document.querySelector("#uemail").value;
+  var password = document.querySelector("#upsw").value;
+  var formData = new FormData();
+  formData.append('User_Email', email);
+  formData.append('User_Password', password);
+
+  //Create request object
+  const url = 'http://127.0.0.1:5000/v1/auth/login'
+
+  var request = new Request(url, {
+    method: 'POST',
+    body: formData,
+    headers: new Headers(),
+    mode: 'cors',
+    cache: 'default'}
+  );
+
+  //Send login request to backend
+  fetch(request).then(function(response) {
+    if (response.status === 404) {
+      //TODO: server connection error & internal server error message
+      document.querySelector('#elabel').style.color = "red";
+      document.querySelector('#plabel').style.color = "";
+    } else if (response.status === 400) {
+      document.querySelector('#plabel').style.color = "red";
+      document.querySelector('#elabel').style.color = "";
+    } else if  (response.status === 200) {
+      //close login modal
+      loginModal ('close'); //TODO: Fix close login modal
+      
+      //open customer previous orders modal
+
+      //open customer checkout modal
+
+      //open admin page
+
+    } 
+  });
 }
+
+// Show/close login modal function
+function loginModal (action) {
+  return function (e) {
+    if (action === 'openCustomer') {
+      e.preventDefault();
+      document.querySelector("#login").style.display = "block";
+      document.querySelector("#login").style.animation = "slide_from_top 0.7s";
+      resetLoginModal('loadForm'); //TODO: Fix clear login modal
+  
+    } else if (action === 'close') {
+      e.preventDefault();
+      document.querySelector("#login").style.animation = "slide_back_to_top 0.7s";
+      document.querySelector("#login").style.display = "none"; //TODO: Fix login modal slide up effect
+    }
+  }
+}
+
+// Inputs/Labels reset function
+function resetLoginModal (action) {
+  return function () {
+    emailLabel = document.querySelector("#elabel");
+    passwordLabel = document.querySelector("#plabel");
+    emailInput = document.querySelector("#uemail")
+    passwordInput = document.querySelector("#upsw")
+
+    if (action === 'loadForm') {
+      emailLabel.style.color = ''
+      passwordLabel.style.color = ''
+      emailInput.value = ''
+      passwordInput.value = ''
+
+    } else if (action === 'resetEmail') {
+      if (emailLabel.style.color = 'red') {
+        emailLabel.style.color = '';}
+
+    } else if (action === 'resetPassword') {
+        if (passwordLabel.style.color = 'red') {
+          passwordLabel.style.color = '';}
+    }
+  }    
+}
+
 
 /* JQUERY CODE */
 //Index.html - Sticky navigation
