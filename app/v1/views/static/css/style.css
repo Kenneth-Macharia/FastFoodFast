@@ -839,6 +839,7 @@ tr:nth-child(even) {
   --------------------------------- */
 /* Code credit to https://www.w3schools.com/howto */
 .modal {
+  display: none;
   position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */
   left: 35%;
@@ -850,7 +851,7 @@ tr:nth-child(even) {
 }
 
 .modal-content {
-  display: none;
+  /* display: none; */
   position: relative;
   background-color:#f4f4f4f6;
   border: 1px solid #888;
@@ -925,7 +926,7 @@ button:hover {
   border: 1px solid#e67e22;
 }
 
-@keyframes slide_from_top {
+/* @keyframes slide_from_top {
   0% {top:-300px; opacity:0;}
   100% {top:0; opacity:1;}
 }
@@ -933,4 +934,4 @@ button:hover {
 @keyframes slide_back_to_top {
   0% {top:0; opacity:1;}
   100% {top:-300px; opacity:0;}
-}
+} */

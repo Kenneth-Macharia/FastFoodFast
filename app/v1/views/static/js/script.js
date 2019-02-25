@@ -1,17 +1,37 @@
-/* JAVASCRIPT CODE */
-//Show login modal - Customer previous orders link
-document.querySelector("#prev_ord").addEventListener("click", loginModal ('openCustomer'), false);
+/*--------------------------------------------------------------------------
+                              JAVASCRIPT CODE
+  ------------------------------------------------------------------------*/
+/*----------ELEMENTS EVENTS--------*/
+// Access customer previous orders link (Open login modal)
+document.querySelector("#prev_ord").addEventListener("click", function (e) { 
+  e.preventDefault();
+  openCloseLoginModal('openLoginModal', 'prev_ord')}, false);
 
-//Hide login modal
-document.querySelector("#close").addEventListener("click", loginModal ('close'), false);
+ // Access admin dashboard link (Open login modal)
+document.querySelector("#admin").addEventListener("click", function (e) { 
+  e.preventDefault();
+  openCloseLoginModal('openLoginModal', 'admin')}, false);
 
-//Login logic
-AccessToken = '';
+// Access customer checkout order button (Open login modal)
+
+
+// Login modal close button (Dismiss login modal)
+document.querySelector(".js_close").addEventListener("click", function () {
+  openCloseLoginModal('closeLoginModal')}, false);
+
+// Reset login modal on wrong input - nth login attempt
+document.querySelector("#uemail").addEventListener("focus", function () {
+  resetLoginModal ('resetEmail')}, false);
+document.querySelector("#upsw").addEventListener("focus", function () {
+  resetLoginModal ('resetPassword')}, false);
+
+
+  
+/*----------CUSTOM FUNCTIONS---------*/
+ 
+
+// User login
 function login() {
-  // Reset login modal on wrong inputs correction
-  document.querySelector("#uemail").addEventListener("focus", resetLoginModal ('resetEmail'), false);
-  document.querySelector("#upsw").addEventListener("focus", resetLoginModal ('resetPassword'), false);
-
   //Get the login form data
   var email = document.querySelector("#uemail").value;
   var password = document.querySelector("#upsw").value;
@@ -19,10 +39,9 @@ function login() {
   formData.append('User_Email', email);
   formData.append('User_Password', password);
 
-  //Create request object
+  // Create login request data object
   const url = 'http://127.0.0.1:5000/v1/auth/login'
-
-  var request = new Request(url, {
+  var requestData = new Request(url, {
     method: 'POST',
     body: formData,
     headers: new Headers(),
@@ -30,73 +49,110 @@ function login() {
     cache: 'default'}
   );
 
-  //Send login request to backend
-  fetch(request).then(function(response) {
-    if (response.status === 404) {
-      //TODO: server connection error & internal server error message
-      document.querySelector('#elabel').style.color = "red";
-      document.querySelector('#plabel').style.color = "";
-    } else if (response.status === 400) {
-      document.querySelector('#plabel').style.color = "red";
-      document.querySelector('#elabel').style.color = "";
-    } else if  (response.status === 200) {
-      //close login modal
-      loginModal ('close'); //TODO: Fix close login modal
-      
-      //open customer previous orders modal
+  // Send login request
+  fetch(requestData)
+    .then((response) => {
+      if (response.status === 404) {
+        document.querySelector('#elabel').style.color = "red";
+        document.querySelector('#plabel').style.color = "";
+      } else if (response.status === 400) {
+        document.querySelector('#plabel').style.color = "red";
+        document.querySelector('#elabel').style.color = "";
+      } else if (response.status === 200) {
+        return Promise.resolve(response);
+      }
+    })
+    .then((response => {return response.json()}))
+    .then(function(data){
+      idValue = document.querySelector('.modal').getAttribute('id');
+      if (idValue === 'admin') {
+      //verify admin privileges and open the admin dashboard
 
+      var header = new Headers({
+        "Content-Type": "application/json",
+        "Authorization":"Bearer "
+      })
+      const url = 'http://127.0.0.1:5000/v1/auth/update'
+      var requestData = new Request(url, {
+        method: 'POST',
+        body: formData,
+        mode: 'cors',
+        cache: 'default',
+        credentials: 'include',
+        headers: header});
+
+
+      }
+      
+    })
+
+    openCloseLoginModal('closeLoginModal');
+
+    // Open requred modal or page
+    if (action === 'userPrevOrders') {
+      //confirm it's a Guest logging in
+      //open customer previous orders modal
+      
+    } else if (action === 'userCheckoutOrders') {
+      //confirm it's a Guest logging in
       //open customer checkout modal
 
-      //open admin page
-
-    } 
-  });
-}
-
-// Show/close login modal function
-function loginModal (action) {
-  return function (e) {
-    if (action === 'openCustomer') {
-      e.preventDefault();
-      document.querySelector("#login").style.display = "block";
-      document.querySelector("#login").style.animation = "slide_from_top 0.7s";
-      resetLoginModal('loadForm'); //TODO: Fix clear login modal
-  
-    } else if (action === 'close') {
-      e.preventDefault();
-      document.querySelector("#login").style.animation = "slide_back_to_top 0.7s";
-      document.querySelector("#login").style.display = "none"; //TODO: Fix login modal slide up effect
+    } else if (action === 'adminDashboard') {
+      //confirm it's an admin logging in
+      //open admin dashboard
     }
-  }
+
 }
 
 // Inputs/Labels reset function
 function resetLoginModal (action) {
-  return function () {
-    emailLabel = document.querySelector("#elabel");
-    passwordLabel = document.querySelector("#plabel");
-    emailInput = document.querySelector("#uemail")
-    passwordInput = document.querySelector("#upsw")
+  emailLabel = document.querySelector("#elabel");
+  passwordLabel = document.querySelector("#plabel");
+  emailInput = document.querySelector("#uemail")
+  passwordInput = document.querySelector("#upsw")
 
-    if (action === 'loadForm') {
-      emailLabel.style.color = ''
-      passwordLabel.style.color = ''
-      emailInput.value = ''
-      passwordInput.value = ''
+  if (action === 'clearForm') {
+    emailLabel.style.color = ''
+    passwordLabel.style.color = ''
+    emailInput.value = ''
+    passwordInput.value = ''
 
-    } else if (action === 'resetEmail') {
-      if (emailLabel.style.color = 'red') {
-        emailLabel.style.color = '';}
-
-    } else if (action === 'resetPassword') {
-        if (passwordLabel.style.color = 'red') {
-          passwordLabel.style.color = '';}
+  } else if (action === 'resetEmail') {
+    if (emailLabel.style.color = 'red') {
+      emailLabel.style.color = '';
     }
-  }    
+
+  } else if (action === 'resetPassword') {
+      if (passwordLabel.style.color = 'red') {
+        passwordLabel.style.color = '';
+      }
+  }   
 }
 
+// Show|Close login form function
+function openCloseLoginModal (action, source) {
+  modalForm = document.querySelector(".modal")
+  if (action === 'openLoginModal') {
+    if (modalForm.hasAttribute("id")) {
+      modalForm.style.display = "none"
+    }
+    modalForm.setAttribute("id", source);
+    modalForm.style.display = "block";
+    document.querySelector("#uemail").focus();
+    //document.querySelector("#login").style.animation = "slide_from_top 0.7s";
+  } else if (action === 'closeLoginModal') { //TODO: Fix modal animation
+    //document.querySelector("#login").style.animation = "slide_back_to_top 0.7s";
+    if (modalForm.hasAttribute("id")) {
+      modalForm.removeAttribute("id")
+    }
+    modalForm.style.display = "none";
+    resetLoginModal('clearForm');
+  }
+}
 
-/* JQUERY CODE */
+/*-------------------------------------------------------------------------
+                              JQUERY CODE
+  -----------------------------------------------------------------------*/
 //Index.html - Sticky navigation
 $('.js_sell_section').waypoint(function (direction) {
 
