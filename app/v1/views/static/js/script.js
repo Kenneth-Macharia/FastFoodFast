@@ -55,52 +55,61 @@ function login() {
       if (response.status === 404) {
         document.querySelector('#elabel').style.color = "red";
         document.querySelector('#plabel').style.color = "";
+        return Promise.reject(new Error(response.statusText))
       } else if (response.status === 400) {
         document.querySelector('#plabel').style.color = "red";
         document.querySelector('#elabel').style.color = "";
+        return Promise.reject(new Error(response.statusText))
       } else if (response.status === 200) {
+        //openCloseLoginModal('closeLoginModal');
         return Promise.resolve(response);
       }
     })
-    .then((response => {return response.json()}))
-    .then(function(data){
+    .then((response) => {return response.json()})
+    .then(function(data) {
+
       idValue = document.querySelector('.modal').getAttribute('id');
+
       if (idValue === 'admin') {
       //verify admin privileges and open the admin dashboard
+        var header = new Headers({
+          "Content-Type": "application/json",
+          "Authorization": "Bearer ".concat(data['Access_token'])
+        });
 
-      var header = new Headers({
-        "Content-Type": "application/json",
-        "Authorization":"Bearer "
-      })
-      const url = 'http://127.0.0.1:5000/v1/auth/update'
-      var requestData = new Request(url, {
-        method: 'POST',
-        body: formData,
-        mode: 'cors',
-        cache: 'default',
-        credentials: 'include',
-        headers: header});
+        const url = 'http://127.0.0.1:5000/v1/auth/update'
+        var requestData = new Request(url, {
+          method: 'POST',
+          body: formData,
+          mode: 'cors',
+          cache: 'default',
+          credentials: 'include',
+          headers: header});
+
+        fetch(requestData)
+          .then((response) => {return response.json()})
+          .then(function(authData) {
+            console.log(authData);
+          })
 
 
-      }
-      
+        }
     })
+    .catch ((error) => {console.log('Request failed', error)});
 
-    openCloseLoginModal('closeLoginModal');
-
-    // Open requred modal or page
-    if (action === 'userPrevOrders') {
-      //confirm it's a Guest logging in
-      //open customer previous orders modal
+    // // Open requred modal or page
+    // if (action === 'userPrevOrders') {
+    //   //confirm it's a Guest logging in
+    //   //open customer previous orders modal
       
-    } else if (action === 'userCheckoutOrders') {
-      //confirm it's a Guest logging in
-      //open customer checkout modal
+    // } else if (action === 'userCheckoutOrders') {
+    //   //confirm it's a Guest logging in
+    //   //open customer checkout modal
 
-    } else if (action === 'adminDashboard') {
-      //confirm it's an admin logging in
-      //open admin dashboard
-    }
+    // } else if (action === 'adminDashboard') {
+    //   //confirm it's an admin logging in
+    //   //open admin dashboard
+    // }
 
 }
 
