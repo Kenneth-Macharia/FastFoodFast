@@ -16,8 +16,8 @@ if not SECRET or SECRET == '':
     exit('Set app secret key - See .env sample file')
 
 app = Flask(__name__)
-# Enable cross origin resource sharing (CORS) for external requests to the API
-CORS(app)
+# Enable cross origin resource sharing (CORS) for external requests to the API, with authentication allowed.
+CORS(app, supports_credentials=True)
 app.config['SECRET_KEY'] = SECRET
 jwt = JWTManager(app)
 app.config['JWT_BLACKLIST_ENABLED'] = True

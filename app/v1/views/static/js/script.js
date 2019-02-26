@@ -61,7 +61,6 @@ function login() {
         document.querySelector('#elabel').style.color = "";
         return Promise.reject(new Error(response.statusText))
       } else if (response.status === 200) {
-        //openCloseLoginModal('closeLoginModal');
         return Promise.resolve(response);
       }
     })
@@ -71,28 +70,29 @@ function login() {
       idValue = document.querySelector('.modal').getAttribute('id');
 
       if (idValue === 'admin') {
-      //verify admin privileges and open the admin dashboard
+      //verify admin privileges by trying to access an admin only endpoint, if a positve response comes back open the admin dashboard.
         var header = new Headers({
           "Content-Type": "application/json",
           "Authorization": "Bearer ".concat(data['Access_token'])
         });
 
-        const url = 'http://127.0.0.1:5000/v1/auth/update'
+        const url = 'http://127.0.0.1:5000/v1/menus'
         var requestData = new Request(url, {
-          method: 'POST',
-          body: formData,
+          method: 'GET',
           mode: 'cors',
           cache: 'default',
           credentials: 'include',
           headers: header});
 
         fetch(requestData)
-          .then((response) => {return response.json()})
-          .then(function(authData) {
-            console.log(authData);
+          .then(response => {
+            if (response.status === 200) {
+              openCloseLoginModal('closeLoginModal');
+              window.open('../templates/admin.html', '_parent');
+            } else if (response.status === 401) {
+              
+            }
           })
-
-
         }
     })
     .catch ((error) => {console.log('Request failed', error)});
