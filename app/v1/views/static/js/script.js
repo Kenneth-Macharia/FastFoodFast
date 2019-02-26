@@ -13,7 +13,9 @@ document.querySelector("#admin").addEventListener("click", function (e) {
   openCloseLoginModal('openLoginModal', 'admin')}, false);
 
 // Access customer checkout order button (Open login modal)
-
+// document.querySelector("").addEventListener("click", function (e) { 
+//   e.preventDefault();
+//   openCloseLoginModal('openLoginModal', 'checkout')}, false);
 
 // Login modal close button (Dismiss login modal)
 document.querySelector(".js_close").addEventListener("click", function () {
@@ -54,11 +56,9 @@ function login() {
     .then((response) => {
       if (response.status === 404) {
         document.querySelector('#elabel').style.color = "red";
-        document.querySelector('#plabel').style.color = "";
         return Promise.reject(new Error(response.statusText))
       } else if (response.status === 400) {
         document.querySelector('#plabel').style.color = "red";
-        document.querySelector('#elabel').style.color = "";
         return Promise.reject(new Error(response.statusText))
       } else if (response.status === 200) {
         return Promise.resolve(response);
@@ -66,73 +66,85 @@ function login() {
     })
     .then((response) => {return response.json()})
     .then(function(data) {
-
       idValue = document.querySelector('.modal').getAttribute('id');
 
+      var header = new Headers({
+        "Authorization": "Bearer ".concat(data['Access_token'])
+      });
+
+      var requestData = {
+        method: 'GET',
+        mode: 'cors',
+        cache: 'default',
+        credentials: 'include',
+        headers: header};
+
       if (idValue === 'admin') {
-      //verify admin privileges by trying to access an admin only endpoint, if a positve response comes back open the admin dashboard.
-        var header = new Headers({
-          "Content-Type": "application/json",
-          "Authorization": "Bearer ".concat(data['Access_token'])
-        });
-
-        const url = 'http://127.0.0.1:5000/v1/menus'
-        var requestData = new Request(url, {
-          method: 'GET',
-          mode: 'cors',
-          cache: 'default',
-          credentials: 'include',
-          headers: header});
-
-        fetch(requestData)
+        var fetchData = new Request('http://127.0.0.1:5000/v1/menus', requestData);
+          
+        fetch(fetchData)
           .then(response => {
             if (response.status === 200) {
               openCloseLoginModal('closeLoginModal');
               window.open('../templates/admin.html', '_parent');
             } else if (response.status === 401) {
-              
+              document.querySelector('#alabel').style.color = "red";
             }
           })
-        }
+      } else if (idValue === 'prev_ord') {
+        var fetchData = new Request('http://127.0.0.1:5000/v1/users/orders', requestData);
+
+        fetch(fetchData)
+        .then(response => {
+          if (response.status === 200) {
+            openCloseLoginModal('closeLoginModal');
+            //open the previous order modal
+
+          } else if (response.status === 401) {
+            document.querySelector('#alabel').style.color = "red";
+          }
+        })
+      } else if (idValue === 'checkout') {
+        var fetchData = new Request('http://127.0.0.1:5000/v1/users/orders', requestData);
+
+        fetch(fetchData)
+        .then(response => {
+          if (response.status === 200) {
+            openCloseLoginModal('closeLoginModal');
+            //open the checkout order modal
+
+          } else if (response.status === 401) {
+            document.querySelector('#alabel').style.color = "red";
+          }
+        })
+      }
     })
     .catch ((error) => {console.log('Request failed', error)});
-
-    // // Open requred modal or page
-    // if (action === 'userPrevOrders') {
-    //   //confirm it's a Guest logging in
-    //   //open customer previous orders modal
-      
-    // } else if (action === 'userCheckoutOrders') {
-    //   //confirm it's a Guest logging in
-    //   //open customer checkout modal
-
-    // } else if (action === 'adminDashboard') {
-    //   //confirm it's an admin logging in
-    //   //open admin dashboard
-    // }
-
 }
 
 // Inputs/Labels reset function
 function resetLoginModal (action) {
   emailLabel = document.querySelector("#elabel");
   passwordLabel = document.querySelector("#plabel");
-  emailInput = document.querySelector("#uemail")
-  passwordInput = document.querySelector("#upsw")
+  emailInput = document.querySelector("#uemail");
+  passwordInput = document.querySelector("#upsw");
+  authLabel = document.querySelector('#alabel');
 
-  if (action === 'clearForm') {
+  if (action == 'clearForm') {
+    authLabel.style.color = '';
     emailLabel.style.color = ''
     passwordLabel.style.color = ''
     emailInput.value = ''
     passwordInput.value = ''
 
-  } else if (action === 'resetEmail') {
-    if (emailLabel.style.color = 'red') {
+  } else if (action == 'resetEmail') {
+    if (emailLabel.style.color == 'red') {
       emailLabel.style.color = '';
+    } else if (authLabel.style.color == 'red') {
+      authLabel.style.color = '';
     }
-
-  } else if (action === 'resetPassword') {
-      if (passwordLabel.style.color = 'red') {
+  } else if (action == 'resetPassword') {
+      if (passwordLabel.style.color == 'red') {
         passwordLabel.style.color = '';
       }
   }   
