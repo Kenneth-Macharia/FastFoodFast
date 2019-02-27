@@ -836,7 +836,7 @@ tr:nth-child(even) {
 }
 
 /*---------------------------------
-   LOGIN MODAL
+   LOGIN & SIGNUP MODALS
   --------------------------------- */
 /* Code credit to https://www.w3schools.com/howto */
 .modal_login {
@@ -918,7 +918,7 @@ tr:nth-child(even) {
   color: #f4f4f4f6;
   /* color:red; */
   display: block;
-  margin:0 0 0 0;
+  padding-left: 5px;
 }
 
 .container input[type=email], 

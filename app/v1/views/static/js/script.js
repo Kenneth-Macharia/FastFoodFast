@@ -86,9 +86,10 @@ function signUp() {
       .then(response => {return response.json()})
       .then(function (data) {
         openCloseLoginModal('closeSignUpModal');
+        idValue = document.querySelector('.modal_login').getAttribute('id');
         let msg = data.Response.Success
         alert(msg);
-        openCloseLoginModal('openLoginModal');
+        openCloseLoginModal('openLoginModal', idValue);
       })
   } else {document.querySelector('#splabel').style.color = "red";} 
 }
