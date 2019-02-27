@@ -17,20 +17,81 @@ document.querySelector("#admin").addEventListener("click", function (e) {
 //   e.preventDefault();
 //   openCloseLoginModal('openLoginModal', 'checkout')}, false);
 
-// Login modal close button (Dismiss login modal)
-document.querySelector(".js_close").addEventListener("click", function () {
-  openCloseLoginModal('closeLoginModal')}, false);
+// Open signup modal via 'Quick Registration' link on login modal
+document.querySelector("#rlabel").addEventListener("click", function (e) { 
+  e.preventDefault();
+  openCloseLoginModal('openSignUpModal', 'admin')}, false);
 
-// Reset login modal on wrong input - nth login attempt
+// Login modal close button (Dismiss login modal)
+document.querySelector(".js_close_login").addEventListener("click", function () {openCloseLoginModal('closeLoginModal')}, false);
+
+  // Signup modal close button (Dismiss signup modal)
+document.querySelector(".js_close_2").addEventListener("click", function () {
+  openCloseLoginModal('closeSignUpModal')}, false);
+
+// Reset login & signup modal error labels on wrong input
 document.querySelector("#uemail").addEventListener("focus", function () {
-  resetLoginModal ('resetEmail')}, false);
+  resetLoginModal ('resetLoginEmail')}, false);
 document.querySelector("#upsw").addEventListener("focus", function () {
-  resetLoginModal ('resetPassword')}, false);
+  resetLoginModal ('resetLoginPassword')}, false);
+document.querySelector("#suemail").addEventListener("focus", function () {
+  resetLoginModal ('resetSignupEmail')}, false);  
+document.querySelector("#supsw").addEventListener("focus", function () {
+  resetLoginModal ('resetSignupPassword')}, false);
+document.querySelector("#supsw2").addEventListener("focus", function () {
+  resetLoginModal ('resetSignupPassword')}, false);
 
 
   
 /*----------CUSTOM FUNCTIONS---------*/
+
  
+
+// User signup
+function signUp() {
+  //Get the login form data
+  var name = document.querySelector("#suname").value;
+  var email = document.querySelector("#suemail").value;
+  var password = document.querySelector("#supsw").value;
+  var password2 = document.querySelector("#supsw2").value;
+
+  // Ensure passwords match
+  if (password === password2) {
+    // create the form data object
+    var formData = new FormData();
+    formData.append('User_Name', name);
+    formData.append('User_Email', email);
+    formData.append('User_Password', password);
+
+    // Create login request data object
+    const url = 'http://127.0.0.1:5000/v1/auth/signup'
+    var requestData = new Request(url, {
+      method: 'POST',
+      body: formData,
+      headers: new Headers(),
+      mode: 'cors',
+      cache: 'default'}
+    );
+
+    // Send login request
+    fetch(requestData)
+      .then(response => {
+        if (response.status === 400) {
+          document.querySelector('#selabel').style.color = "red";
+          return Promise.reject(new Error(response.statusText))
+        } else if (response.status === 201) {
+          return Promise.resolve(response);
+        }
+      })
+      .then(response => {return response.json()})
+      .then(function (data) {
+        openCloseLoginModal('closeSignUpModal');
+        let msg = data.Response.Success
+        alert(msg);
+        openCloseLoginModal('openLoginModal');
+      })
+  } else {document.querySelector('#splabel').style.color = "red";} 
+}
 
 // User login
 function login() {
@@ -53,7 +114,7 @@ function login() {
 
   // Send login request
   fetch(requestData)
-    .then((response) => {
+    .then(response => {
       if (response.status === 404) {
         document.querySelector('#elabel').style.color = "red";
         return Promise.reject(new Error(response.statusText))
@@ -64,12 +125,12 @@ function login() {
         return Promise.resolve(response);
       }
     })
-    .then((response) => {return response.json()})
+    .then(response => {return response.json()})
     .then(function(data) {
-      idValue = document.querySelector('.modal').getAttribute('id');
+      idValue = document.querySelector('.modal_login').getAttribute('id');
 
       var header = new Headers({
-        "Authorization": "Bearer ".concat(data['Access_token'])
+        "Authorization": "Bearer ".concat(data.Access_token)
       });
 
       var requestData = {
@@ -119,55 +180,94 @@ function login() {
         })
       }
     })
-    .catch ((error) => {console.log('Request failed', error)});
+    .catch (error => {console.log('Request failed due to: ', error)});
 }
 
 // Inputs/Labels reset function
 function resetLoginModal (action) {
+  //Clear login fields
   emailLabel = document.querySelector("#elabel");
   passwordLabel = document.querySelector("#plabel");
   emailInput = document.querySelector("#uemail");
   passwordInput = document.querySelector("#upsw");
   authLabel = document.querySelector('#alabel');
 
-  if (action == 'clearForm') {
+  //clear signup fields
+  s_nameInput = document.querySelector("#suname");
+  s_emailLabel = document.querySelector("#selabel");
+  s_emailInput = document.querySelector("#suemail");
+  s_passwordLabel = document.querySelector("#splabel");
+  s_passwordInput = document.querySelector("#supsw");
+  s2_passwordInput = document.querySelector("#supsw2");
+
+
+  if (action == 'clearLoginForm') {
     authLabel.style.color = '';
     emailLabel.style.color = ''
     passwordLabel.style.color = ''
     emailInput.value = ''
     passwordInput.value = ''
 
-  } else if (action == 'resetEmail') {
+  } else if (action == 'resetLoginEmail') {
     if (emailLabel.style.color == 'red') {
       emailLabel.style.color = '';
     } else if (authLabel.style.color == 'red') {
       authLabel.style.color = '';
     }
-  } else if (action == 'resetPassword') {
+
+  } else if (action == 'resetLoginPassword') {
       if (passwordLabel.style.color == 'red') {
         passwordLabel.style.color = '';
       }
-  }   
+
+  } else if (action == 'clearSignupForm') {
+    s_nameInput.value = '';
+    s_emailLabel.style.color = '';
+    s_emailInput.value = '';
+    s_passwordLabel.style.color = '';
+    s_passwordInput.value = '';
+    s2_passwordInput.value = '';
+
+  } else if (action == 'resetSignupEmail') {
+    if (s_emailLabel.style.color == 'red') {
+      s_emailLabel.style.color = '';
+    }
+
+  } else if (action == 'resetSignupPassword') {
+    if (s_passwordLabel.style.color == 'red') {
+      s_passwordLabel.style.color = '';
+    }
+  }
 }
 
 // Show|Close login form function
 function openCloseLoginModal (action, source) {
-  modalForm = document.querySelector(".modal")
+  modalLogin = document.querySelector(".modal_login");
+  modalSignup = document.querySelector(".modal_signup");
+
   if (action === 'openLoginModal') {
-    if (modalForm.hasAttribute("id")) {
-      modalForm.style.display = "none"
+    if (modalLogin.hasAttribute("id")) {
+      modalLogin.style.display = "none"
     }
-    modalForm.setAttribute("id", source);
-    modalForm.style.display = "block";
+    modalLogin.setAttribute("id", source);
+    modalLogin.style.display = "block";
     document.querySelector("#uemail").focus();
     //document.querySelector("#login").style.animation = "slide_from_top 0.7s";
   } else if (action === 'closeLoginModal') { //TODO: Fix modal animation
     //document.querySelector("#login").style.animation = "slide_back_to_top 0.7s";
-    if (modalForm.hasAttribute("id")) {
-      modalForm.removeAttribute("id")
+    if (modalLogin.hasAttribute("id")) {
+      modalLogin.removeAttribute("id")
     }
-    modalForm.style.display = "none";
-    resetLoginModal('clearForm');
+    modalLogin.style.display = "none";
+    resetLoginModal('clearLoginForm');
+  } else if (action === 'openSignUpModal') {
+    modalLogin.style.display = "none";
+    resetLoginModal('clearLoginForm');
+    modalSignup.style.display = "block";
+    document.querySelector("#suname").focus();
+  } else if (action === 'closeSignUpModal') {
+    modalSignup.style.display = "none";
+    resetLoginModal('clearSignupForm');
   }
 }
 

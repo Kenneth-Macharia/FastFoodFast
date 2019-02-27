@@ -356,15 +356,13 @@
             </div>
         </div>
   </footer>
-
-  <div class="modal">
-  
-    <form class="modal-content" action="javascript:login()">
+  <!-- Login modal -->
+  <div class="modal_login">
+    <form class="modal-content_login" action="javascript:login()">
       <div class="imgcontainer">
-        <span class="close js_close" title="Close">&times;</span>
+        <span class="close js_close_login" title="Close">&times;</span>
         <h3>FastFoodFast</h3>
       </div>
-  
       <div class="container">
         <label id="alabel"><b>You are not authorized to access this function</b></label>
         <label id="elabel"><b>Email is not registered, confirm entered email or register below</b></label>
@@ -378,5 +376,25 @@
       </div>
     </form>
   </div>
+  <!-- Signup modal -->
+  <div class="modal_signup">
+      <form class="modal-content_signup" action="javascript:signUp()">
+        <div class="imgcontainer">
+          <span class="close js_close_2" title="Close">&times;</span>
+          <h3>FastFoodFast</h3>
+        </div>
+        <div class="container">
+          <input type="text" placeholder="Enter your name" id="suname" autocomplete="off" required>
+          <label id="selabel"><b>You already registered, use your details to login</b></label>
+          <input type="email" placeholder="Enter your email" id="suemail" autocomplete="off" required>
+          <label id="splabel"><b>Passwords do not match</b></label>
+          <input type="password" placeholder="Enter your password" id="supsw" autocomplete="off" required>
+          <input type="password" placeholder="Confirm your password" id="supsw2" autocomplete="off" required>
+        </div>
+        <div class="button_container_signup">
+            <button type="submit">Signup</button>
+        </div>
+      </form>
+    </div>
 
 </html>
