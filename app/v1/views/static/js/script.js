@@ -181,7 +181,7 @@ function login() {
         })
       }
     })
-    .catch (error => {console.log('Request failed due to: ', error)});
+    .catch (error => {alert('Server error, contact the site administrator.')});
 }
 
 // Inputs/Labels reset function

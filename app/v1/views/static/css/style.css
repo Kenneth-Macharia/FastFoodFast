@@ -133,7 +133,7 @@ a:visited {
   color: #e67e22;
   text-decoration: none;
   padding-bottom: 2px;
-  border-bottom: 1px solid #e67e22;
+  /* border-bottom: 1px solid #e67e22; */
   transition: border-bottom 0.2s; color:0.2s
 }
 
@@ -733,8 +733,8 @@ footer p {
 }
 
 .header_section {
-    margin-bottom: 3px;
-    background-color: #25221f;
+    margin-bottom: 5px;
+    background-color: #fcfcfc;
 }
 
 .admin_col {
@@ -743,13 +743,16 @@ footer p {
 }
 
 .header_section h1  {
-    color: #fff;
-    font-size: 100%;
+    color: #0f0f0f;
+    font-size: 85%;
     margin:0 0 0 20px;
     padding:0;
 }
 
-.view_section {height:570px;}
+.view_section {
+  height:570px;
+  /* background-color: #f4f4f4; */
+}
 
 .view_header {
     box-shadow: 0 0 1px 0 #6b6767;
@@ -757,9 +760,10 @@ footer p {
 }
 
 .view_header p {
-    font-size: 90%;
+    font-size: 83%;
     text-align: center;
-    font-weight: 400;
+    padding-top: 2px;
+    color: #0f0f0f;
 }
 
 .view_info {
@@ -773,18 +777,20 @@ table {
 }
 
 th {
-    font-size: 100%;
+    font-size: 80%;
+    font-weight: normal;
     padding: 5px 5px;
+    text-transform: capitalize;
 }
 td, th {
     border: 1px solid #dddddd;
     text-align: center;
-    font-size: 90%;
+    font-size: 75%;
 }
 
-tr:nth-child(even) {
+/* tr:nth-child(even) {
     background-color: #dddddd;
-}
+} */
 
 .view_info input[type='submit'] {
     display: inline-block;
@@ -826,8 +832,8 @@ tr:nth-child(even) {
 }
 
 .admin_nav li a:link,
-.admin_nav li a:active {
-    color: #fff;
+.admin_nav li a:visited {
+    color: #0f0f0f;
 }
 
 .admin_nav li a:hover,
@@ -838,7 +844,6 @@ tr:nth-child(even) {
 /*---------------------------------
    LOGIN & SIGNUP MODALS
   --------------------------------- */
-/* Code credit to https://www.w3schools.com/howto */
 .modal_login {
   display: none;
   position: fixed; /* Stay in place */
@@ -978,6 +983,7 @@ button:hover {
   margin-top: 5px;
 }
 
+/* Code credit to https://www.w3schools.com/howto */
 /* @keyframes slide_from_top {
   0% {top:-300px; opacity:0;}
   100% {top:0; opacity:1;}
