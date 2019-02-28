@@ -7,7 +7,7 @@ document.querySelector("#prev_ord").addEventListener("click", function (e) {
   e.preventDefault();
   openCloseLoginModal('openLoginModal', 'prev_ord')}, false);
 
- // Access admin dashboard link (Open login modal)
+// Access admin dashboard link (Open login modal)
 document.querySelector("#admin").addEventListener("click", function (e) { 
   e.preventDefault();
   openCloseLoginModal('openLoginModal', 'admin')}, false);
@@ -25,27 +25,68 @@ document.querySelector("#rlabel").addEventListener("click", function (e) {
 // Login modal close button (Dismiss login modal)
 document.querySelector(".js_close_login").addEventListener("click", function () {openCloseLoginModal('closeLoginModal')}, false);
 
-  // Signup modal close button (Dismiss signup modal)
+// Signup modal close button (Dismiss signup modal)
 document.querySelector(".js_close_2").addEventListener("click", function () {
   openCloseLoginModal('closeSignUpModal')}, false);
 
 // Reset login & signup modal error labels on wrong input
 document.querySelector("#uemail").addEventListener("focus", function () {
-  resetLoginModal ('resetLoginEmail')}, false);
+  resetLoginModal('resetLoginEmail')}, false);
 document.querySelector("#upsw").addEventListener("focus", function () {
-  resetLoginModal ('resetLoginPassword')}, false);
+  resetLoginModal('resetLoginPassword')}, false);
 document.querySelector("#suemail").addEventListener("focus", function () {
-  resetLoginModal ('resetSignupEmail')}, false);  
+  resetLoginModal('resetSignupEmail')}, false);  
 document.querySelector("#supsw").addEventListener("focus", function () {
-  resetLoginModal ('resetSignupPassword')}, false);
+  resetLoginModal('resetSignupPassword')}, false);
 document.querySelector("#supsw2").addEventListener("focus", function () {
-  resetLoginModal ('resetSignupPassword')}, false);
+  resetLoginModal('resetSignupPassword')}, false);
 
+// Menu list link clicked on admin dash navigation (initialize get all menus)
+document.querySelector("#menulist").addEventListener("click", function (e) {
+  e.preventDefault();
+  getMenu()}, false);
 
   
-/*----------CUSTOM FUNCTIONS---------*/
+/*----------FEATURE FUNCTIONS---------*/
 
- 
+function test(menuArray) {
+  console.log(menuArray);
+}
+
+// Fetch all menus logic
+function getMenu() {
+  // Create login request data object
+  const url = 'http://127.0.0.1:5000/v1/menus'
+  var requestData = new Request(url, {
+    method: 'GET',
+    mode: 'cors',
+    cache: 'default',
+    credentials: 'include',
+    headers: header});
+
+  // Send get menus request
+  fetch(requestData)
+    .then(response => {
+      if (response.status === 200) {
+        return Promise.resolve(response);
+      } else {
+        return Promise.reject(new Error(response.statusText))
+      }
+    })
+    .then(response => {return response.json()})
+    .then(function (data) {
+      result = data.Response
+
+      if (result[0] === 'No menu items found') {
+        document.querySelector('.view_header p').innerHTML = result;
+        document.querySelector('.view_header p').style.color = "red";
+      } else {
+        //call function to populate the table and pass in array above
+        test(result);
+      }
+    })
+    .catch (error => {alert('Server error, contact the site administrator.')});
+}
 
 // User signup
 function signUp() {
@@ -91,10 +132,12 @@ function signUp() {
         alert(msg);
         openCloseLoginModal('openLoginModal', idValue);
       })
+      .catch (error => {alert('Server error, contact the site administrator.')});
   } else {document.querySelector('#splabel').style.color = "red";} 
 }
 
 // User login
+var header;
 function login() {
   //Get the login form data
   var email = document.querySelector("#uemail").value;
@@ -130,7 +173,7 @@ function login() {
     .then(function(data) {
       idValue = document.querySelector('.modal_login').getAttribute('id');
 
-      var header = new Headers({
+      header = new Headers({
         "Authorization": "Bearer ".concat(data.Access_token)
       });
 
@@ -148,7 +191,7 @@ function login() {
           .then(response => {
             if (response.status === 200) {
               openCloseLoginModal('closeLoginModal');
-              window.open('../templates/admin.html', '_parent');
+              document.querySelector('.admin_section').style.display = "block";
             } else if (response.status === 401) {
               document.querySelector('#alabel').style.color = "red";
             }
@@ -184,7 +227,8 @@ function login() {
     .catch (error => {alert('Server error, contact the site administrator.')});
 }
 
-// Inputs/Labels reset function
+ /*----------HELPER FUNCTIONS---------*/
+ // Inputs/Labels reset function
 function resetLoginModal (action) {
   //Clear login fields
   emailLabel = document.querySelector("#elabel");
@@ -271,6 +315,7 @@ function openCloseLoginModal (action, source) {
     resetLoginModal('clearSignupForm');
   }
 }
+
 
 /*-------------------------------------------------------------------------
                               JQUERY CODE

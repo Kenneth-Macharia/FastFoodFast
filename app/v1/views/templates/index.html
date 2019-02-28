@@ -356,6 +356,61 @@
             </div>
         </div>
   </footer>
+  <!-- Admin dashboard -->
+  <div class="admin_section">
+    <div class="row header_section">
+        <div class="col span-1-of-2 title_col">
+            <h1>Admin Dashboard</h1>
+        </div>
+        <div class="col span-1-of-2 nav_col admin_nav">
+          <ul>
+              <li><a href="index.html">Log out</a></li>
+              <li><a href="#">Orders List</a></li>
+              <li><a href="#" id="menulist">Menu List</a></li>
+              <li><a href="#">Add Menu</a></li>
+          </ul>
+        </div>
+    </div>
+    <div class="row view_section">
+        <div class="row view_header">
+            <p>View section heading</p>
+        </div>
+        <div class="row view_info">
+             <table>
+                <tr>
+                    <th>ID</th>
+                    <th>MEAL</th>
+                    <th>PRICE</th>
+                    <th>ACTION</th>
+                </tr>
+                <tr>
+                    <td>M001</td>
+                    <td>Meal 1</td>
+                    <td>$10</td>
+                    <td><form><input type=submit value="Update"></form></td>
+                </tr>
+                <tr>
+                    <td>M002</td>
+                    <td>Meal 2</td>
+                    <td>$15</td>
+                    <td><form><input type=submit value="Update"></form></td>
+                </tr>
+                <tr>
+                    <td>M003</td>
+                    <td>Meal 3</td>
+                    <td>$12</td>
+                    <td><form><input type=submit value="Update"></form></td>
+                </tr>
+                <tr>
+                    <td>M004</td>
+                    <td>Meal 4</td>
+                    <td>$22</td>
+                    <td><form><input type=submit value="Update"></form></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+  </div>
   <!-- Login modal -->
   <div class="modal_login">
     <form class="modal-content_login" action="javascript:login()">
@@ -366,7 +421,7 @@
       <div class="container">
         <label id="alabel"><b>You are not authorized to access this function</b></label>
         <label id="elabel"><b>Email is not registered, confirm entered email or register below</b></label>
-        <input type="email" placeholder="Enter your email" id="uemail" autocomplete="off" required>
+        <input type="email" placeholder="Enter your email address" id="uemail" autocomplete="off" required>
         <label id="plabel"><b>Incorrect password</b></label>
         <input type="password" placeholder="Enter your password" id="upsw" autocomplete="off" required>
       </div>
@@ -386,7 +441,7 @@
         <div class="container">
           <input type="text" placeholder="Enter your name" id="suname" autocomplete="off" required>
           <label id="selabel"><b>You are already registered, use your details to login</b></label>
-          <input type="email" placeholder="Enter your email" id="suemail" autocomplete="off" required>
+          <input type="email" placeholder="Enter your email address" id="suemail" autocomplete="off" required>
           <label id="splabel"><b>Passwords do not match</b></label>
           <input type="password" placeholder="Enter your password" id="supsw" autocomplete="off" required>
           <input type="password" placeholder="Confirm your password" id="supsw2" autocomplete="off" required>
