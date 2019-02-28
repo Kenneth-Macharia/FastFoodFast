@@ -722,31 +722,34 @@ footer p {
    ADMIN PAGE
    --------------------------------- */
 .admin_section{
-    padding:10px 0 0 0;
-    background-color: #fcfcfc;
+  padding:10px 0 15px 0; /*temp background color fix*/
+  width: 100%;
+  height: auto;
+  background-color: #f4f4f4;
 }
 
 .header_section,
 .view_section {
-    border: 1px solid #e67e22;
-    border-radius: 5px;
+  border: 1px solid #e67e22;
+  border-radius: 5px;
 }
 
 .header_section {
-    margin-bottom: 5px;
-    background-color: #fcfcfc;
+  margin-bottom: 5px;
+  /* background-color: #fcfcfc; */
 }
 
 .admin_col {
-    margin:0;
-    padding: 5px 5px;
+  margin:0;
+  padding: 5px 5px;
 }
 
 .header_section h1  {
-    color: #0f0f0f;
-    font-size: 85%;
-    margin:0 0 0 20px;
-    padding:0;
+  color: #080000;
+  font-size: 90%;
+  font-weight: bold;
+  margin:0 0 0 20px;
+  padding:0;
 }
 
 .view_section {
@@ -755,66 +758,69 @@ footer p {
 }
 
 .view_header {
-    box-shadow: 0 0 1px 0 #6b6767;
-    padding:5px;
+  box-shadow: 0 0 1px 0 #6b6767;
+  padding:5px;
 }
 
 .view_header p {
-    font-size: 83%;
-    text-align: center;
-    padding-top: 2px;
-    color: #0f0f0f;
+  font-size: 83%;
+  font-weight: bold;
+  text-align: center;
+  padding-top: 2px;
+  color: #080000;
 }
 
 .view_info {
-    height: 520px;
-    padding: 5px;
+  height: 520px;
+  padding: 5px;
 }
 
 table {
-    border-collapse: collapse;
-    width: 100%;
+  border-collapse: collapse;
+  width: 100%;
 }
 
 th {
-    font-size: 80%;
-    font-weight: normal;
-    padding: 5px 5px;
-    text-transform: capitalize;
+  font-size: 80%;
+  font-weight: normal;
+  padding: 5px 5px;
+  text-transform: capitalize;
 }
 td, th {
-    border: 1px solid #dddddd;
-    text-align: center;
-    font-size: 75%;
+  border: 1px solid #a5a4a4;
+  text-align: center;
+  font-size: 75%;
+  color: #080000;
 }
 
 /* tr:nth-child(even) {
-    background-color: #dddddd;
+  background-color: #dddddd;
 } */
 
 .view_info input[type='submit'] {
-    display: inline-block;
-    padding: 1px 10px 1px 10px;
-    margin: 0 0 3px 0;
-    font-size: 70%;
-    text-decoration: none;
-    border: 1px solid #e67e22;
-    border-radius: 100px;
+  display: inline-block;
+  padding: 1px 10px 1px 10px;
+  margin: 0 0 3px 0;
+  font-size: 70%;
+  text-decoration: none;
+  border: 1px solid #e67e22;
+  border-radius: 100px;
+  /* background-color: #fcfcfc; */
 }
 
 .view_info input[type='submit']:hover {
-    background-color: #e67e22;
-    color: #fff;
+  background-color: #e67e22;
+  color: #fff;
 }
 
 .view_footer {
-    height: 12px;
+  height: 12px;
 }
 
 .view_footer p {
-    font-size: 50%;
-    float: right;
-    padding: 3px 2px 0 0;
+  font-size: 50%;
+  float: right;
+  padding: 3px 2px 0 0;
 }
 
 /* ---------- NAV BAR ---------- */
@@ -823,22 +829,23 @@ td, th {
 }
 
 .admin_nav li {
-    float: right;
-    list-style: none;
-    margin-left: 20px;
-    margin-top: 1px;
-    text-decoration: none;
-    font-size: 80%;
+  float: right;
+  list-style: none;
+  margin-left: 20px;
+  margin-top: 4px;
+  text-decoration: none;
+  font-size: 63%;
+  font-weight: bold;
 }
 
 .admin_nav li a:link,
 .admin_nav li a:visited {
-    color: #0f0f0f;
+  color: #0f0f0f;
 }
 
 .admin_nav li a:hover,
 .admin_nav li a:active {
-    color: #e67e22;
+  color: #e67e22;
 }
 
 /*---------------------------------
