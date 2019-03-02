@@ -49,8 +49,91 @@ document.querySelector("#menulist").addEventListener("click", function (e) {
   
 /*----------FEATURE FUNCTIONS---------*/
 
-function test(menuArray) {
-  console.log(menuArray);
+function showMenuTable(menuArray) {
+  // Get the menu table to add rows to
+  let table = document.querySelector("#menu_table").querySelector("tbody");
+
+  // For each item in the array returned from the backend do the following:
+  var i;
+  for (i = 0; i <= (menuArray.length - 1); i++) {
+    // Insert row
+    let newRow = table.insertRow(table.rows.length);
+
+    console.log('Loop 1 says: ', menuArray[i]);
+    console.log('Loop 1 says: ', i);
+
+    var j;
+    for (j = 0; j <= 3; j++) {
+      // Insert new 4 cells per row, append menuArray data and control elements
+      let newCell = newRow.insertCell(j);
+
+      console.log('Loop 2 says: ', menuArray[i]);
+      console.log('Loop 2 says: ',j)
+
+      if (j === 0) {
+        let newText = document.createTextNode(menuArray[i].Menu_Id);
+        newCell.appendChild(newText);
+      } else if (j === 1) {
+        let newText = document.createTextNode(menuArray[i].Menu_Name);
+        newCell.appendChild(newText);
+      } else if (j === 2) {
+        let newText = document.createTextNode('$' + menuArray[i].Menu_Price);
+        newCell.appendChild(newText);
+      } else if (j === 3) {
+        // Create the radio and submit input per row in 'Action cell'
+          // Create the container divs, 1 for the radios, the other for the submits
+        let radioDiv = document.createElement("DIV");
+        radioDiv.setAttribute("class", "view_info_div");
+        let submitDiv = document.createElement("div");
+        submitDiv.setAttribute("class", "view_info_div");
+
+          // Create the nodes, 2 radios each with a label and 2 submits and append to their respective divs
+        let radioAv = document.createElement("INPUT");
+        radioAv.setAttribute("type", "radio");
+        radioAv.setAttribute("name", "menu_availability");
+        radioAv.setAttribute("id", "menu_a");
+        if (menuArray[i].Menu_Availability === "Available") {
+          radioAv.checked = true;
+        radioDiv.appendChild(radioAv);
+
+        let radioAvLabel = document.createElement("LABEL");
+        let radioAvLabelText = document.createTextNode("Available");
+        radioAvLabel.appendChild(radioAvLabelText);
+        radioDiv.appendChild(radioAvLabel);
+
+        let radioUn = document.createElement("INPUT");
+        radioUn.setAttribute("type", "radio");
+        radioUn.setAttribute("name", "menu_availability");
+        radioUn.setAttribute("id", "menu_u");
+        if (menuArray[i].Menu_Availability === "Unavailable") {
+          radioUn.checked = true;
+        radioDiv.appendChild(radioUn);
+
+        let radioUnLabel = document.createElement("LABEL");
+        let radioUnLabelText = document.createTextNode("Unavailable");
+        radioUnLabel.appendChild(radioUnLabelText);
+        radioDiv.appendChild(radioUnLabel);
+        
+        let submitEdit = document.createElement("INPUT");
+        submitEdit.setAttribute("type", "submit");
+        submitEdit.setAttribute("value", "Edit");
+        submitEdit.setAttribute("id", "submit_e");
+        submitDiv.appendChild(submitEdit);
+
+        let submitDelete = document.createElement("INPUT");
+        submitDelete.setAttribute("type", "submit");
+        submitDelete.setAttribute("value", "Delete");
+        submitDelete.setAttribute("id", "submit_d");
+        submitDiv.appendChild(submitDelete);
+
+        // Append the two divs to the last row cell 
+        newCell.appendChild(radioDiv);
+        newCell.appendChild(submitDiv);
+      }
+    }  
+  }
+   // Show the table
+   document.querySelector("#menu_table").style.display = "block";
 }
 
 // Fetch all menus logic
@@ -75,17 +158,18 @@ function getMenu() {
     })
     .then(response => {return response.json()})
     .then(function (data) {
-      result = data.Response
+      result = data.Response.Success
 
       if (result[0] === 'No menu items found') {
-        document.querySelector('.view_header p').innerHTML = result;
-        document.querySelector('.view_header p').style.color = "red";
+        document.querySelector('.view_header p').innerHTML = result[0];
+        document.querySelector('.view_header p').style.color = "#e67e22";
       } else {
-        //call function to populate the table and pass in array above
-        test(result);
+        document.querySelector('.view_header p').innerHTML = "Menu List";
+        document.querySelector('.view_header p').style.color = "#e67e22";
+        showMenuTable(result);
       }
     })
-    .catch (error => {alert('Server error, contact the site administrator.')});
+    // .catch (error => {alert('Server error, contact the site administrator.')});
 }
 
 // User signup
@@ -132,7 +216,7 @@ function signUp() {
         alert(msg);
         openCloseLoginModal('openLoginModal', idValue);
       })
-      .catch (error => {alert('Server error, contact the site administrator.')});
+      // .catch (error => {alert('Server error, contact the site administrator.')});
   } else {document.querySelector('#splabel').style.color = "red";} 
 }
 
@@ -224,7 +308,7 @@ function login() {
         })
       }
     })
-    .catch (error => {alert('Server error, contact the site administrator.')});
+    // .catch (error => {alert('Server error, contact the site administrator.')});
 }
 
  /*----------HELPER FUNCTIONS---------*/

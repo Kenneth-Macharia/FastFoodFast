@@ -808,26 +808,12 @@ footer p {
   color:#e4e1e1fa;
 }
 
-.view_info input[type='submit'] {
-  display: inline-block;
-  padding: 1px 10px 1px 10px;
-  margin: 0 0 3px 0;
-  font-size: 70%;
-  text-decoration: none;
-  border: 1px solid #e67e22;
-  border-radius: 100px;
-  background-color:#e4e1e1fa;
-}
-
-.view_info input[type='submit']:hover {
-  background-color: #e67e22;
-  color: #fff;
-}
-
 table {
   border-collapse: collapse;
   width: 100%;
 }
+
+tr { width:100%; }
 
 th {
   font-size: 80%;
@@ -840,7 +826,47 @@ td, th {
   text-align: center;
   font-size: 75%;
   color: #080000;
+  padding:0;
 }
+
+/* th:last-child,
+td:last-child { width: 35%; } */
+
+.view_info_div {
+  width: 30%;
+  display: inline-block;
+  margin: 0 0 0 5px;
+}
+
+.view_info_div input[type='submit'] {
+  display: inline-block;
+  padding: 1px 10px 1px 10px;
+  margin: 5px 0 5px 5px;
+  font-size: 80%;
+  text-decoration: none;
+  border: 1px solid #e67e22;
+  border-radius: 100px;
+  background-color:#e4e1e1fa;
+}
+
+.view_info_div input[type='submit']:hover {
+  background-color: #e67e22;
+  color: #fff;
+}
+
+.view_info_div input[type='radio'] {
+  padding: 20px 0 0 0;
+}
+
+.view_info_div label {
+  font-size: 80%;
+  padding: 0 8px 0 4px;
+}
+
+#menu_table {
+  display: none;
+}
+
 
 /*---------------------------------
    LOGIN & SIGNUP MODALS
