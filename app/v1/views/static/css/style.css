@@ -808,12 +808,22 @@ footer p {
   color:#e4e1e1fa;
 }
 
+.close_table {
+  position: absolute;
+  right: 18px;
+  top: 11.5%;
+  color: #e4e1e1fa;
+  font-size: 25px;
+  cursor: pointer;
+}
+
 table {
   border-collapse: collapse;
   width: 100%;
+  table-layout: auto;
 }
 
-tr { width:100%; }
+thead, tbody, tr { width: 100%; }
 
 th {
   font-size: 80%;
@@ -821,6 +831,7 @@ th {
   padding: 5px 5px;
   text-transform: capitalize;
 }
+
 td, th {
   border: 1px solid #a5a4a4;
   text-align: center;
@@ -829,11 +840,12 @@ td, th {
   padding:0;
 }
 
-/* th:last-child,
-td:last-child { width: 35%; } */
+#menu_table th:last-child,
+#menu_table td:last-child { width: 20%; }
+
 
 .view_info_div {
-  width: 30%;
+  width: 32%;
   display: inline-block;
   margin: 0 0 0 5px;
 }

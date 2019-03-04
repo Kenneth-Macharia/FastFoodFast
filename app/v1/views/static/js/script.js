@@ -18,8 +18,7 @@ document.querySelector("#admin").addEventListener("click", function (e) {
 //   openCloseLoginModal('openLoginModal', 'checkout')}, false);
 
 // Open signup modal via 'Quick Registration' link on login modal
-document.querySelector("#rlabel").addEventListener("click", function (e) { 
-  e.preventDefault();
+document.querySelector("#rlabel").addEventListener("click", function () { 
   openCloseLoginModal('openSignUpModal', 'admin')}, false);
 
 // Login modal close button (Dismiss login modal)
@@ -41,6 +40,13 @@ document.querySelector("#supsw").addEventListener("focus", function () {
 document.querySelector("#supsw2").addEventListener("focus", function () {
   resetLoginModal('resetSignupPassword')}, false);
 
+// Admin dash header close button function
+document.querySelector(".js_close_table").addEventListener('click', function() {
+  if (document.querySelector('.view_header p').innerHTML = 'Menu List') {
+    closeTables('#menu_table');
+  }
+  }, false);
+
 // Menu list link clicked on admin dash navigation (initialize get all menus)
 document.querySelector("#menulist").addEventListener("click", function (e) {
   e.preventDefault();
@@ -59,16 +65,11 @@ function showMenuTable(menuArray) {
     // Insert row
     let newRow = table.insertRow(table.rows.length);
 
-    console.log('Loop 1 says: ', menuArray[i]);
-    console.log('Loop 1 says: ', i);
-
     var j;
     for (j = 0; j <= 3; j++) {
+      
       // Insert new 4 cells per row, append menuArray data and control elements
       let newCell = newRow.insertCell(j);
-
-      console.log('Loop 2 says: ', menuArray[i]);
-      console.log('Loop 2 says: ',j)
 
       if (j === 0) {
         let newText = document.createTextNode(menuArray[i].Menu_Id);
@@ -80,39 +81,30 @@ function showMenuTable(menuArray) {
         let newText = document.createTextNode('$' + menuArray[i].Menu_Price);
         newCell.appendChild(newText);
       } else if (j === 3) {
-        // Create the radio and submit input per row in 'Action cell'
-          // Create the container divs, 1 for the radios, the other for the submits
-        let radioDiv = document.createElement("DIV");
-        radioDiv.setAttribute("class", "view_info_div");
+        // Create the checkbox and submits input per row in 'Action cell'
+          // Create the container divs, 1 for the checkboxes, the other for the submits
+        let checkboxDiv = document.createElement("DIV");
+        checkboxDiv.setAttribute("class", "view_info_div");
         let submitDiv = document.createElement("div");
         submitDiv.setAttribute("class", "view_info_div");
 
-          // Create the nodes, 2 radios each with a label and 2 submits and append to their respective divs
-        let radioAv = document.createElement("INPUT");
-        radioAv.setAttribute("type", "radio");
-        radioAv.setAttribute("name", "menu_availability");
-        radioAv.setAttribute("id", "menu_a");
+          // Create the nodes, 1 checkbox with a label and 2 submits and append to their respective divs
+        let menuCheck = document.createElement("INPUT");
+        menuCheck.setAttribute("type", "checkbox");
+        menuCheck.setAttribute("name", "menu_availability");
+        menuCheck.setAttribute("id", "menu_check");
         if (menuArray[i].Menu_Availability === "Available") {
-          radioAv.checked = true;
-        radioDiv.appendChild(radioAv);
+          menuCheck.checked = true;
+        checkboxDiv.appendChild(menuCheck);
+        } else if (menuArray[i].Menu_Availability === "Unavailable") {
+          menuCheck.checked = false;
+          checkboxDiv.appendChild(menuCheck);
+        }
 
-        let radioAvLabel = document.createElement("LABEL");
-        let radioAvLabelText = document.createTextNode("Available");
-        radioAvLabel.appendChild(radioAvLabelText);
-        radioDiv.appendChild(radioAvLabel);
-
-        let radioUn = document.createElement("INPUT");
-        radioUn.setAttribute("type", "radio");
-        radioUn.setAttribute("name", "menu_availability");
-        radioUn.setAttribute("id", "menu_u");
-        if (menuArray[i].Menu_Availability === "Unavailable") {
-          radioUn.checked = true;
-        radioDiv.appendChild(radioUn);
-
-        let radioUnLabel = document.createElement("LABEL");
-        let radioUnLabelText = document.createTextNode("Unavailable");
-        radioUnLabel.appendChild(radioUnLabelText);
-        radioDiv.appendChild(radioUnLabel);
+        let menuCheckLabel = document.createElement("LABEL");
+        let menuCheckLabelText = document.createTextNode("Available");
+        menuCheckLabel.appendChild(menuCheckLabelText);
+        checkboxDiv.appendChild(menuCheckLabel);
         
         let submitEdit = document.createElement("INPUT");
         submitEdit.setAttribute("type", "submit");
@@ -127,7 +119,7 @@ function showMenuTable(menuArray) {
         submitDiv.appendChild(submitDelete);
 
         // Append the two divs to the last row cell 
-        newCell.appendChild(radioDiv);
+        newCell.appendChild(checkboxDiv);
         newCell.appendChild(submitDiv);
       }
     }  
@@ -163,9 +155,11 @@ function getMenu() {
       if (result[0] === 'No menu items found') {
         document.querySelector('.view_header p').innerHTML = result[0];
         document.querySelector('.view_header p').style.color = "#e67e22";
+        document.querySelector('.js_close_table').style.color = "black";
       } else {
         document.querySelector('.view_header p').innerHTML = "Menu List";
         document.querySelector('.view_header p').style.color = "#e67e22";
+        document.querySelector('.js_close_table').style.color = "black";
         showMenuTable(result);
       }
     })
@@ -312,6 +306,21 @@ function login() {
 }
 
  /*----------HELPER FUNCTIONS---------*/
+ // Close tables displayed in the admin dash
+function closeTables (tableId) {
+
+  if (tableId === '#menu_table') {
+    // document.querySelector('#menu_table').style.display = 'none';
+    let table = document.querySelector("#menu_table");
+    rows = table.rows.length
+    var i;
+    for (i = 0; i <= (rows - 1); i++) {
+      table.deleteRow(i);
+    }
+  }  
+
+}
+ 
  // Inputs/Labels reset function
 function resetLoginModal (action) {
   //Clear login fields
@@ -328,7 +337,6 @@ function resetLoginModal (action) {
   s_passwordLabel = document.querySelector("#splabel");
   s_passwordInput = document.querySelector("#supsw");
   s2_passwordInput = document.querySelector("#supsw2");
-
 
   if (action == 'clearLoginForm') {
     authLabel.style.color = '';
