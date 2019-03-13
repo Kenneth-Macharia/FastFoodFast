@@ -1,7 +1,7 @@
 ''' This module runs the apps versions in their respective main.py modules '''
 
 import os
-from app.v1.main import app
+from app.main import app
 
 # Set the app environment
 RUN = os.getenv('FLASK_ENV')
