@@ -3,7 +3,7 @@ functionality and will test the users, menus and orders modules
 in controllers and models '''
 
 from flask import json
-from tests.v1.configs import test_client, drop_tables
+from configs import test_client, drop_tables
 
 
 # USERS ORDERS TESTS

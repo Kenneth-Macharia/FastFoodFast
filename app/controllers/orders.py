@@ -4,8 +4,8 @@ import datetime
 from flask import request
 from flask_restful import Resource, reqparse
 from flask_jwt_extended import (jwt_required, get_jwt_claims, get_jwt_identity)
-from app.v1.models.users import UserModel
-from app.v1.models.orders import (UserOrdersModel, AdminOrdersModel)
+from ..models.users import UserModel
+from ..models.orders import (UserOrdersModel, AdminOrdersModel)
 
 
 class UserOrders(Resource):

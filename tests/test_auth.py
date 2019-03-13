@@ -2,7 +2,7 @@
 models '''
 
 from flask import json
-from tests.v1.configs import test_client, drop_tables
+from configs import test_client, drop_tables
 
 
 def test_user_registration(test_client):
