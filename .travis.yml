@@ -18,9 +18,9 @@ before_script:
 script:
   - pytest --cov-report term-missing --cov=app
 
-after_script:
+after_success:
   - coveralls
 
-after_success:
+
 
 
