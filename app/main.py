@@ -4,10 +4,11 @@ import os
 from flask import Flask
 from flask_restful import Api
 from flask_jwt_extended import JWTManager
-from models.users import UserModel
-from controllers.users import (UserRegistration, UserUpdate, UserLogin, UserLogout)
-from controllers.menus import Menus, AddMenu, MenuMgt
-from controllers.orders import UserOrders, AdminOrders, AdminOrder 
+from flask_cors import CORS
+from app.models.users import UserModel
+from app.controllers.users import (UserRegistration, UserUpdate, UserLogin, UserLogout)
+from app.controllers.menus import Menus, AddMenu, MenuMgt
+from app.controllers.orders import UserOrders, AdminOrders, AdminOrder 
 
 # Ensures a secret key has been set in the os envirnement before the app can run
 SECRET = os.getenv('SECRET')
@@ -15,6 +16,8 @@ if not SECRET or SECRET == '':
     exit('Set app secret key - See .env sample file')
 
 app = Flask(__name__)
+# Enable cross origin resource sharing (CORS) for external requests to the API, with authentication allowed.
+CORS(app, supports_credentials=True)
 app.config['SECRET_KEY'] = SECRET
 jwt = JWTManager(app)
 app.config['JWT_BLACKLIST_ENABLED'] = True
