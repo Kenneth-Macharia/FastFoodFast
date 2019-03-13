@@ -13,5 +13,9 @@ The app is made up of:
 
 This branch contains the interactive front end UI.
 
+##Viewing the UI pages
+To interact with the UI pages follow the link below to where they are hosted:
+    https://kenneth-macharia.github.io/FastFoodFast/
+
 ## Author
 Kenneth Macharia
