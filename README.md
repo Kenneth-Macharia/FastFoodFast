@@ -21,19 +21,31 @@ This branch contains the API that powers the front end.
 Before the API can be tested, the following must be done:
 
     1.Clone this repo to a local machine
-    2.Checkout the 'challenge_2-API_endpoints' branch while in the project root folder: /FastFoodFast~$git checkout challenge_2-API_endpoints
+    2.Checkout the 'challenge_2-API_endpoints' branch while in the project root folder: 
+    
+        /FastFoodFast~$git checkout challenge_2-API_endpoints
+
     3.Install PostgreSQL on the local machine
     4.Create a database to use for the testing
     5.Create a user with full right to the database above
     6.Install virtulenv to create a virtual environement for the API:
+
         /FastFoodFast~$pip install virualenv
+
     7.While in the project root folder create a virtual environment to isolate the app
+
         /FastFoodFast~$virtualenv <your-virtual-environment-name>
+
     8.Active the virtual environment, the prompt is now preceeded by '(your_env_name)'
+
         /FastFoodFast~$. <your-virtual-environment-name>/bin/activate
+
     9.Install all the API dependancies in the virtual environment:
+
         (your_env_name)/FastFoodFast~$pip install -r requirements.txt
+
     10.Export the OS environment variable required to run the API (See .env sample file)
+
         /FastFoodFast~$export <the_environement_variable>=<the_environment_value>
 
 ## Running the automated tests on the API
