@@ -4,21 +4,24 @@
 
 # The FastFoodFast Web App
 ## Introduction 
-This repository hosts the development of an online app for FastFoodFast, a 5 star restaurant. On the front, users will iteractive with a website to order food for delivery from.
+This repository hosts the development of an online app for FastFoodFast, a 5 star restaurant. Users will iteractive with the website frontend to order food for delivery.
 
 ## The Components
 The app is made up of: 
 
-    1.UI templates developed using HTML5 and CSS3
+    1.UI pages developed using HTML5, CSS3 and JavaSript
+
     2.A RESTful API developed using the Python Flask microframework
+
     3.A PostgreSQL database
 
+This branch contains the API that powers the front end.
+
 ## Getting started
-Before any of the above components can be tested, the following must be done:
+Before the API can be tested, the following must be done:
 
     1.Clone this repo to a local machine
-    2.Checkout the 'develop' branch while in the project root folder: 
-        /FastFoodFast~$git checkout develop
+    2.Checkout the 'challenge_2-API_endpoints' branch while in the project root folder: /FastFoodFast~$git checkout challenge_2-API_endpoints
     3.Install PostgreSQL on the local machine
     4.Create a database to use for the testing
     5.Create a user with full right to the database above
@@ -32,16 +35,12 @@ Before any of the above components can be tested, the following must be done:
         (your_env_name)/FastFoodFast~$pip install -r requirements.txt
     10.Export the OS environment variable required to run the API (See .env sample file)
         /FastFoodFast~$export <the_environement_variable>=<the_environment_value>
-        
-## Viewing the UI templates
-To view the UI templates, navigate to the 'templates' folder and open index.html
-    /FastFoodFast/app/v1/views/templates
 
 ## Running the automated tests on the API
-To run the test suite on the app source code:
+To run the test suite on the API source code:
 
     1.Ensure all the steps are done from the 'Getting started' section above.
-    2.Run the test and generate a test report: /FastFoodFast~$py.test --cov=app
+    2.Run the tests and generate a test report: /FastFoodFast~$py.test --cov=app
 
 ## Testing the API
 To test the API endpoints: 
