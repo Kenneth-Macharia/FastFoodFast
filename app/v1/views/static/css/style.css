@@ -6,6 +6,8 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  /* TODO: Remove after development */
+  /* border: 1px solid #519ce2;  */
 }
 
 *:focus {
@@ -106,6 +108,8 @@ h3 {
   font-size: 100%;
   margin-bottom: 15px;
 }
+
+.box h3 { text-align: center;}
 
 /* ---------- PARAGRAPHS ---------- */
 .box p {
@@ -210,6 +214,14 @@ header {
   margin-top: 0px;
 }
 
+.logo_black {
+  display: none;
+  height: 60px;
+  width: auto;
+  float: left;
+  margin-top: 5px 0;
+}
+
 .header_texbox {
     /* this will be an absolutely positined box so that we can horizontalt &
     vertically centre it */
@@ -239,13 +251,13 @@ header {
 .main_nav {
   float: right;
   list-style: none;
-  margin-top: 30px;
+  margin-top: 15px;
 }
 
 .main_nav li {
   /* Change the li elements from block to in-line blocks */
   display: inline-block;
-  margin: 20px;
+  margin: 10px;
 }
 
 .main_nav li a:link,
@@ -267,6 +279,80 @@ header {
   text-transform: capitalize;
 }
 
+/* --------- MOBILE NAV   --------- */
+/* Style how the mobile nav will look like */
+.mobile_nav_icon,
+.cart {
+  float: right;
+  margin-top: 22px;
+  cursor: pointer;
+}
+
+.mobile_nav_icon i,
+.cart i {
+  font-size: 140%;
+  color: #fff;
+}
+
+.mobile_nav_icon {
+  padding-top: 7px;
+  display: none;
+}
+
+.cart:link,
+.cart:visited,
+.cart:active,
+.cart:hover {
+  padding: 2px 30px 0 30px;
+  border: 0;
+  text-decoration: none;
+  border-bottom: none;
+}
+
+.cart i {
+  font-size: 170%;
+  font-weight: bolder;
+  color: #fff;
+}
+
+
+/* ---------- STICKY NAV  ---------- */
+/* Style hwo the stick nav will look like */
+.sticky_nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 58px;
+  /* background-color: rgba(255, 255, 255, 0.98); */
+  background-color:#f4f4f4f6;
+  box-shadow: 0 2px 2px #efefef;
+  /* Specifys the vertical stacking of element from 0-9999, with the latter being the higest allowed, thus will be the top-most element */
+  z-index: 9999;
+
+}
+
+.sticky_nav .main_nav { margin-top: 0; }
+
+.sticky_nav .cart,
+.sticky_nav .cart i {
+  margin-top: 6px;
+  color: rgb(22, 21, 21);
+}
+
+.sticky_nav .main_nav li a:link,
+.sticky_nav .main_nav li a:visited {
+  /* These only apply if inside the sticky_nav class */
+    padding: 7px 0;
+    color: #555;
+}
+
+/* If the logo's are inside the sticky_nav, do the below */
+.sticky_nav .logo { display: none; }
+.sticky_nav .logo_black {
+  display: block;
+  margin-top: -1px;
+}
 
 /* ---------------------------------
    SELL SECTION
@@ -325,13 +411,6 @@ blockquote:before {
   position: absolute;
   top:-5px;
   left:-5px;
-}
-
-cite img {
-  height: 45px;
-  border-radius: 50%;
-  margin-right: 10px;
-  vertical-align: middle;
 }
 
 /* ---------------------------------
@@ -427,7 +506,9 @@ cite img {
 
 .feedback_row {width:80%;}
 
-input[type='text'], input[type='email'], textarea {
+.feedback_form input[type='text'], 
+.feedback_form input[type='email'],
+.feedback_form textarea {
     /* Select only inputs with selected type */
     width: 100%;
     padding: 7px;
@@ -525,6 +606,7 @@ footer p {
     color: #888;
     text-align: center;
     margin-top: 5px;
+    margin-bottom: 5px;
     font-size: 70%;
 }
 
@@ -559,10 +641,21 @@ footer p {
     line-height: 175%;
 }
 
+.copyright h6 {
+  line-height: 100%;
+  padding-top: 0;
+  margin-top: 5px;
+  font-weight: 400;
+  text-align: center;
+}
+
 /* ---------------------------------
    ABOUT US PAGE
    --------------------------------- */
-.about_section {padding: 50px;}
+.about_section {
+  padding: 20px;
+  margin-left: 15px;
+}
 
 .head,
 .parag,
@@ -587,13 +680,13 @@ footer p {
 
 .showcase li {
     display: block;
-    width: 24%;
+    width: 22%;
     float: left;
 }
 
 .images_li {
     width: 100%;
-    margin: 20px 0px 20px 0px;
+    margin: 20px 0px 20px 20px;
 }
 
 .images_li img {
@@ -606,13 +699,13 @@ footer p {
 }
 
 .parag {
-    font-size: 90%;
-    text-align: justify;
+    font-size: 85%;
+    text-align: left;
     line-height: 140%;
 }
 
 .parag div {
-    width: 48%;
+    width: 47%;
 }
 
 .parag div:first-child {
@@ -628,107 +721,314 @@ footer p {
 /* ---------------------------------
    ADMIN PAGE
    --------------------------------- */
-.admin_section{
-    padding:10px 0 0 0;
-    background-color: #fcfcfc;
+.admin_section {
+  display: none;
+  border: 1px solid #e67e22;
+  width: 100%;
+  height: auto;
+  background-color: #e4e1e1fa;
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 10%;
+  top: 15%;
+  width: 80%; 
+  height: 70%;
+  overflow: auto;
 }
 
+.header_section { 
+  height: auto;
+  margin-bottom: 0;
+}
+
+.view_section { margin-top: 0; }
+
+.admin_section,
 .header_section,
-.view_section {
-    border: 1px solid #e67e22;
-    border-radius: 5px;
+.view_section { margin: 0.5% 0.5% 0 0.5%; }
+
+
+.view_section,
+.view_info {
+  height: auto;
+  padding: 5px;
 }
 
-.header_section {
-    margin-bottom: 3px;
-    background-color: #25221f;
+.title_col,
+.nav_col {
+  margin:0;
+  padding: 0 0 4px 0;
 }
 
-.admin_col {
-    margin:0;
-    padding: 5px 5px;
-}
+.title_col { margin-top: 5px; }
 
 .header_section h1  {
-    color: #fff;
-    font-size: 100%;
-    margin:0 0 0 20px;
-    padding:0;
-    text-transform: capitalize;
-}
-
-.view_section {height:600px;}
-
-.view_header {
-    box-shadow: 0 0 1px 0 #6b6767;
-    padding:5px;
-}
-
-.view_header p {
-    font-size: 90%;
-    text-align: center;
-    font-weight: 400;
-}
-
-.view_info {
-    height: 550px;
-    padding: 10px;
-}
-
-table {
-    border-collapse: collapse;
-    width: 100%;
-}
-
-th {
-    font-size: 100%;
-    padding: 5px 5px;
-}
-td, th {
-    border: 1px solid #dddddd;
-    text-align: center;
-    font-size: 90%;
-}
-
-tr:nth-child(even) {
-    background-color: #dddddd;
-}
-
-.view_info input[type='submit'] {
-    display: inline-block;
-    padding: 1px 10px 1px 10px;
-    margin: 0 0 3px 0;
-    font-size: 70%;
-    text-decoration: none;
-    border: 1px solid #e67e22;
-    border-radius: 100px;
-}
-
-.view_info input[type='submit']:hover {
-    background-color: #e67e22;
-    color: #fff;
-}
-
-.view_footer {
-    height: 12px;
-}
-
-.view_footer p {
-    font-size: 50%;
-    float: right;
-    padding: 3px 2px 0 0;
+  color: #080000;
+  font-size: 90%;
+  font-weight: bold;
+  margin:0 0 0 20px;
+  padding-top: 4px;
 }
 
 /* ---------- NAV BAR ---------- */
 .admin_nav {
-    display: block;
+  display: block;
 }
 
 .admin_nav li {
-    float: right;
-    list-style: none;
-    margin-left: 20px;
-    margin-top: 1px;
-    text-decoration: none;
-    font-size: 80%;
+  float: right;
+  list-style: none;
+  margin-left: 20px;
+  margin-top: 12px;
+  text-decoration: none;
+  font-size: 63%;
+  font-weight: bold;
 }
+
+.admin_nav li a:link,
+.admin_nav li a:visited {
+  color: #0f0f0f;
+}
+
+.admin_nav li a:hover,
+.admin_nav li a:active {
+  color: #e67e22;
+}
+
+.view_header {
+  box-shadow: 0 0 1px 0 #6b6767;
+  padding:5px;
+}
+
+.view_header p {
+  font-size: 83%;
+  font-weight: bold;
+  text-align: center;
+  padding-top: 2px;
+  color:#e4e1e1fa;
+}
+
+.close_table {
+  position: absolute;
+  right: 18px;
+  top: 11.5%;
+  color: #e4e1e1fa;
+  font-size: 25px;
+  cursor: pointer;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  table-layout: auto;
+}
+
+thead, tbody, tr { width: 100%; }
+
+th {
+  font-size: 80%;
+  font-weight: normal;
+  padding: 5px 5px;
+  text-transform: capitalize;
+}
+
+td, th {
+  border: 1px solid #a5a4a4;
+  text-align: center;
+  font-size: 75%;
+  color: #080000;
+  padding:0;
+}
+
+#menu_table th:last-child,
+#menu_table td:last-child { width: 20%; }
+
+
+.view_info_div {
+  width: 32%;
+  display: inline-block;
+  margin: 0 0 0 5px;
+}
+
+.view_info_div input[type='submit'] {
+  display: inline-block;
+  padding: 1px 10px 1px 10px;
+  margin: 5px 0 5px 5px;
+  font-size: 80%;
+  text-decoration: none;
+  border: 1px solid #e67e22;
+  border-radius: 100px;
+  background-color:#e4e1e1fa;
+}
+
+.view_info_div input[type='submit']:hover {
+  background-color: #e67e22;
+  color: #fff;
+}
+
+.view_info_div input[type='radio'] {
+  padding: 20px 0 0 0;
+}
+
+.view_info_div label {
+  font-size: 80%;
+  padding: 0 8px 0 4px;
+}
+
+#menu_table {
+  display: none;
+}
+
+
+/*---------------------------------
+   LOGIN & SIGNUP MODALS
+  --------------------------------- */
+.modal_login {
+  display: none;
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 35%;
+  top: 28%;
+  width: 35%; 
+  height: 43%;
+  /* overflow: auto; Enable scroll if needed */
+  background-color: rgba(0,0,0,0); /*Black w/ opacity*/
+}
+
+.modal-content_login {
+  /* display: none; */
+  position: relative;
+  background-color:#f4f4f4f6;
+  border: 1px solid #888;
+  width: 100%;
+  height: 100%;
+}
+
+.modal_signup {
+  display: none;
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 35%;
+  top: 28%;
+  width: 35%; 
+  height: 53%;
+  /* overflow: auto; Enable scroll if needed */
+  background-color: rgba(0,0,0,0); /*Black w/ opacity*/
+}
+
+.modal-content_signup {
+  /* display: none; */
+  position: relative;
+  background-color:#f4f4f4f6;
+  border: 1px solid #888;
+  width: 100%;
+  height: 100%;
+}
+
+.close {
+  position: absolute;
+  right: 18px;
+  top: 0;
+  color: #000;
+  font-size: 25px;
+}
+
+.close:hover,
+.close:focus {
+  color: #e67e22;
+  cursor: pointer;
+}
+
+.imgcontainer {
+  text-align: center;
+  margin-top: 15px;
+  height: 40px;
+  position: relative;
+}
+
+.imgcontainer h3 {
+  color:#e67e22;
+  font-weight: normal;
+  font-size: 85%;
+  padding: 8px 0 0 0;
+}
+
+.container {
+  padding: 0 14px 0 14px;
+}
+
+.container label {
+  font-size: 55%;
+  color: #f4f4f4f6;
+  /* color:red; */
+  display: block;
+  padding-left: 5px;
+}
+
+.container input[type=email], 
+.container input[type=password],
+.container input[type=text] {
+  width: 100%;
+  height: 100%;
+  padding: 10px 10px;
+  margin: 5px 0 5px 0;
+  border: 1px solid #ccc;
+  font-size: 77%;
+  border-radius: 5px;
+}
+
+/* Set a style for all buttons */
+button {
+  background-color: transparent;
+  color: #e67e22;
+  margin: 22px 0 0 20px;
+  padding: 5px 2px 5px 2px;
+  border: none;
+  cursor: pointer;
+  width: 20%;
+  border: 1px solid#e67e22;
+  border-radius: 100px;
+  font-size: 60%;
+}
+
+.button_container_signup button { margin-top: 13px; }
+
+button:hover {
+  background-color: #e67e22;
+  color: white;
+  border: 1px solid#e67e22;
+}
+
+.button_container label {
+  font-size: 65%;
+  color: #000;
+  float: right;
+  margin: 23px 23px 0 0;
+}
+
+.button_container label:hover {
+  color: #e67e22;
+  cursor: pointer;
+}
+
+.button_container label:after {
+  /* Diplays the orange underline */
+  display: block;
+  height: 1px;
+  background-color: #e67e22;
+  content: " ";
+  width: 80px;
+  margin: 0 auto;
+  margin-top: 5px;
+}
+
+/* Code credit to https://www.w3schools.com/howto */
+/* @keyframes slide_from_top {
+  0% {top:-300px; opacity:0;}
+  100% {top:0; opacity:1;}
+}
+
+@keyframes slide_back_to_top {
+  0% {top:0; opacity:1;}
+  100% {top:-300px; opacity:0;}
+} */
