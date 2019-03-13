@@ -22,7 +22,7 @@ Before the API can be tested, the following must be done:
 
     1.Clone this repo to a local machine
     2.Checkout the 'challenge_2-API_endpoints' branch while in the project root folder: 
-    
+
         /FastFoodFast~$git checkout challenge_2-API_endpoints
 
     3.Install PostgreSQL on the local machine
@@ -56,10 +56,15 @@ To run the test suite on the API source code:
 
 ## Testing the API
 To test the API endpoints: 
+
     1.Run the API and ensure the Flask server is running:
+
         /FastFoodFast~$python run.py
+        
     2.Follow the link to the API documentation below:
+
         https://documenter.getpostman.com/view/5300721/Rztsom84
+
     3.Test the endpoints as illustrated in the documentation, on postman or in terminal.
 
 ## Author
