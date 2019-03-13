@@ -1,9 +1,2 @@
 venv
-__pycache__
-*.DS_Store
-*.pytest_cache
-*.pyc
 *.vscode
-node_modules
-temp
-package-lock.json
