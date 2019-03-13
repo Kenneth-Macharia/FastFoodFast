@@ -21,9 +21,9 @@ This branch contains the API that powers the front end.
 Before the API can be tested, the following must be done:
 
     1.Clone this repo to a local machine
-    2.Checkout the 'challenge_2-API_endpoints' branch while in the project root folder: 
+    2.Checkout the 'heroku-api' branch while in the project root folder: 
 
-        /FastFoodFast~$git checkout challenge_2-API_endpoints
+        /FastFoodFast~$git checkout heroku-api
 
     3.Install PostgreSQL on the local machine
     4.Create a database to use for the testing
@@ -46,13 +46,15 @@ Before the API can be tested, the following must be done:
 
     10.Export the OS environment variable required to run the API (See .env sample file)
 
-        /FastFoodFast~$export <the_environement_variable>=<the_environment_value>
+        /FastFoodFast~$export <the_environment_variable>=<the_environment_value>
 
 ## Running the automated tests on the API
 To run the test suite on the API source code:
 
     1.Ensure all the steps are done from the 'Getting started' section above.
-    2.Run the tests and generate a test report: /FastFoodFast~$py.test --cov=app
+    2.Run the tests and generate a test report: 
+        
+        /FastFoodFast~$pytest --cov-report term-missing --cov=app
 
 ## Testing the API
 To test the API endpoints: 
