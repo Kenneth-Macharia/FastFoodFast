@@ -10,3 +10,13 @@ The app is made up of:
     2.A RESTful API developed using the Python Flask microframework
 
     3.A PostgreSQL database
+
+This branch contains the interactive front end UI.
+
+## Viewing the UI pages
+To interact with the UI pages follow the link below to where they are hosted:
+
+    https://kenneth-macharia.github.io/FastFoodFast/
+
+## Author
+Kenneth Macharia
