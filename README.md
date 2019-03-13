@@ -11,7 +11,7 @@ The app is made up of:
 
     3.A PostgreSQL database
 
-This branch contains the interactive front end UI pages.
+This branch contains the interactive front end UI.
 
 ## Author
 Kenneth Macharia
