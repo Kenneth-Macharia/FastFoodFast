@@ -9,7 +9,7 @@ The app is made up of:
 
     2.A RESTful API developed using the Python Flask, persisting to a PostgreSQL database
 
-This branch contains the interactive pages development whcih can be viewed at the link below:
+This branch contains the interactive pages development which can be viewed at the link below:
 
     https://kenneth-macharia.github.io/FastFoodFast/
     
