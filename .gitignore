@@ -1,9 +1,7 @@
 *.vscode
 *.DS_Store
 venv
-tests
 __pycache__
 *.pytest_cache
 *.pyc
-.travis.yml
-.env
+
