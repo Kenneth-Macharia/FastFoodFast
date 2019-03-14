@@ -16,7 +16,7 @@ The app is made up of:
 This branch contains the API that powers the front end.
 
 ## Getting started
-Before the API can be tested, the following must be done:
+Before the API can be manually tested, the following must be done:
 
     1.Clone this repo to a local machine
     2.Checkout the 'challenge_2-API_endpoints' branch while in the project root folder: 
