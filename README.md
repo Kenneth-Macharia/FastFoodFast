@@ -7,6 +7,4 @@ The app is made up of:
 
     1.UI pages developed using HTML5, CSS3 and JavaSript
 
-    2.A RESTful API developed using the Python Flask microframework
-
-    3.A PostgreSQL database
+    2.A RESTful API developed using the Python Flask, persisting to a PostgreSQL database
