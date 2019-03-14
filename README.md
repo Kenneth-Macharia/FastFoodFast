@@ -50,7 +50,7 @@ Before the API can be tested, the following must be done:
 To run the test suite on the API source code:
 
     1.Ensure all the steps are done from the 'Getting started' section above.
-    2.Run the tests and generate a test report: /FastFoodFast~$py.test --cov=app
+    2.Run the tests and generate a test report: /FastFoodFast~$py.test --cov-report term-missing --cov=app
 
 ## Testing the API
 To test the API endpoints: 
