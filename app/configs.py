@@ -12,7 +12,7 @@ class DatabaseSetup(object):
         ''' Establishes a connection to the specified database '''
 
         db_host = os.getenv('DATABASE_HOST')
-        db_name = os.getenv('DATABASE_URL')
+        db_name = os.getenv('DATABASE_NAME')
         db_user = os.getenv('DATABASE_USERNAME')
         db_password = os.getenv('DATABASE_PASSWORD')
 
