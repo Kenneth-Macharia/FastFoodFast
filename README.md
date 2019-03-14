@@ -20,6 +20,4 @@ A postman environment is also included to facilitate the Heroku link.
 
 ## API Development Background
 The 'challenge_2-API_endpoints' branch host the initial development of the API
-and includes tests, and code quality badges for build status test coverage and maintainability.
-
-Th branch README also has instructions for manual testing on a local machine.
+and has instructions for manual testing on a local machine.
