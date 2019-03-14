@@ -54,6 +54,8 @@ document.querySelector("#menulist").addEventListener("click", function (e) {
 
   
 /*----------FEATURE FUNCTIONS---------*/
+  // Backend server location - Base url for Heroku hosted API
+var api_base_url = 'https://api-fastfoodfast.herokuapp.com'
 
 function showMenuTable(menuArray) {
   // Get the menu table to add rows to
@@ -183,8 +185,8 @@ function signUp() {
     formData.append('User_Password', password);
 
     // Create login request data object
-    const url = 'http://127.0.0.1:5000/v1/auth/signup'
-    var requestData = new Request(url, {
+    const signup_endpoint = api_base_url.concat('/v1/auth/signup');
+    var requestData = new Request(signup_endpoint, {
       method: 'POST',
       body: formData,
       headers: new Headers(),
