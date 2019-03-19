@@ -20,10 +20,3 @@ script:
 
 after_success:
   - coveralls
-
-deploy:
-  - provider: heroku
-      api_key: cdf1adcd-161e-43f6-bb96-7b0380c3a2f8
-        secure:
-      app: app
-      on: api_staging-heroku
