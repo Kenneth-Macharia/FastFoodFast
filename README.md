@@ -23,5 +23,5 @@ A postman environment is also included to facilitate the Heroku link.
         https://documenter.getpostman.com/view/5300721/Rztsom84
 
 ## The API Development Background
-The 'challenge_2-API_endpoints' branch host the initial development of the API
+The 'challenge_2-API_endpoints' branch hosts the initial development of the API
 and has instructions for manual testing on a local machine.
