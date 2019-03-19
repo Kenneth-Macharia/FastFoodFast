@@ -42,8 +42,8 @@ pycparser
 PyJWT
 pylint
 pyOpenSSL
-pytest==4.1.1
-pytest-cov==2.6.1
+pytest
+pytest-cov
 python-dotenv
 pytz
 requests
