@@ -16,7 +16,7 @@ before_script:
   - psql -c 'create database travis_ci_test;' -U postgres
 
 script:
-  - pytest --cov=app
+  - py.test --cov-report term-missing --cov=app
 
 after_script:
 

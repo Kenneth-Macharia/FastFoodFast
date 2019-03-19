@@ -1,8 +1,8 @@
 ''' This module contains tests configurations setup '''
 
 import pytest
-from app.v1.main import app
-from app.v1.configs import DatabaseSetup
+from app.main import app
+from app.configs import DatabaseSetup
 
 
 @pytest.fixture
