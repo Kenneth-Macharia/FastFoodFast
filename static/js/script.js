@@ -44,6 +44,7 @@ document.querySelector("#supsw2").addEventListener("focus", function () {
 document.querySelector(".js_close_table").addEventListener('click', function() {
   if (document.querySelector('.view_header p').innerHTML = 'Menu List') {
     closeTables('#menu_table');
+    document.querySelector('.view_header p').style.color = "#e4e1e1fa";
   }
   }, false);
 
@@ -133,8 +134,8 @@ function showMenuTable(menuArray) {
 // Fetch all menus logic
 function getMenu() {
   // Create login request data object
-  const url = 'http://127.0.0.1:5000/v1/menus'
-  var requestData = new Request(url, {
+  const get_menus_endpoint = api_base_url.concat('/v1/menus');
+  var requestData = new Request(get_menus_endpoint, {
     method: 'GET',
     mode: 'cors',
     cache: 'default',
@@ -154,8 +155,8 @@ function getMenu() {
     .then(function (data) {
       result = data.Response.Success
 
-      if (result[0] === 'No menu items found') {
-        document.querySelector('.view_header p').innerHTML = result[0];
+      if (result === 'No menu items found') {
+        document.querySelector('.view_header p').innerHTML = result;
         document.querySelector('.view_header p').style.color = "#e67e22";
         document.querySelector('.js_close_table').style.color = "black";
       } else {
@@ -165,58 +166,10 @@ function getMenu() {
         showMenuTable(result);
       }
     })
-    // .catch (error => {alert('Server error, contact the site administrator.')});
+    // .catch (error => {alert('Server error, contact the site administrator.')}); //TODO: Error handling
 }
 
-// User signup
-function signUp() {
-  //Get the login form data
-  var name = document.querySelector("#suname").value;
-  var email = document.querySelector("#suemail").value;
-  var password = document.querySelector("#supsw").value;
-  var password2 = document.querySelector("#supsw2").value;
-
-  // Ensure passwords match
-  if (password === password2) {
-    // create the form data object
-    var formData = new FormData();
-    formData.append('User_Name', name);
-    formData.append('User_Email', email);
-    formData.append('User_Password', password);
-
-    // Create login request data object
-    const signup_endpoint = api_base_url.concat('/v1/auth/signup');
-    var requestData = new Request(signup_endpoint, {
-      method: 'POST',
-      body: formData,
-      headers: new Headers(),
-      mode: 'cors',
-      cache: 'default'}
-    );
-
-    // Send login request
-    fetch(requestData)
-      .then(response => {
-        if (response.status === 400) {
-          document.querySelector('#selabel').style.color = "red";
-          return Promise.reject(new Error(response.statusText))
-        } else if (response.status === 201) {
-          return Promise.resolve(response);
-        }
-      })
-      .then(response => {return response.json()})
-      .then(function (data) {
-        openCloseLoginModal('closeSignUpModal');
-        idValue = document.querySelector('.modal_login').getAttribute('id');
-        let msg = data.Response.Success
-        alert(msg);
-        openCloseLoginModal('openLoginModal', idValue);
-      })
-      // .catch (error => {alert('Server error, contact the site administrator.')});
-  } else {document.querySelector('#splabel').style.color = "red";} 
-}
-
-// User login
+// USER LOGIN //
 var header;
 function login() {
   //Get the login form data
@@ -227,8 +180,8 @@ function login() {
   formData.append('User_Password', password);
 
   // Create login request data object
-  const url = 'http://127.0.0.1:5000/v1/auth/login'
-  var requestData = new Request(url, {
+  const signin_endpoint = api_base_url.concat('/v1/auth/login');
+  var requestData = new Request(signin_endpoint, {
     method: 'POST',
     body: formData,
     headers: new Headers(),
@@ -263,9 +216,10 @@ function login() {
         cache: 'default',
         credentials: 'include',
         headers: header};
-
+      
+      //Attempt login to an admin feature to verify admin rights
       if (idValue === 'admin') {
-        var fetchData = new Request('http://127.0.0.1:5000/v1/menus', requestData);
+        var fetchData = new Request(api_base_url.concat('/v1/menus'), requestData);
           
         fetch(fetchData)
           .then(response => {
@@ -276,8 +230,12 @@ function login() {
               document.querySelector('#alabel').style.color = "red";
             }
           })
+
+      /* Attempt login to a Guest feature to verify Guest rights. Note Admins
+        cannot access Guest features like placing orders and viewing previous
+        orders */
       } else if (idValue === 'prev_ord') {
-        var fetchData = new Request('http://127.0.0.1:5000/v1/users/orders', requestData);
+        var fetchData = new Request(api_base_url.concat('/v1/users/orders'), requestData);
 
         fetch(fetchData)
         .then(response => {
@@ -290,7 +248,7 @@ function login() {
           }
         })
       } else if (idValue === 'checkout') {
-        var fetchData = new Request('http://127.0.0.1:5000/v1/users/orders', requestData);
+        var fetchData = new Request(api_base_url.concat('/v1/users/orders'), requestData);
 
         fetch(fetchData)
         .then(response => {
@@ -304,8 +262,58 @@ function login() {
         })
       }
     })
-    // .catch (error => {alert('Server error, contact the site administrator.')});
+    // .catch (error => {alert('Server error, contact the site administrator.')}); //TODO: Error handling
 }
+
+// USER SIGNUP //
+function signUp() {
+  //Get the signup form data
+  var name = document.querySelector("#suname").value;
+  var email = document.querySelector("#suemail").value;
+  var password = document.querySelector("#supsw").value;
+  var password2 = document.querySelector("#supsw2").value;
+
+  // Ensure passwords match
+  if (password === password2) {
+    // create the form data object
+    var formData = new FormData();
+    formData.append('User_Name', name);
+    formData.append('User_Email', email);
+    formData.append('User_Password', password);
+
+    // Create signup request data object
+    const signup_endpoint = api_base_url.concat('/v1/auth/signup');
+    var requestData = new Request(signup_endpoint, {
+      method: 'POST',
+      body: formData,
+      headers: new Headers(),
+      mode: 'cors',
+      cache: 'default'}
+    );
+
+    // Send signup request
+    fetch(requestData)
+      .then(response => {
+        if (response.status === 400) {
+          document.querySelector('#selabel').style.color = "red";
+          return Promise.reject(new Error(response.statusText))
+        } else if (response.status === 201) {
+          return Promise.resolve(response);
+        }
+      })
+      .then(response => {return response.json()})
+      .then(function (data) {
+        openCloseLoginModal('closeSignUpModal');
+        idValue = document.querySelector('.modal_login').getAttribute('id');
+        let msg = data.Response.Success
+        alert(msg);
+        openCloseLoginModal('openLoginModal', idValue);
+      })
+      // .catch (error => {alert('Server error, contact the site administrator.')}); // TODO: Error handdling?
+
+  } else {document.querySelector('#splabel').style.color = "red";}
+}
+
 
  /*----------HELPER FUNCTIONS---------*/
  // Close tables displayed in the admin dash
