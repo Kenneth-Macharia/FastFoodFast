@@ -1,7 +1,18 @@
 /*--------------------------------------------------------------------------
-                              JAVASCRIPT CODE
+           JAVASCRIPT CODE - Handles core webapage functionality
   ------------------------------------------------------------------------*/
+
+/*----------GLOBAL VARIABLES---------*/
+
+// Backend server location - Base url for Heroku hosted API
+var api_base_url = 'https://api-fastfoodfast.herokuapp.com'
+
+// Fetch header object with authorization credentials
+var header;
+
+
 /*----------ELEMENTS EVENTS--------*/
+
 // Access customer previous orders link (Open login modal)
 document.querySelector("#prev_ord").addEventListener("click", function (e) { 
   e.preventDefault();
@@ -40,96 +51,48 @@ document.querySelector("#supsw").addEventListener("focus", function () {
 document.querySelector("#supsw2").addEventListener("focus", function () {
   resetLoginModal('resetSignupPassword')}, false);
 
+// Close and reset Admin modal
+document.querySelector("#logout").addEventListener("click", function (e) { 
+  e.preventDefault();
+  //TODO:Clear ANY open table and activate its link
+  closeTables('#menu_table');
+  document.querySelector('#menulist').classList.remove('js-deactivateLink');
+
+  // Close modal
+  document.querySelector('.admin_section').style.display = 'none';
+  // Reset view header p
+  document.querySelector('.view_header p').style.color = "#e4e1e1fa";
+  document.querySelector(".view_header p").innerHTML = 'View section heading';
+
+}, false);
+
 // Admin dash header close button function
 document.querySelector(".js_close_table").addEventListener('click', function() {
-  if (document.querySelector('.view_header p').innerHTML = 'Menu List') {
+  
+  if (document.querySelector('.view_header p').innerHTML === 'Menu List') {
     closeTables('#menu_table');
-    document.querySelector('.view_header p').style.color = "#e4e1e1fa";
+    document.querySelector('#menulist').classList.remove('js-deactivateLink');
   }
+
+    // Reset view header p
+  document.querySelector('.view_header p').style.color = "#e4e1e1fa";
+  document.querySelector(".view_header p").innerHTML = 'View section heading';
+
   }, false);
 
 // Menu list link clicked on admin dash navigation (initialize get all menus)
 document.querySelector("#menulist").addEventListener("click", function (e) {
   e.preventDefault();
-  getMenu()}, false);
+
+  if (document.querySelector('.view_header p').innerHTML === 'Menu List') {
+      document.querySelector('#menulist').classList.add('js-deactivateLink');
+  } else {
+    getMenu();
+  }
+  }, false);
 
   
 /*----------FEATURE FUNCTIONS---------*/
-  // Backend server location - Base url for Heroku hosted API
-var api_base_url = 'https://api-fastfoodfast.herokuapp.com'
-
-function showMenuTable(menuArray) {
-  // Get the menu table to add rows to
-  let table = document.querySelector("#menu_table").querySelector("tbody");
-
-  // For each item in the array returned from the backend do the following:
-  var i;
-  for (i = 0; i <= (menuArray.length - 1); i++) {
-    // Insert row
-    let newRow = table.insertRow(table.rows.length);
-
-    var j;
-    for (j = 0; j <= 3; j++) {
-      
-      // Insert new 4 cells per row, append menuArray data and control elements
-      let newCell = newRow.insertCell(j);
-
-      if (j === 0) {
-        let newText = document.createTextNode(menuArray[i].Menu_Id);
-        newCell.appendChild(newText);
-      } else if (j === 1) {
-        let newText = document.createTextNode(menuArray[i].Menu_Name);
-        newCell.appendChild(newText);
-      } else if (j === 2) {
-        let newText = document.createTextNode('$' + menuArray[i].Menu_Price);
-        newCell.appendChild(newText);
-      } else if (j === 3) {
-        // Create the checkbox and submits input per row in 'Action cell'
-          // Create the container divs, 1 for the checkboxes, the other for the submits
-        let checkboxDiv = document.createElement("DIV");
-        checkboxDiv.setAttribute("class", "view_info_div");
-        let submitDiv = document.createElement("div");
-        submitDiv.setAttribute("class", "view_info_div");
-
-          // Create the nodes, 1 checkbox with a label and 2 submits and append to their respective divs
-        let menuCheck = document.createElement("INPUT");
-        menuCheck.setAttribute("type", "checkbox");
-        menuCheck.setAttribute("name", "menu_availability");
-        menuCheck.setAttribute("id", "menu_check");
-        if (menuArray[i].Menu_Availability === "Available") {
-          menuCheck.checked = true;
-        checkboxDiv.appendChild(menuCheck);
-        } else if (menuArray[i].Menu_Availability === "Unavailable") {
-          menuCheck.checked = false;
-          checkboxDiv.appendChild(menuCheck);
-        }
-
-        let menuCheckLabel = document.createElement("LABEL");
-        let menuCheckLabelText = document.createTextNode("Available");
-        menuCheckLabel.appendChild(menuCheckLabelText);
-        checkboxDiv.appendChild(menuCheckLabel);
-        
-        let submitEdit = document.createElement("INPUT");
-        submitEdit.setAttribute("type", "submit");
-        submitEdit.setAttribute("value", "Edit");
-        submitEdit.setAttribute("id", "submit_e");
-        submitDiv.appendChild(submitEdit);
-
-        let submitDelete = document.createElement("INPUT");
-        submitDelete.setAttribute("type", "submit");
-        submitDelete.setAttribute("value", "Delete");
-        submitDelete.setAttribute("id", "submit_d");
-        submitDiv.appendChild(submitDelete);
-
-        // Append the two divs to the last row cell 
-        newCell.appendChild(checkboxDiv);
-        newCell.appendChild(submitDiv);
-      }
-    }  
-  }
-   // Show the table
-   document.querySelector("#menu_table").style.display = "block";
-}
 
 // Fetch all menus logic
 function getMenu() {
@@ -158,11 +121,9 @@ function getMenu() {
       if (result === 'No menu items found') {
         document.querySelector('.view_header p').innerHTML = result;
         document.querySelector('.view_header p').style.color = "#e67e22";
-        document.querySelector('.js_close_table').style.color = "black";
       } else {
         document.querySelector('.view_header p').innerHTML = "Menu List";
         document.querySelector('.view_header p').style.color = "#e67e22";
-        document.querySelector('.js_close_table').style.color = "black";
         showMenuTable(result);
       }
     })
@@ -170,7 +131,6 @@ function getMenu() {
 }
 
 // USER LOGIN //
-var header;
 function login() {
   //Get the login form data
   var email = document.querySelector("#uemail").value;
@@ -316,19 +276,104 @@ function signUp() {
 
 
  /*----------HELPER FUNCTIONS---------*/
- // Close tables displayed in the admin dash
+ 
+  // Close tables displayed in the admin dash
 function closeTables (tableId) {
 
   if (tableId === '#menu_table') {
-    // document.querySelector('#menu_table').style.display = 'none';
-    let table = document.querySelector("#menu_table");
+    let table = document.querySelector("#menu_table").querySelector("tbody");
     rows = table.rows.length
-    var i;
-    for (i = 0; i <= (rows - 1); i++) {
+
+    for (var i = (rows - 1); i >= 0; i--) {
       table.deleteRow(i);
     }
-  }  
+    document.querySelector('#menu_table').style.display = 'none';
 
+  }
+
+}
+
+// var el = getElementsByClassName('module');
+// for (var i=0; i < el.length; i++) {
+//     // Here we have the same onclick
+//     el.item(i).onclick = clickerFn;
+// }
+
+// var x = document.getElementById("myTable").rows[0].cells;
+// x[0].innerHTML = "NEW CONTENT";
+
+
+  // Show Menus table
+function showMenuTable(menuArray) {
+  // Get the menu table to add rows to
+  let table = document.querySelector("#menu_table").querySelector("tbody");
+  // For each item in the array returned from the backend do the following:
+  var i;
+  for (i = 0; i <= (menuArray.length - 1); i++) {
+    // Insert row
+    let newRow = table.insertRow(table.rows.length);
+
+    var j;
+    for (j = 0; j <= 3; j++) {
+      
+      // Insert new 4 cells per row, append menuArray data and control elements
+      let newCell = newRow.insertCell(j);
+
+      if (j === 0) {
+        let newText = document.createTextNode(menuArray[i].Menu_Id);
+        newCell.appendChild(newText);
+      } else if (j === 1) {
+        let newText = document.createTextNode(menuArray[i].Menu_Name);
+        newCell.appendChild(newText);
+      } else if (j === 2) {
+        let newText = document.createTextNode('$' + menuArray[i].Menu_Price);
+        newCell.appendChild(newText);
+      } else if (j === 3) {
+        // Create the checkbox and submits input per row in 'Action cell'
+          // Create the container divs, 1 for the checkboxes, the other for the submits
+        let checkboxDiv = document.createElement("DIV");
+        checkboxDiv.setAttribute("class", "view_info_div");
+        let submitDiv = document.createElement("div");
+        submitDiv.setAttribute("class", "view_info_div");
+
+          // Create the nodes, 1 checkbox with a label and 2 submits and append to their respective divs
+        let menuCheck = document.createElement("INPUT");
+        menuCheck.setAttribute("type", "checkbox");
+        menuCheck.setAttribute("name", "menu_availability");
+        menuCheck.setAttribute("id", "menu_check");
+        if (menuArray[i].Menu_Availability === "Available") {
+          menuCheck.checked = true;
+        checkboxDiv.appendChild(menuCheck);
+        } else if (menuArray[i].Menu_Availability === "Unavailable") {
+          menuCheck.checked = false;
+          checkboxDiv.appendChild(menuCheck);
+        }
+
+        let menuCheckLabel = document.createElement("LABEL");
+        let menuCheckLabelText = document.createTextNode("Available");
+        menuCheckLabel.appendChild(menuCheckLabelText);
+        checkboxDiv.appendChild(menuCheckLabel);
+        
+        let submitEdit = document.createElement("INPUT");
+        submitEdit.setAttribute("type", "submit");
+        submitEdit.setAttribute("value", "Edit");
+        submitEdit.setAttribute("id", "submit_e");
+        submitDiv.appendChild(submitEdit);
+
+        let submitDelete = document.createElement("INPUT");
+        submitDelete.setAttribute("type", "submit");
+        submitDelete.setAttribute("value", "Delete");
+        submitDelete.setAttribute("id", "submit_d");
+        submitDiv.appendChild(submitDelete);
+
+        // Append the two divs to the last row cell 
+        newCell.appendChild(checkboxDiv);
+        newCell.appendChild(submitDiv);
+      }
+    }  
+  }
+   // Show the table
+   document.querySelector("#menu_table").style.display = "block";
 }
  
  // Inputs/Labels reset function
@@ -420,7 +465,7 @@ function openCloseLoginModal (action, source) {
 
 
 /*-------------------------------------------------------------------------
-                              JQUERY CODE
+                JQUERY CODE - Handles the webpage animations
   -----------------------------------------------------------------------*/
 //Index.html - Sticky navigation
 $('.js_sell_section').waypoint(function (direction) {

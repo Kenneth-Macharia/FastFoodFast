@@ -811,8 +811,8 @@ footer p {
 .close_table {
   position: absolute;
   right: 18px;
-  top: 11.5%;
-  color: #e4e1e1fa;
+  top: 11%;
+  color: black;
   font-size: 25px;
   cursor: pointer;
 }
@@ -841,11 +841,11 @@ td, th {
 }
 
 #menu_table th:last-child,
-#menu_table td:last-child { width: 20%; }
+#menu_table td:last-child { width: 18%; }
 
 
 .view_info_div {
-  width: 32%;
+  width: 38%;
   display: inline-block;
   margin: 0 0 0 5px;
 }
@@ -877,6 +877,12 @@ td, th {
 
 #menu_table {
   display: none;
+}
+
+/* classes to deactivate links */
+.js-deactivateLink {
+  pointer-events: none;
+  cursor: default;
 }
 
 
