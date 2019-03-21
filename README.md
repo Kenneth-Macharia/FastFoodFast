@@ -7,9 +7,9 @@ The app is made up of:
 
     1.UI pages developed using HTML5, CSS3 and JavaSript
 
-    2.A RESTful API developed using the Python Flask, persisting to a PostgreSQL database
+    2.A RESTful API developed using Python Flask, persisting to a PostgreSQL database
 
-This branch contains the static front end UI development code.
+This branch contains the static webpages development code.
 
 ## Author
 Kenneth Macharia
