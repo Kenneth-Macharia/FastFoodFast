@@ -18,7 +18,7 @@ The API is live on Heroku and can be tested using postman.
 
 Follow the link below to the API documentation for instructions on how to test it.
 
-A postman environment is also included to facilitate the Heroku link.
+Select the 'Heroku | FastFoodFast | API' postman environment, which will link to Heroku.
 
         https://documenter.getpostman.com/view/5300721/Rztsom84
 
