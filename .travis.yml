@@ -1,22 +1,20 @@
 language: python
-
 python:
-  - "2.7"
-
+- '2.7'
 env:
-  - SECRET="mysecret"
-
+- SECRET="mysecret"
 services:
-  - postgresql
-
+- postgresql
 install:
-  - pip install -r requirements.txt
-
+- pip install -r requirements.txt
 before_script:
-  - psql -c 'create database travis_ci_test;' -U postgres
-
+- psql -c 'create database travis_ci_test;' -U postgres
 script:
-  - pytest --cov-report term-missing --cov=app
-
+- pytest --cov-report term-missing --cov=app
 after_success:
-  - coveralls
+- coveralls
+deploy:
+  provider: heroku
+  api_key:
+    secure: kYWRoC1FCvZV2IDerdZxGnUoMCZPZOyu2/yTjccjxX1AyMOw0Qjpa7rOmal/gyEbY4BJsjZpp+BNxgbRwph9dcNTUWB1pv4PzUdw9qUrA7a/TBzCdfA6/Z31LnOykn625vsDgtFvinbgGnpUYTMw6fh8s5bn18ZAi1YvDFAUx2apIi9SOd7NYkVb2Ztw+3PeJ4QYA7xav23jQ0XC2ivdsqWzNnJuxJd+l3I6rotFemC+O5PqI2WmWJB8fG4d1ToWh6kO2XO0GyVHU+teSCZUGnUJA5qa7rFH1C3xuueAG3DS8XnaUGeScIM+8eENWUy0yg58fyOs5QrzTo+P8fzE9jkeacDlnIofMP5i6K7r9JwNLrCojrvgcdF8ZRiqOjsytVqLRTHETtgxOmyJKED5DlVuUu9OE+JKpvZdjTfK+OBM+savdYyE8YePQTN7haVFe7tqS639zRkhoiiiMVhbHc8VavAaLHr+wxffqJWUBhDIw4rvFZ3B2Q9VUcHdgVvuGHux/7psw+lmcjabFI5oGUl28s4gFBp1WKQZYyZNocUadc4Cgl2eATT9lhwevn9UOV5HNcHOl9Lc7NSdnS+y5dv5gSVJl6vzawSXcivrAkrX2CLsGxOhnzLxil+yAzsU2i+8EyocstOHGG6nKlyzw3+9Gv5GkbYSCfB9H8pr454=
+  on: api_staging-heroku
