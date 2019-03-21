@@ -63,7 +63,7 @@ To test the API endpoints:
 
         https://documenter.getpostman.com/view/5300721/Rztsom84
 
-    3.Select the 'localhost' environment, as the app server is running locally. 
+    3.Select the 'localhost | FastFoodfast | API' environment, as the app server is running locally.
     
     4.Test the endpoints as illustrated in the documentation, on postman or in terminal.
 
