@@ -11,9 +11,9 @@ The app is made up of:
 
     1.UI pages developed using HTML5, CSS3 and JavaSript
 
-    2.A RESTful API developed using the Python Flask, persisting to a PostgreSQL database
+    2.A RESTful API developed using Python Flask, persisting to a PostgreSQL database
 
-This branch contains the API that powers the front end.
+This branch contains the API that powers the front end pages.
 
 ## Getting started
 Before the API can be manually tested, the following must be done:
@@ -26,7 +26,7 @@ Before the API can be manually tested, the following must be done:
     3.Install PostgreSQL on the local machine
     4.Create a database to use for the testing
     5.Create a user with full right to the database above
-    6.Install virtulenv to create a virtual environement for the API:
+    6.Install virtulenv to create a virtual environment for the API:
 
         /FastFoodFast~$pip install virualenv
 
@@ -63,7 +63,9 @@ To test the API endpoints:
 
         https://documenter.getpostman.com/view/5300721/Rztsom84
 
-    3.Test the endpoints as illustrated in the documentation, on postman or in terminal.
+    3.Select the 'localhost' environment, as the app server is running locally. 
+    
+    4.Test the endpoints as illustrated in the documentation, on postman or in terminal.
 
 ## Author
 Kenneth Macharia
