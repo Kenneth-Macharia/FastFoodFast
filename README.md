@@ -17,8 +17,8 @@ Development on this branch has ceased and is split out to two dedicated branches
     1.gh-pages - which will focus on the interactive front end development while making it possible to test the
     webpages while hosted on a remote server. (Github pages)
     
-    2.heroku-api - which will focus on the API back improvements, while making it possible to test the API while
-    hosted on a remote server. (Heroku)
+    2.api_staging-heroku - which will focus on the API back improvement and deployment, while making it possible
+    to test the API while hosted on a remote server. (Heroku)
 
 ## Author
 Kenneth Macharia
