@@ -12,3 +12,6 @@ The app is made up of:
 ## Project Status
 The App is under development and it's various components are still in their respective branches. The production ready
 app will finally be merged into the master branch.
+
+## Author
+Kenneth Macharia
