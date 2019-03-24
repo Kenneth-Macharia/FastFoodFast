@@ -10,5 +10,5 @@ The app is made up of:
     2.A RESTful API developed using Python Flask, persisting to a PostgreSQL database
 
 ## Project Status
-The App is under development and it's various components are still in their respective branches. The final
-porduction ready app will finally be merged into the master branch.
+The App is under development and it's various components are still in their respective branches. The production ready
+app will finally be merged into the master branch.
