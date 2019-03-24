@@ -23,6 +23,15 @@ document.querySelector("#admin").addEventListener("click", function (e) {
   e.preventDefault();
   openCloseLoginModal('openLoginModal', 'admin')}, false);
 
+// Logout user (Both admins and guest) - close the modal and blacklist theh token
+
+
+// On page reload save the user token and when the link to open a protected modal is clicked check if its has expired and reqire login, else just open the protected modal.
+
+https://developer.mozilla.org/en-US/docs/Web/API/Window/sessionStorage
+
+
+
 // Access customer checkout order button (Open login modal)
 // document.querySelector("").addEventListener("click", function (e) { 
 //   e.preventDefault();
