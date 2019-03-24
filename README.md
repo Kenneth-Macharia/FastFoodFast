@@ -63,7 +63,8 @@ To test the API endpoints:
 
         https://documenter.getpostman.com/view/5300721/Rztsom84
 
-    3.Select the 'localhost | FastFoodfast | API' environment, as the app server is running locally.
+    3.The above is the final link for the Heroku hosted API. To test the API endpoints locally, replace the
+    the server url with the localhost url.
     
     4.Test the endpoints as illustrated in the documentation, on postman or in terminal.
 
