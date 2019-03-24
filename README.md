@@ -14,11 +14,11 @@ The app is made up of:
     2.A RESTful API developed using Python Flask, persisting to a PostgreSQL database
 
 ## Testing the API
-The API is live on Heroku and can be tested using postman.
+The API is live on Heroku and can be tested using postman:
 
-Follow the link below to the API documentation for instructions on how to test it.
+    1.Follow the link below to the API documentation for instructions on how to test it.
 
-Select the 'Heroku | FastFoodFast | API' postman environment, which will link to Heroku.
+    2.Select the 'Heroku | FastFoodFast | API' postman environment, which will link to Heroku.
 
         https://documenter.getpostman.com/view/5300721/Rztsom84
 
