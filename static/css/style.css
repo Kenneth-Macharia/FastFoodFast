@@ -317,7 +317,7 @@ header {
 
 
 /* ---------- STICKY NAV  ---------- */
-/* Style hwo the stick nav will look like */
+/* Style how the stick nav will look like */
 .sticky_nav {
   position: fixed;
   top: 0;
@@ -329,7 +329,6 @@ header {
   box-shadow: 0 2px 2px #efefef;
   /* Specifys the vertical stacking of element from 0-9999, with the latter being the higest allowed, thus will be the top-most element */
   z-index: 9999;
-
 }
 
 .sticky_nav .main_nav { margin-top: 0; }
