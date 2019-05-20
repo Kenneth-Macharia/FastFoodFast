@@ -35,10 +35,10 @@ class UserModel(object):
         UserModel._init()
 
         new_user_query = """ INSERT INTO users_table (User_Name, User_Password,
-        User_Email, User_Type) VALUES (%s, %s, %s, %s); """
+        User_Email, User_Type, User_Address) VALUES (%s, %s, %s, %s, %s); """
         
         new_user_data = (new_user['User_Name'], new_user['User_Password'], 
-                         new_user['User_Email'], new_user['User_Type'])
+                         new_user['User_Email'], new_user['User_Type'], new_user['User_Address'])
         UserModel.cursor.execute(new_user_query, new_user_data)
 
         UserModel.connection.commit()
@@ -53,7 +53,7 @@ class UserModel(object):
         UserModel._init()
 
         UserModel.cursor.execute("SELECT User_Id, User_Name, User_Password, \
-        User_Email, User_Type FROM users_table WHERE User_Email=%s", (user_email,))
+        User_Email, User_Type, User_Address FROM users_table WHERE User_Email=%s", (user_email,))
         query_result = UserModel.cursor.fetchone()
 
         UserModel._destroy()

@@ -18,6 +18,8 @@ class UserRegistration(Resource):
                         help='This field cant be left blank!')
     parser.add_argument('User_Name', type=str, required=True,
                         help='This field cant be left blank!')
+    parser.add_argument('User_Address', type=str, required=True,
+                        help='This field cant be left blank!')
 
     def post(self):
         ''' This function handles POST requests to the
@@ -29,7 +31,8 @@ class UserRegistration(Resource):
             
             user_to_add = {'User_Name':json_payload['User_Name'],
                            'User_Password':UserModel.generate_hash(json_payload['User_Password']),
-                           'User_Email': json_payload['User_Email'], 'User_Type': 'Guest'}
+                           'User_Email': json_payload['User_Email'], 'User_Type': 'Guest', 
+                           'User_Address':json_payload['User_Address']}
 
             UserModel.insert_user(user_to_add)
 

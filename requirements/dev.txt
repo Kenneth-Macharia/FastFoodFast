@@ -20,7 +20,7 @@ Flask-Cors==3.0.7
 Flask-JWT-Extended==3.16.0
 Flask-RESTful==0.3.7
 funcsigs==1.0.2
-futures==3.2.0
+futures==3.1.1
 gunicorn==19.9.0
 idna==2.8
 ipaddress==1.0.22

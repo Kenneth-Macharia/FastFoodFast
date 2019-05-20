@@ -40,7 +40,8 @@ class DatabaseSetup(object):
         User_Name           TEXT NOT NULL,
         User_Password       TEXT NOT NULL,
         User_Email          TEXT UNIQUE NOT NULL,
-        User_Type           TEXT NOT NULL
+        User_Type           TEXT NOT NULL,
+        User_Address        TEXT NOT NULL
 
         ) """
 

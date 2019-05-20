@@ -22,7 +22,8 @@ def test_user_registration(test_client):
     # Test new user creation
     user = {"User_Email":"ken@abc.com",
             "User_Password":"abc",
-            "User_Name":"Ken"}
+            "User_Name":"Ken",
+            "User_Address":"100 West Orange Street"}
 
     test_response = test_client.post('/v1/auth/signup', data=json.dumps(user), content_type='application/json')
 
@@ -44,7 +45,8 @@ def test_user_login(test_client):
     # Test a non registered user cannot be logged in
     user = {"User_Email":"ken@abc.com",
             "User_Password":"abc",
-            "User_Name":"Ken"}
+            "User_Name":"Ken",
+            "User_Address":"100 West Orange Street"}
 
     test_response = test_client.post('/v1/auth/login', data=json.dumps(user), content_type='application/json')
     
@@ -90,17 +92,20 @@ def test_user_type_upgrade(test_client):
     user_guest = {"User_Email":"shee@xyz.com",
                   "User_Password":"xyz",
                   "User_Name":"Shee",
-                  "User_Type":"Super"}
+                  "User_Type":"Super",
+                  "User_Address":"300 East Orange Street"}
 
     user_admin = {"User_Email":"ken@abc.com",
                   "User_Password":"abc",
                   "User_Name":"Ken",
-                  "User_Type":"Admin"}
+                  "User_Type":"Admin",
+                  "User_Address":"100 West Orange Street"}
     
     user_unregistered = {"User_Email":"chris@jkl.com",
                          "User_Password":"jkl",
                          "User_Name":"Chris",
-                         "User_Type":"Admin"}
+                         "User_Type":"Admin",
+                         "User_Address":"400 West Orange Street"}
 
         # Signup both users above
     test_client.post('/v1/auth/signup', data=json.dumps(user_admin), content_type='application/json')
@@ -155,7 +160,8 @@ def test_user_logout(test_client):
     user = {"User_Email":"ken@abc.com",
             "User_Password":"abc",
             "User_Name":"Ken",
-            "User_Type":"Admin"}
+            "User_Type":"Admin",
+            "User_Address":"100 West Orange Street"}
 
     # Test that a non-logged in user cannot logout
     token_data = ''
