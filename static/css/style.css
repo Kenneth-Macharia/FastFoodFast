@@ -895,7 +895,7 @@ td, th {
   left: 35%;
   top: 28%;
   width: 35%; 
-  height: 43%;
+  height: 270px;
   /* overflow: auto; Enable scroll if needed */
   background-color: rgba(0,0,0,0); /*Black w/ opacity*/
 }
@@ -916,7 +916,7 @@ td, th {
   left: 35%;
   top: 28%;
   width: 35%; 
-  height: 53%;
+  height: 385px;
   /* overflow: auto; Enable scroll if needed */
   background-color: rgba(0,0,0,0); /*Black w/ opacity*/
 }
@@ -1025,24 +1025,4 @@ button:hover {
   width: 80px;
   margin: 0 auto;
   margin-top: 5px;
-}
-
-/* Code credit to https://www.w3schools.com/howto */
-/* @keyframes slide_from_top {
-  0% {top:-300px; opacity:0;}
-  100% {top:0; opacity:1;}
-}
-
-@keyframes slide_back_to_top {
-  0% {top:0; opacity:1;}
-  100% {top:-300px; opacity:0;}
-} */
-
-/*---------------------------------
-     DOCUMENTATION PAGE
-  --------------------------------- */
-
-.doc_body p {
-  margin-left: 7%;
-  color: red;
 }

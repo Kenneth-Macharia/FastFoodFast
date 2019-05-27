@@ -239,6 +239,7 @@ function signUp() {
   //Get the signup form data
   var name = document.querySelector("#suname").value;
   var email = document.querySelector("#suemail").value;
+  var address = document.querySelector("#suadd").value;
   var password = document.querySelector("#supsw").value;
   var password2 = document.querySelector("#supsw2").value;
 
@@ -248,6 +249,7 @@ function signUp() {
     var formData = new FormData();
     formData.append('User_Name', name);
     formData.append('User_Email', email);
+    formData.append('User_Address', address);
     formData.append('User_Password', password);
 
     // Create signup request data object
