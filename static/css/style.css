@@ -7,7 +7,7 @@
   padding: 0;
   box-sizing: border-box;
   /* TODO: Remove after development */
-  /* border: 1px solid #519ce2;  */
+  /* border: 1px solid #519ce2; */
 }
 
 *:focus {
@@ -811,6 +811,7 @@ footer p {
   position: absolute;
   right: 18px;
   top: 11%;
+  /* left: 70%; */
   color: black;
   font-size: 25px;
   cursor: pointer;
@@ -886,9 +887,9 @@ td, th {
 
 
 /*---------------------------------
-   LOGIN & SIGNUP MODALS
+   LOGIN, SIGNUP, MENU MODALS
   --------------------------------- */
-.modal_login {
+  .modal_login {
   display: none;
   position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */
@@ -922,6 +923,27 @@ td, th {
 }
 
 .modal-content_signup {
+  /* display: none; */
+  position: relative;
+  background-color:#f4f4f4f6;
+  border: 1px solid #888;
+  width: 100%;
+  height: 100%;
+}
+
+.modal_menu-add {
+  display: none;
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 30%;
+  top: 28%;
+  width: 40%; 
+  height: 380px;
+  /* overflow: auto; Enable scroll if needed */
+  background-color: rgba(0,0,0,0); /*Black w/ opacity*/
+}
+
+.modal-content_menu-add {
   /* display: none; */
   position: relative;
   background-color:#f4f4f4f6;
@@ -982,6 +1004,21 @@ td, th {
   border-radius: 5px;
 }
 
+input[type=number],
+textarea {
+  width: 100%;
+  height: 100%;
+  padding: 10px 10px;
+  border: 1px solid #ccc;
+  font-size: 77%;
+  border-radius: 5px;
+}
+
+.container input[type=number] {
+  width: 22%;
+  margin: 3px 0 1px 0;
+}
+
 /* Set a style for all buttons */
 button {
   background-color: transparent;
@@ -1025,4 +1062,8 @@ button:hover {
   width: 80px;
   margin: 0 auto;
   margin-top: 5px;
+}
+
+.button_container_add_menu button {
+  margin-top: 15px;
 }

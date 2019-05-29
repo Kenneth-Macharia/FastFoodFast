@@ -351,11 +351,12 @@
             </div>
             <div class="row contacts copyright">
                 <h6>
-                    Copyright &copy; 2019 by FastFoodFast. All rights reserved.
+                    Copyright &copy; 2019 by FastFoodFast. All rights reserved
                 </h>
             </div>
         </div>
   </footer>
+
   <!-- Admin dashboard -->
   <div class="admin_section">
     <div class="row header_section">
@@ -367,7 +368,7 @@
               <li><a href="#" id="logout">Log out</a></li>
               <li><a href="#">Orders List</a></li>
               <li><a href="#" id="menulist">Menu List</a></li>
-              <li><a href="#">Add Menu</a></li>
+              <li><a href="#" id="addmenu">Add Menu</a></li>
           </ul>
         </div>
     </div>
@@ -393,6 +394,7 @@
       </div>
     </div>
   </div>
+
   <!-- Login modal -->
   <div class="modal_login">
     <form class="modal-content_login" action="javascript:login()">
@@ -413,11 +415,12 @@
       </div>
     </form>
   </div>
+
   <!-- Signup modal -->
   <div class="modal_signup">
       <form class="modal-content_signup" action="javascript:signUp()">
         <div class="imgcontainer">
-          <span class="close js_close_2" title="Close">&times;</span>
+          <span class="close js_close_signup" title="Close">&times;</span>
           <h3>FastFoodFast</h3>
         </div>
         <div class="container">
@@ -434,5 +437,24 @@
         </div>
       </form>
     </div>
+
+  <!-- Add menu modal -->
+  <div class="modal_menu-add">
+    <form class="modal-content_menu-add" action="javascript:addMenuItem()">
+      <div class="imgcontainer">
+        <span class="close js_close_add_menu" title="Close">&times;</span>
+        <h3>Add New Menu Item</h3>
+      </div>
+      <div class="container">
+        <input type="text" placeholder="Enter menu name" id="menuname" autocomplete="off" required>
+        <textarea type="text" placeholder="Enter menu description " id="menudesc" autocomplete="off" required rows=5></textarea>
+        <input type="number" id="menuprice" placeholder="Enter price" autocomplete="off" required>
+        <input type="text" id="menuurl" placeholder="Enter full image url" required>
+      </div>
+      <div class="button_container_add_menu">
+          <button type="submit">Add Menu</button>
+      </div>
+    </form>
+  </div>
 
 </html>

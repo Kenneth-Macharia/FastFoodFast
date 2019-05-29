@@ -16,12 +16,12 @@ var header;
 // Access customer previous orders link (Open login modal)
 document.querySelector("#prev_ord").addEventListener("click", function (e) { 
   e.preventDefault();
-  openCloseLoginModal('openLoginModal', 'prev_ord')}, false);
+  openCloseModals('openLoginModal', 'prev_ord')}, false);
 
 // Access admin dashboard link (Open login modal)
 document.querySelector("#admin").addEventListener("click", function (e) { 
   e.preventDefault();
-  openCloseLoginModal('openLoginModal', 'admin')}, false);
+  openCloseModals('openLoginModal', 'admin')}, false);
 
 // Logout user (Both admins and guest) - close the modal and blacklist theh token
 
@@ -31,48 +31,50 @@ document.querySelector("#admin").addEventListener("click", function (e) {
 https://developer.mozilla.org/en-US/docs/Web/API/Window/sessionStorage
 
 
-
 // Access customer checkout order button (Open login modal)
 // document.querySelector("").addEventListener("click", function (e) { 
 //   e.preventDefault();
-//   openCloseLoginModal('openLoginModal', 'checkout')}, false);
+//   openCloseModals('openLoginModal', 'checkout')}, false);
+
 
 // Open signup modal via 'Quick Registration' link on login modal
 document.querySelector("#rlabel").addEventListener("click", function () { 
-  openCloseLoginModal('openSignUpModal', 'admin')}, false);
+  openCloseModals('openSignUpModal', 'admin')}, false);
 
 // Login modal close button (Dismiss login modal)
-document.querySelector(".js_close_login").addEventListener("click", function () {openCloseLoginModal('closeLoginModal')}, false);
+document.querySelector(".js_close_login").addEventListener("click", function () {
+  openCloseModals('closeLoginModal')}, false);
 
 // Signup modal close button (Dismiss signup modal)
-document.querySelector(".js_close_2").addEventListener("click", function () {
-  openCloseLoginModal('closeSignUpModal')}, false);
+document.querySelector(".js_close_signup").addEventListener("click", function () {
+  openCloseModals('closeSignUpModal')}, false);
+
+// Add menu close button (Dismiss add menu modal)
+document.querySelector(".js_close_add_menu").addEventListener("click", function () {
+  openCloseModals('closeAddMenuModal')}, false);
 
 // Reset login & signup modal error labels on wrong input
 document.querySelector("#uemail").addEventListener("focus", function () {
-  resetLoginModal('resetLoginEmail')}, false);
+  resetModals('resetLoginEmail')}, false);
 document.querySelector("#upsw").addEventListener("focus", function () {
-  resetLoginModal('resetLoginPassword')}, false);
+  resetModals('resetLoginPassword')}, false);
 document.querySelector("#suemail").addEventListener("focus", function () {
-  resetLoginModal('resetSignupEmail')}, false);  
+  resetModals('resetSignupEmail')}, false);  
 document.querySelector("#supsw").addEventListener("focus", function () {
-  resetLoginModal('resetSignupPassword')}, false);
+  resetModals('resetSignupPassword')}, false);
 document.querySelector("#supsw2").addEventListener("focus", function () {
-  resetLoginModal('resetSignupPassword')}, false);
+  resetModals('resetSignupPassword')}, false);
 
 // Close and reset Admin modal
 document.querySelector("#logout").addEventListener("click", function (e) { 
   e.preventDefault();
-  //TODO:Clear ANY open table and activate its link
   closeTables('#menu_table');
   document.querySelector('#menulist').classList.remove('js-deactivateLink');
-
   // Close modal
   document.querySelector('.admin_section').style.display = 'none';
   // Reset view header p
   document.querySelector('.view_header p').style.color = "#e4e1e1fa";
   document.querySelector(".view_header p").innerHTML = 'View section heading';
-
 }, false);
 
 // Admin dash header close button function
@@ -82,12 +84,10 @@ document.querySelector(".js_close_table").addEventListener('click', function() {
     closeTables('#menu_table');
     document.querySelector('#menulist').classList.remove('js-deactivateLink');
   }
-
-    // Reset view header p
+    // Reset view header p in admin dash board
   document.querySelector('.view_header p').style.color = "#e4e1e1fa";
   document.querySelector(".view_header p").innerHTML = 'View section heading';
-
-  }, false);
+}, false);
 
 // Menu list link clicked on admin dash navigation (initialize get all menus)
 document.querySelector("#menulist").addEventListener("click", function (e) {
@@ -98,14 +98,63 @@ document.querySelector("#menulist").addEventListener("click", function (e) {
   } else {
     getMenu();
   }
-  }, false);
+}, false);
+
+// Add menu link clicked on admin dash navigation (initialize add new menu item)
+document.querySelector("#addmenu").addEventListener("click", function (e) {
+  e.preventDefault();
+
+  // Close any table in admin dash
+  document.querySelector(".js_close_table").click();
+
+  // Open add menu modal
+  openCloseModals('openAddMenuModal', 'admin');
+  
+}, false);
 
   
 /*----------FEATURE FUNCTIONS---------*/
 
+// Add new menu item
+function addMenuItem() {
+  //Get the login form data
+  var formData = new FormData();
+  formData.append('Menu_Name', document.querySelector("#menuname").value);
+  formData.append('Menu_Description', document.querySelector("#menudesc").value);
+  formData.append('Menu_Price', parseInt(document.querySelector("#menuprice").value, 10));
+  formData.append('Menu_ImageURL', document.querySelector("#menuurl").value);
+
+  // Request data object
+  const add_menu_endpoint = api_base_url.concat('/v1/menu');
+  var requestData = new Request(add_menu_endpoint, {
+    method: 'POST',
+    mode: 'cors',
+    body: formData,
+    cache: 'default',
+    credentials: 'include',
+    headers: header});
+
+  // Send add menu request
+  fetch(requestData)
+    .then(response => {
+      if (response.status === 201) {
+        return Promise.resolve(response);
+      } else {
+        return Promise.reject(new Error(response.statusText))
+      }
+    })
+    .then(response => {return response.json()})
+    .then(function (data) {
+      openCloseModals('closeAddMenuModal', 'admin');
+      let msg = data.Response.Success;
+      alert(msg);
+    })
+    // .catch (error => {alert('Server error, contact the site administrator.')}); //TODO: Error handling
+}
+
 // Fetch all menus logic
 function getMenu() {
-  // Create login request data object
+  // Request data object
   const get_menus_endpoint = api_base_url.concat('/v1/menus');
   var requestData = new Request(get_menus_endpoint, {
     method: 'GET',
@@ -193,7 +242,7 @@ function login() {
         fetch(fetchData)
           .then(response => {
             if (response.status === 200) {
-              openCloseLoginModal('closeLoginModal');
+              openCloseModals('closeLoginModal');
               document.querySelector('.admin_section').style.display = "block";
             } else if (response.status === 401) {
               document.querySelector('#alabel').style.color = "red";
@@ -209,7 +258,7 @@ function login() {
         fetch(fetchData)
         .then(response => {
           if (response.status === 200) {
-            openCloseLoginModal('closeLoginModal');
+            openCloseModals('closeLoginModal');
             //open the previous order modal
 
           } else if (response.status === 401) {
@@ -222,7 +271,7 @@ function login() {
         fetch(fetchData)
         .then(response => {
           if (response.status === 200) {
-            openCloseLoginModal('closeLoginModal');
+            openCloseModals('closeLoginModal');
             //open the checkout order modal
 
           } else if (response.status === 401) {
@@ -274,11 +323,11 @@ function signUp() {
       })
       .then(response => {return response.json()})
       .then(function (data) {
-        openCloseLoginModal('closeSignUpModal');
+        openCloseModals('closeSignUpModal');
         idValue = document.querySelector('.modal_login').getAttribute('id');
         let msg = data.Response.Success
         alert(msg);
-        openCloseLoginModal('openLoginModal', idValue);
+        openCloseModals('openLoginModal', idValue);
       })
       // .catch (error => {alert('Server error, contact the site administrator.')}); // TODO: Error handdling?
 
@@ -287,8 +336,8 @@ function signUp() {
 
 
  /*----------HELPER FUNCTIONS---------*/
- 
-  // Close tables displayed in the admin dash
+
+ // Close tables displayed in the admin dash
 function closeTables (tableId) {
 
   if (tableId === '#menu_table') {
@@ -388,90 +437,125 @@ function showMenuTable(menuArray) {
 }
  
  // Inputs/Labels reset function
-function resetLoginModal (action) {
-  //Clear login fields
+function resetModals (action) {
+  // Login fields to clear
   emailLabel = document.querySelector("#elabel");
   passwordLabel = document.querySelector("#plabel");
   emailInput = document.querySelector("#uemail");
   passwordInput = document.querySelector("#upsw");
   authLabel = document.querySelector('#alabel');
 
-  //clear signup fields
+  // Signup fields to clear
   s_nameInput = document.querySelector("#suname");
   s_emailLabel = document.querySelector("#selabel");
   s_emailInput = document.querySelector("#suemail");
+  s_addressInput = document.querySelector('#suadd');
   s_passwordLabel = document.querySelector("#splabel");
   s_passwordInput = document.querySelector("#supsw");
   s2_passwordInput = document.querySelector("#supsw2");
 
-  if (action == 'clearLoginForm') {
-    authLabel.style.color = '';
-    emailLabel.style.color = ''
-    passwordLabel.style.color = ''
-    emailInput.value = ''
-    passwordInput.value = ''
-
-  } else if (action == 'resetLoginEmail') {
-    if (emailLabel.style.color == 'red') {
-      emailLabel.style.color = '';
-    } else if (authLabel.style.color == 'red') {
+  switch (action) {
+    case 'clearLoginForm':
       authLabel.style.color = '';
-    }
+      emailLabel.style.color = ''
+      passwordLabel.style.color = ''
+      emailInput.value = ''
+      passwordInput.value = ''
+      break;
 
-  } else if (action == 'resetLoginPassword') {
+    case 'resetLoginEmail':
+      if (emailLabel.style.color == 'red') {
+        emailLabel.style.color = '';
+      } else if (authLabel.style.color == 'red') {
+        authLabel.style.color = '';
+      }
+      break;
+
+    case 'resetLoginPassword':
       if (passwordLabel.style.color == 'red') {
         passwordLabel.style.color = '';
       }
+      break;
 
-  } else if (action == 'clearSignupForm') {
-    s_nameInput.value = '';
-    s_emailLabel.style.color = '';
-    s_emailInput.value = '';
-    s_passwordLabel.style.color = '';
-    s_passwordInput.value = '';
-    s2_passwordInput.value = '';
-
-  } else if (action == 'resetSignupEmail') {
-    if (s_emailLabel.style.color == 'red') {
+    case 'clearSignupForm':
+      s_nameInput.value = '';
       s_emailLabel.style.color = '';
-    }
-
-  } else if (action == 'resetSignupPassword') {
-    if (s_passwordLabel.style.color == 'red') {
+      s_emailInput.value = '';
+      s_addressInput.value = '';
       s_passwordLabel.style.color = '';
-    }
+      s_passwordInput.value = '';
+      s2_passwordInput.value = '';
+      break;
+
+    case 'resetSignupEmail':
+      if (s_emailLabel.style.color == 'red') {
+        s_emailLabel.style.color = '';
+      }
+      break;
+
+    case 'resetSignupPassword':
+      if (s_passwordLabel.style.color == 'red') {
+        s_passwordLabel.style.color = '';
+      }
+      break;
+
+    case 'clearAddMenuModal':
+      document.querySelector('#menuname').value = '';
+      document.querySelector('#menudesc').value = '';
+      document.querySelector('#menuprice').value = '';
+      document.querySelector('#menuurl').value = '';
+      break;
   }
+
 }
 
 // Show|Close login form function
-function openCloseLoginModal (action, source) {
+function openCloseModals (action, source) {
   modalLogin = document.querySelector(".modal_login");
   modalSignup = document.querySelector(".modal_signup");
+  modalAddMenu = document.querySelector(".modal_menu-add");
 
-  if (action === 'openLoginModal') {
-    if (modalLogin.hasAttribute("id")) {
-      modalLogin.style.display = "none"
-    }
-    modalLogin.setAttribute("id", source);
-    modalLogin.style.display = "block";
-    document.querySelector("#uemail").focus();
-    //document.querySelector("#login").style.animation = "slide_from_top 0.7s";
-  } else if (action === 'closeLoginModal') { //TODO: Fix modal animation
-    //document.querySelector("#login").style.animation = "slide_back_to_top 0.7s";
-    if (modalLogin.hasAttribute("id")) {
-      modalLogin.removeAttribute("id")
-    }
-    modalLogin.style.display = "none";
-    resetLoginModal('clearLoginForm');
-  } else if (action === 'openSignUpModal') {
-    modalLogin.style.display = "none";
-    resetLoginModal('clearLoginForm');
-    modalSignup.style.display = "block";
-    document.querySelector("#suname").focus();
-  } else if (action === 'closeSignUpModal') {
-    modalSignup.style.display = "none";
-    resetLoginModal('clearSignupForm');
+  switch (action) {
+    case 'openLoginModal':
+      if (modalLogin.hasAttribute("id")) {
+        modalLogin.style.display = "none"
+      }
+      modalLogin.setAttribute("id", source);
+      modalLogin.style.display = "block";
+      document.querySelector("#uemail").focus();
+      break;
+
+    case 'closeLoginModal':
+      if (modalLogin.hasAttribute("id")) {
+        modalLogin.removeAttribute("id")
+      }
+      modalLogin.style.display = "none";
+      resetModals('clearLoginForm');
+      break;
+
+    case 'openSignUpModal':
+      modalLogin.style.display = "none";
+      resetModals('clearLoginForm');
+      modalSignup.style.display = "block";
+      document.querySelector("#suname").focus();
+      break;
+
+    case 'closeSignUpModal':
+      modalSignup.style.display = "none";
+      resetModals('clearSignupForm');
+      break;
+
+    case 'openAddMenuModal':
+      modalAddMenu.style.display = "block";
+      document.querySelector('#menuname').focus();
+      break;
+      
+    case 'closeAddMenuModal':
+      modalAddMenu.style.display = "none";
+      resetModals('clearAddMenuModal');
+      break;
   }
+
 }
 
 
