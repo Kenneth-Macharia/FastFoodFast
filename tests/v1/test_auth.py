@@ -80,7 +80,7 @@ def test_user_login(test_client):
     test_response = test_client.get('/v1/menus', headers=token_data)
 
     assert test_response.status_code == 401
-    assert 'This an admin only function' in json.loads(test_response.data)['Response']['Failure']
+    assert 'This is an admin only function' in json.loads(test_response.data)['Response']['Failure']
     
 def test_user_type_upgrade(test_client):
     ''' Test the user upgrade process '''
@@ -134,7 +134,7 @@ def test_user_type_upgrade(test_client):
     test_response = test_client.put('/v1/auth/update', data=json.dumps(user_guest), headers=token_data, content_type='application/json')
 
     assert test_response.status_code == 401
-    assert 'This an admin only function' in json.loads(test_response.data)['Response']['Failure']
+    assert 'This is an admin only function' in json.loads(test_response.data)['Response']['Failure']
 
     # Test that a user type can only be 'Guest' or 'Admin'
         # Log in the admin user

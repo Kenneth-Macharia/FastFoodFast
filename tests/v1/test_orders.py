@@ -93,7 +93,7 @@ def test_add_order(test_client):
     test_response = test_client.post('/v1/users/orders', data=json.dumps(order_dict), headers=token_data_admim, content_type='application/json')
 
     assert test_response.status_code == 401
-    assert 'Only Guest users can place orders' in json.loads(test_response.data)['Response']['Failure']
+    assert 'This is a Guest only function' in json.loads(test_response.data)['Response']['Failure']
 
         # Place a second order to test correct order # generation
     test_response = test_client.post('/v1/users/orders', data=json.dumps(order_dict), headers=token_data_guest, content_type='application/json')
@@ -110,7 +110,7 @@ def test_get_order(test_client):
     test_response = get_helper(test_client, '/v1/users/orders', token_data)
 
     assert test_response.status_code == 401
-    assert 'Only Guest users can place orders' in json.loads(test_response.data)['Response']['Failure']
+    assert 'This is a Guest only function' in json.loads(test_response.data)['Response']['Failure']
 
     # Login user to retrive orders for
     user = {"User_Email":"shee@xyz.com",
@@ -164,7 +164,7 @@ def test_get_all_order(test_client):
     test_response = get_helper(test_client, '/v1/orders', token_data)
     
     assert test_response.status_code == 401
-    assert 'This an admin only function' in json.loads(test_response.data)['Response']['Failure']
+    assert 'This is an admin only function' in json.loads(test_response.data)['Response']['Failure']
 
     # Log in an admin and test for successful orders retrival
     admin_user = {"User_Email":"ken@abc.com",
@@ -199,7 +199,7 @@ def test_get_order_byid(test_client):
     test_response = get_helper(test_client, '/v1/orders/1', token_data)
     
     assert test_response.status_code == 401
-    assert 'This an admin only function' in json.loads(test_response.data)['Response']['Failure']
+    assert 'This is an admin only function' in json.loads(test_response.data)['Response']['Failure']
 
     # Create an order for the guest (All orders were dropped in previous test)
     order_dict = {"current_order": [
@@ -252,7 +252,7 @@ def test_update_order(test_client):
     test_response = test_client.put('/v1/orders/1', headers=token_data_guest)
     
     assert test_response.status_code == 401
-    assert 'This an admin only function' in json.loads(test_response.data)['Response']['Failure']
+    assert 'This is an admin only function' in json.loads(test_response.data)['Response']['Failure']
 
     # Log in an 'Admin'
     admin_user = {"User_Email":"ken@abc.com",

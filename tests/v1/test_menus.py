@@ -36,7 +36,7 @@ def test_menus_get(test_client):
     test_response = get_helper(test_client, token_data)
 
     assert test_response.status_code == 401
-    assert 'This an admin only function' in json.loads(test_response.data)['Response']['Failure']
+    assert 'This is an admin only function' in json.loads(test_response.data)['Response']['Failure']
 
     # Test for no menu items found
     a_user = {"User_Email":"ken@abc.com",
@@ -65,7 +65,7 @@ def test_menu_post(test_client):
     test_response = test_client.post('/v1/menu', data=json.dumps(menu_item_to_add), headers=token_data, content_type='application/json')
 
     assert test_response.status_code == 401
-    assert 'This an admin only function' in json.loads(test_response.data)['Response']['Failure']
+    assert 'This is an admin only function' in json.loads(test_response.data)['Response']['Failure']
 
     # Login Admin and post a menu
     a_user = {"User_Email":"ken@abc.com",
@@ -107,7 +107,7 @@ def test_menu_put(test_client):
     test_response = test_client.put('/v1/menu/1', data=json.dumps(status_update), headers=token_data, content_type='application/json')
 
     assert test_response.status_code == 401
-    assert 'This an admin only function' in json.loads(test_response.data)['Response']['Failure']
+    assert 'This is an admin only function' in json.loads(test_response.data)['Response']['Failure']
 
     # Login Admin
     a_user = {"User_Email":"ken@abc.com",
@@ -158,7 +158,7 @@ def test_menu_delete(test_client):
     test_response = test_response = test_client.delete('/v1/menu/1', headers=token_data, content_type='application/json')
 
     assert test_response.status_code == 401
-    assert 'This an admin only function' in json.loads(test_response.data)['Response']['Failure']
+    assert 'This is an admin only function' in json.loads(test_response.data)['Response']['Failure']
 
     # Login Admin
     a_user = {"User_Email":"ken@abc.com",

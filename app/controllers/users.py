@@ -56,7 +56,7 @@ class UserUpdate(Resource):
         '/auth/signup' route for updating user privileges '''
 
         if get_jwt_claims()['User_Type'] != 'Admin' and UserModel.check_if_admin_exists():
-            return {'Response':{'Failure':'This an admin only function'}}, 401
+            return {'Response':{'Failure':'This is an admin only function'}}, 401
 
         valid_user_types = ['Admin', 'Guest']
         json_payload = UserUpdate.parser.parse_args()

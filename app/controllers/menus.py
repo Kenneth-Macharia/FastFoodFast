@@ -16,7 +16,7 @@ class AddMenu(Resource):
         '/menu'route and controls creation of a new menu. '''
 
         if get_jwt_claims()['User_Type'] != 'Admin':
-            return {'Response':{'Failure':'This an admin only function'}}, 401
+            return {'Response':{'Failure':'This is an admin only function'}}, 401
 
         AddMenu.parser.add_argument('Menu_Name', type=str, required=True,
                                     help='This field cant be left blank!')
@@ -54,7 +54,7 @@ class MenuMgt(Resource):
         route '''
 
         if get_jwt_claims()['User_Type'] != 'Admin':
-            return {'Response':{'Failure':'This an admin only function'}}, 401
+            return {'Response':{'Failure':'This is an admin only function'}}, 401
 
         elif not MenuModel.find_menu_byid(menu_id):
             return {'Response':{'Failure':'Menu item not found'}}, 404
@@ -75,7 +75,7 @@ class MenuMgt(Resource):
         ''' This function handles DELETE requests to the '/api_v1/menu/<Menu_Id>' route '''
 
         if get_jwt_claims()['User_Type'] != 'Admin':
-            return {'Response':{'Failure':'This an admin only function'}}, 401
+            return {'Response':{'Failure':'This is an admin only function'}}, 401
 
         elif not MenuModel.find_menu_byid(menu_id):
             return {'Response':{'Failure':'Menu item not found'}}, 404
@@ -92,7 +92,7 @@ class Menus(Resource):
         ''' This function handles GET all requests to the '/menus' route '''
 
         if get_jwt_claims()['User_Type'] != 'Admin':
-            return {'Response':{'Failure':'This an admin only function'}}, 401
+            return {'Response':{'Failure':'This is an admin only function'}}, 401
 
         menus = []
         rows_returned = MenusModel.all_menu_items()
