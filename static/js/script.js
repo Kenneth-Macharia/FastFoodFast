@@ -16,54 +16,62 @@ var header;
 // Access customer previous orders link (Open login modal)
 document.querySelector("#prev_ord").addEventListener("click", function (e) { 
   e.preventDefault();
-  openCloseModals('openLoginModal', 'prev_ord')}, false);
+  openCloseModals('openLoginModal', 'prev_ord')
+}, false);
 
 // Access admin dashboard link (Open login modal)
 document.querySelector("#admin").addEventListener("click", function (e) { 
   e.preventDefault();
-  openCloseModals('openLoginModal', 'admin')}, false);
+  openCloseModals('openLoginModal', 'admin')
+}, false);
 
 // Logout user (Both admins and guest) - close the modal and blacklist theh token
-
-
 // On page reload save the user token and when the link to open a protected modal is clicked check if its has expired and reqire login, else just open the protected modal.
+//https:developer.mozilla.org/en-US/docs/Web/API/Window/sessionStorage
 
-https://developer.mozilla.org/en-US/docs/Web/API/Window/sessionStorage
-
-
-// Access customer checkout order button (Open login modal)
-// document.querySelector("").addEventListener("click", function (e) { 
-//   e.preventDefault();
-//   openCloseModals('openLoginModal', 'checkout')}, false);
+//Access customer checkout order button (Open login modal)
+document.querySelector(".js-cart").addEventListener("click", function (e) { 
+  e.preventDefault();
+  openCloseModals('openLoginModal', 'checkout')
+}, false);
 
 
 // Open signup modal via 'Quick Registration' link on login modal
 document.querySelector("#rlabel").addEventListener("click", function () { 
-  openCloseModals('openSignUpModal', 'admin')}, false);
+  openCloseModals('openSignUpModal', 'admin')
+}, false);
 
 // Login modal close button (Dismiss login modal)
 document.querySelector(".js_close_login").addEventListener("click", function () {
-  openCloseModals('closeLoginModal')}, false);
+  openCloseModals('closeLoginModal')
+}, false);
 
 // Signup modal close button (Dismiss signup modal)
 document.querySelector(".js_close_signup").addEventListener("click", function () {
-  openCloseModals('closeSignUpModal')}, false);
+  openCloseModals('closeSignUpModal')
+}, false);
 
 // Add menu close button (Dismiss add menu modal)
 document.querySelector(".js_close_add_menu").addEventListener("click", function () {
-  openCloseModals('closeAddMenuModal')}, false);
+  openCloseModals('closeAddMenuModal')
+}, false);
 
 // Reset login & signup modal error labels on wrong input
 document.querySelector("#uemail").addEventListener("focus", function () {
-  resetModals('resetLoginEmail')}, false);
+  resetModals('resetLoginEmail')
+}, false);
 document.querySelector("#upsw").addEventListener("focus", function () {
-  resetModals('resetLoginPassword')}, false);
+  resetModals('resetLoginPassword')
+}, false);
 document.querySelector("#suemail").addEventListener("focus", function () {
-  resetModals('resetSignupEmail')}, false);  
+  resetModals('resetSignupEmail')
+}, false);  
 document.querySelector("#supsw").addEventListener("focus", function () {
-  resetModals('resetSignupPassword')}, false);
+  resetModals('resetSignupPassword')
+}, false);
 document.querySelector("#supsw2").addEventListener("focus", function () {
-  resetModals('resetSignupPassword')}, false);
+  resetModals('resetSignupPassword')
+}, false);
 
 // Close and reset Admin modal
 document.querySelector("#logout").addEventListener("click", function (e) { 
@@ -271,8 +279,10 @@ function login() {
         fetch(fetchData)
         .then(response => {
           if (response.status === 200) {
-            openCloseModals('closeLoginModal');
-            //open the checkout order modal
+            //close login modal
+            openCloseModals('closeLoginModal')
+            //open the checkout order page
+            document.querySelector('#open_cart').click()
 
           } else if (response.status === 401) {
             document.querySelector('#alabel').style.color = "red";
