@@ -717,8 +717,20 @@ footer p {
     color: #e67e22;
 }
 
+
 /* ---------------------------------
-   ADMIN PAGE
+   CART PAGE
+   --------------------------------- */
+.cart_bed {
+  background-color: #f4f4f4;
+  width: 100%;
+  height: 100%;
+}
+
+
+
+/* ---------------------------------
+   ADMIN MODAL
    --------------------------------- */
 .admin_section {
   display: none;

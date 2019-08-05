@@ -30,10 +30,10 @@ document.querySelector("#admin").addEventListener("click", function (e) {
 //https:developer.mozilla.org/en-US/docs/Web/API/Window/sessionStorage
 
 //Access customer checkout order button (Open login modal)
-document.querySelector(".js-cart").addEventListener("click", function (e) { 
-  e.preventDefault();
-  openCloseModals('openLoginModal', 'checkout')
-}, false);
+// document.querySelector("").addEventListener("click", function (e) { 
+//   e.preventDefault();
+//   openCloseModals('openLoginModal', 'checkout')
+// }, false);
 
 
 // Open signup modal via 'Quick Registration' link on login modal
@@ -279,10 +279,7 @@ function login() {
         fetch(fetchData)
         .then(response => {
           if (response.status === 200) {
-            //close login modal
-            openCloseModals('closeLoginModal')
-            //open the checkout order page
-            document.querySelector('#open_cart').click()
+              //open the checkout order page confirm payment and create saveorder            
 
           } else if (response.status === 401) {
             document.querySelector('#alabel').style.color = "red";
@@ -346,6 +343,33 @@ function signUp() {
 
 
  /*----------HELPER FUNCTIONS---------*/
+
+ // Add menu item logic
+ var cart_buttons = document.querySelectorAll('.add_cart');
+
+function collectCartItems() {
+  // Figure out which menu items has been clicked
+  this.setAttribute('id', 'clicked');
+
+}
+
+for (var i = 0; i < cart_buttons.length; i++) {
+  cart_buttons[i].addEventListener('click', collectCartItems)
+
+
+  // Collect the menu name & price from the DOM as an object
+
+  
+  // Add the menu details object to an order array, store to a session object
+
+
+  // Dsiplay menu added to cart pop ups
+
+
+  // Change cart icon color to orange, if atleast on item in cart
+
+
+}
 
  // Close tables displayed in the admin dash
 function closeTables (tableId) {
