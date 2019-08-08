@@ -14,6 +14,5 @@ The pages are hosted on Github pages. Follow this link to interact with them:
 
     https://kenneth-macharia.github.io/FastFoodFast/
 
-
 ## Author
 Kenneth Macharia
