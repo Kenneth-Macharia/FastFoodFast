@@ -9,5 +9,10 @@ The app is made up of:
 
     2.A RESTful API developed using Python Flask, persisting to a PostgreSQL database
 
+## Viewing the UI web pages
+The pages are hosted on Github pages. Follow this link to interact with them:
+
+    https://kenneth-macharia.github.io/FastFoodFast/
+
 ## Author
 Kenneth Macharia
