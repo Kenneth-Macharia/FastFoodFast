@@ -31,13 +31,6 @@ def test_menus_get(test_client):
     user = {"User_Email":"shee@xyz.com",
             "User_Password":"xyz"}
 
-    # Login user & test for access control (This is an admin only fucntion)
-    token_data = login_helper(test_client, user)
-    test_response = get_helper(test_client, token_data)
-
-    assert test_response.status_code == 401
-    assert 'This is an admin only function' in json.loads(test_response.data)['Response']['Failure']
-
     # Test for no menu items found
     a_user = {"User_Email":"ken@abc.com",
               "User_Password":"abc"}

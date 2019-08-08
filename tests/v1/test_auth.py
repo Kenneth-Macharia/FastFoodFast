@@ -77,7 +77,7 @@ def test_user_login(test_client):
     # Test new/default user is 'Guest' not 'Admin'
     token_data = dict(Authorization="Bearer " + json.loads(test_response.data)["Access_token"])
 
-    test_response = test_client.get('/v1/menus', headers=token_data)
+    test_response = test_client.get('/v1/orders', headers=token_data)
 
     assert test_response.status_code == 401
     assert 'This is an admin only function' in json.loads(test_response.data)['Response']['Failure']

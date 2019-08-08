@@ -87,12 +87,8 @@ class MenuMgt(Resource):
 class Menus(Resource):
     ''' This class manages the Menus resource '''
 
-    @jwt_required
     def get(self):
         ''' This function handles GET all requests to the '/menus' route '''
-
-        if get_jwt_claims()['User_Type'] != 'Admin':
-            return {'Response':{'Failure':'This is an admin only function'}}, 401
 
         menus = []
         rows_returned = MenusModel.all_menu_items()
