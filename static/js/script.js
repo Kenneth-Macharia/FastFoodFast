@@ -2,14 +2,15 @@
            JAVASCRIPT CODE - Handles core webapage functionality
   ------------------------------------------------------------------------*/
 
-/*----------GLOBAL VARIABLES---------*/
+/*----------GLOBAL CONSTANTS---------*/
 
 // Backend server location - Base url for Heroku hosted API
-var api_base_url = 'https://api-fastfoodfast.herokuapp.com'
+const API_BASE_URL = 'https://api-fastfoodfast.herokuapp.com'
+
+/*----------GLOBAL VARIABLES---------*/
 
 // Fetch header object with authorization credentials
 var header;
-
 
 /*----------ELEMENTS EVENTS--------*/
 
@@ -108,6 +109,12 @@ document.querySelector("#menulist").addEventListener("click", function (e) {
   }
 }, false);
 
+// Detect the 'add to cart button clicked' and fetch the menu id from it
+var cart_buttons = document.querySelectorAll('.add_cart');
+for (var i = 0; i < cart_buttons.length; i++) {
+  cart_buttons[i].addEventListener('click', addOrderItem)
+}
+
 // Add menu link clicked on admin dash navigation (initialize add new menu item)
 document.querySelector("#addmenu").addEventListener("click", function (e) {
   e.preventDefault();
@@ -133,7 +140,7 @@ function addMenuItem() {
   formData.append('Menu_ImageURL', document.querySelector("#menuurl").value);
 
   // Request data object
-  const add_menu_endpoint = api_base_url.concat('/v1/menu');
+  const add_menu_endpoint = API_BASE_URL.concat('/v1/menu');
   var requestData = new Request(add_menu_endpoint, {
     method: 'POST',
     mode: 'cors',
@@ -163,7 +170,7 @@ function addMenuItem() {
 // Fetch all menus logic
 function getMenu() {
   // Request data object
-  const get_menus_endpoint = api_base_url.concat('/v1/menus');
+  const get_menus_endpoint = API_BASE_URL.concat('/v1/menus');
   var requestData = new Request(get_menus_endpoint, {
     method: 'GET',
     mode: 'cors',
@@ -206,7 +213,7 @@ function login() {
   formData.append('User_Password', password);
 
   // Create login request data object
-  const signin_endpoint = api_base_url.concat('/v1/auth/login');
+  const signin_endpoint = API_BASE_URL.concat('/v1/auth/login');
   var requestData = new Request(signin_endpoint, {
     method: 'POST',
     body: formData,
@@ -245,7 +252,7 @@ function login() {
       
       //Attempt login to an admin feature to verify admin rights
       if (idValue === 'admin') {
-        var fetchData = new Request(api_base_url.concat('/v1/menus'), requestData);
+        var fetchData = new Request(API_BASE_URL.concat('/v1/menus'), requestData);
           
         fetch(fetchData)
           .then(response => {
@@ -261,7 +268,7 @@ function login() {
         cannot access Guest features like placing orders and viewing previous
         orders */
       } else if (idValue === 'prev_ord') {
-        var fetchData = new Request(api_base_url.concat('/v1/users/orders'), requestData);
+        var fetchData = new Request(API_BASE_URL.concat('/v1/users/orders'), requestData);
 
         fetch(fetchData)
         .then(response => {
@@ -274,7 +281,7 @@ function login() {
           }
         })
       } else if (idValue === 'checkout') {
-        var fetchData = new Request(api_base_url.concat('/v1/users/orders'), requestData);
+        var fetchData = new Request(API_BASE_URL.concat('/v1/users/orders'), requestData);
 
         fetch(fetchData)
         .then(response => {
@@ -309,7 +316,7 @@ function signUp() {
     formData.append('User_Password', password);
 
     // Create signup request data object
-    const signup_endpoint = api_base_url.concat('/v1/auth/signup');
+    const signup_endpoint = API_BASE_URL.concat('/v1/auth/signup');
     var requestData = new Request(signup_endpoint, {
       method: 'POST',
       body: formData,
@@ -344,32 +351,83 @@ function signUp() {
 
  /*----------HELPER FUNCTIONS---------*/
 
- // Add menu item logic
- var cart_buttons = document.querySelectorAll('.add_cart');
+// -----------------------------------------------------------
 
-function collectCartItems() {
-  // Figure out which menu items has been clicked
-  this.setAttribute('id', 'clicked');
+// Add menu item logic
 
-}
+// Get menu id from button clicked
 
-for (var i = 0; i < cart_buttons.length; i++) {
-  cart_buttons[i].addEventListener('click', collectCartItems)
-
-
-  // Collect the menu name & price from the DOM as an object
+  // Collect the menu name & price from back end using the menu id
 
   
   // Add the menu details object to an order array, store to a session object
 
 
-  // Dsiplay menu added to cart pop ups
+  // Display menu added to cart pop ups
 
 
   // Change cart icon color to orange, if atleast on item in cart
 
+function addOrderItem() {
+  let menu_id = this.getAttribute('id')
+  let currentItem = {}
+  let orderItems = []
+  console.log(menu_id)  // for testing
+
+  // Check if the sessionStorage if empty
+  if (sessionStorage.getItem("menuItems")) {
+
+    // If not empty, fetch the required menu by id
+    let menus = sessionStorage.getItem("menuItems")
+    for (i = 0; i <= (menus.length - 1); i++) {
+      if (menus[i].Menu_Id === menu_id) {
+
+        // Create an object with the current menu details
+        currentItem = {id:i, name: menus[i].Menu_Name, price: menus[i].Menu_Price, qty: 1}
+      } 
+    }
+
+    // Add the current item to an order items array
+    orderItems.push(currentItem)
+    console.log(orderItems)
+    
+  } else {
+    // If empty , call the fetchMenuDetails function to populate sessionStorage
+    fetchMenuDetails()
+  }
 
 }
+
+function fetchMenuDetails() {
+
+  const get_menus_endpoint = API_BASE_URL.concat('/v1/menus');
+  var requestData = new Request(get_menus_endpoint, {
+    method: 'GET',
+    mode: 'cors',
+    cache: 'default',
+    credentials: 'include',
+    headers: header});
+
+  fetch(requestData)
+    .then(response => {
+      if (response.status === 200) {
+        return Promise.resolve(response);
+      } else {
+        return Promise.reject(new Error(response.statusText))
+      }
+    })
+    .then(response => {return response.json()})
+    .then(function (data) {
+      // Save menus in sessionStorage
+      sessionStorage.setItem('menuitems', data.Response.Success)    
+    })
+
+    // .catch (error => {alert('Server error, contact the site administrator.')}); //TODO: Error handling
+}
+
+//----------------------------------------------
+
+
 
  // Close tables displayed in the admin dash
 function closeTables (tableId) {
@@ -386,16 +444,6 @@ function closeTables (tableId) {
   }
 
 }
-
-// var el = getElementsByClassName('module');
-// for (var i=0; i < el.length; i++) {
-//     // Here we have the same onclick
-//     el.item(i).onclick = clickerFn;
-// }
-
-// var x = document.getElementById("myTable").rows[0].cells;
-// x[0].innerHTML = "NEW CONTENT";
-
 
   // Show Menus table
 function showMenuTable(menuArray) {
