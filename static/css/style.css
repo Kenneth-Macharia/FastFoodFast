@@ -5,9 +5,7 @@
   /* All elements initial styling */
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
-  /* TODO: Remove after development */
-  /* border: 1px solid ; */
+  /*box-sizing: border-box;*/
 }
 
 *:focus {
@@ -38,13 +36,20 @@ html body {
   visibility: hidden;
 }
 
+/* classes to deactivate links */
+.js-deactivateLink {
+  pointer-events: none;
+  cursor: default;
+}
+
+
 /* ---------------------------------
    RE-USABLE COMPONENTS SECTION
    --------------------------------- */
 
 .row {
   /* Only absolute dimension, all others will be relative. This is the entire
-  width of the page */
+  width of the viewport */
   max-width: 1140px;
   /* Center all the rows on the page, set left and right to auto and top and bottom to 0 */
   margin: 0 auto;
@@ -57,7 +62,11 @@ section {
 
 .box {
   /* Padding for colunm spans */
-  padding: 1%;
+  /*padding: 1%;*/
+}
+
+.blur {
+  filter: blur(3px);
 }
 
 /* ---------- HEADINGS ---------- */
@@ -133,14 +142,14 @@ a:visited {
   color: #e67e22;
   text-decoration: none;
   padding-bottom: 2px;
-  border-bottom: 1px solid #e67e22;
-  transition: border-bottom 0.2s; color:0.2s
+  /*border-bottom: 1px solid #e67e22;*/
+  /*transition: border-bottom 0.2s; color:0.2s*/
 }
 
 a:hover,
 a:active {
   color: #555;
-  border-bottom: 1px solid transparent;
+  /*border-bottom: 1px solid transparent;*/
 }
 
 /* ---------- BUTTONS ---------- */
@@ -189,6 +198,30 @@ a:active {
     border: 1px solid #e67e22;
     color: #fff;
 }
+
+/* ---------- TABLES ---------- */
+table {
+  display: none;
+  margin: 2px 0 10px 0;
+  border-collapse: collapse;
+  table-layout: auto;  /* if fixed, then does not resize to fit contents */
+}
+
+th {
+  font-size: 80%;
+  font-weight: normal;
+  padding: 5px 5px;
+  text-transform: capitalize;
+}
+
+td, th {
+  border: 1px solid #a5a4a4;
+  text-align: center;
+  font-size: 75%;
+  color: #080000;
+  padding:0;
+}
+
 
 /* ---------------------------------
    HEADER SECTION
@@ -499,7 +532,7 @@ blockquote:before {
 
 .feedback_form {
     width: 70%;
-    /* Center the contact form inside its parent container */
+    /* Center the contact form inside its parent form_container */
     margin:0 auto;
 }
 
@@ -717,34 +750,28 @@ footer p {
     color: #e67e22;
 }
 
-
-/* ---------------------------------
-   CART PAGE
+/* --------------------------------------------------------------------------------------
+   ADMIN, CART MODALS
    --------------------------------- */
-.cart_bed {
-  background-color: #f4f4f4;
-  width: 100%;
-  height: 100%;
-}
-
-
-
-/* ---------------------------------
-   ADMIN MODAL
-   --------------------------------- */
-.admin_section {
+/* ---------- COMMON STYLES ---------- */
+.admin_section,
+.cart_modal {
   display: none;
-  border: 1px solid #e67e22;
-  width: 100%;
-  height: auto;
   background-color: #e4e1e1fa;
   position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */
-  left: 10%;
-  top: 15%;
-  width: 80%; 
-  height: 70%;
   overflow: auto;
+  border-radius: 5px;
+
+}
+
+/* ---------- ADMIN MODAL ---------- */
+.admin_section {
+  display: none;
+  left: 12%;
+  top: 22%;
+  width: 75%; 
+  height: 65%;
 }
 
 .header_section { 
@@ -752,16 +779,13 @@ footer p {
   margin-bottom: 0;
 }
 
-.view_section { margin-top: 0; }
-
-.admin_section,
-.header_section,
-.view_section { margin: 0.5% 0.5% 0 0.5%; }
-
+.view_section {
+  margin-top: -12px;
+  width: 97%;
+}
 
 .view_section,
 .view_info {
-  height: auto;
   padding: 5px;
 }
 
@@ -771,7 +795,7 @@ footer p {
   padding: 0 0 4px 0;
 }
 
-.title_col { margin-top: 5px; }
+.title_col { margin-top: 25px; }
 
 .header_section h1  {
   color: #080000;
@@ -780,81 +804,6 @@ footer p {
   margin:0 0 0 20px;
   padding-top: 4px;
 }
-
-/* ---------- NAV BAR ---------- */
-.admin_nav {
-  display: block;
-}
-
-.admin_nav li {
-  float: right;
-  list-style: none;
-  margin-left: 20px;
-  margin-top: 12px;
-  text-decoration: none;
-  font-size: 63%;
-  font-weight: bold;
-}
-
-.admin_nav li a:link,
-.admin_nav li a:visited {
-  color: #0f0f0f;
-}
-
-.admin_nav li a:hover,
-.admin_nav li a:active {
-  color: #e67e22;
-}
-
-.view_header {
-  box-shadow: 0 0 1px 0 #6b6767;
-  padding:5px;
-}
-
-.view_header p {
-  font-size: 83%;
-  font-weight: bold;
-  text-align: center;
-  padding-top: 2px;
-  color:#e4e1e1fa;
-}
-
-.close_table {
-  position: absolute;
-  right: 18px;
-  top: 11%;
-  /* left: 70%; */
-  color: black;
-  font-size: 25px;
-  cursor: pointer;
-}
-
-table {
-  border-collapse: collapse;
-  width: 100%;
-  table-layout: auto;
-}
-
-thead, tbody, tr { width: 100%; }
-
-th {
-  font-size: 80%;
-  font-weight: normal;
-  padding: 5px 5px;
-  text-transform: capitalize;
-}
-
-td, th {
-  border: 1px solid #a5a4a4;
-  text-align: center;
-  font-size: 75%;
-  color: #080000;
-  padding:0;
-}
-
-#menu_table th:last-child,
-#menu_table td:last-child { width: 18%; }
-
 
 .view_info_div {
   width: 38%;
@@ -887,87 +836,155 @@ td, th {
   padding: 0 8px 0 4px;
 }
 
-#menu_table {
-  display: none;
+.view_header {
+  box-shadow: 0 0 1px 0 #6b6767;
+  padding:5px;
 }
 
-/* classes to deactivate links */
-.js-deactivateLink {
-  pointer-events: none;
-  cursor: default;
+.view_header p {
+  font-size: 83%;
+  font-weight: bold;
+  text-align: center;
+  padding-top: 2px;
+  color:#e4e1e1fa;
+}
+
+.view_header {
+  box-shadow: 0 0 1px 0 #6b6767;
+  padding:5px;
+}
+
+.view_header p {
+  font-size: 83%;
+  font-weight: bold;
+  text-align: center;
+  padding-top: 2px;
+  color:#e4e1e1fa;
+}
+
+#menu_table th, td {
+  width: 330px;
+}
+
+#menu_table th:first-child,
+#menu_table td:first-child { width: 50px; }
+
+/* ---------- CART MODAL ---------- */
+.cart_modal {
+  left: 23%;
+  top: 22%;
+  width: 55%; 
+  height:53%;
+
+}
+
+.cart_head {
+  margin-bottom:10px;
+  padding-top: 5px;
+}
+
+#cart_header {
+  padding-top: 20px;
+  margin-bottom: 0px;
+}
+
+#cart_table {
+  margin-left: 10px;
+}
+
+#cart_table th, td {
+  width: 95px;
+}
+
+#cart_table th:first-child,
+#cart_table td:first-child { width: 350px; }
+
+#cart_table input[type=number] {
+  text-align: center;
+  width: 50px;
+  height: 20px;
+  background-color: #f4f4f4;
+  font-size: 77%;
+  border: 1px solid #a5a4a4;
+  border-radius: 5px;
+}
+
+#b_icon {
+  font-size: 25px;
+  cursor: pointer;
 }
 
 
-/*---------------------------------
-   LOGIN, SIGNUP, MENU MODALS
+/* ---------- NAV BARS ---------- */
+.admin_nav,
+.cart_nav {
+  display: block;
+}
+
+.admin_nav li,
+.cart_nav li {
+  float: right;
+  list-style: none;
+  margin-left: 20px;
+  margin-top: 70px;
+  text-decoration: none;
+  font-size: 75%;
+  font-weight: bold;
+  color: #0f0f0f;
+}
+
+#logout,
+#closelist {
+  margin-left: 25px;
+}
+
+.cart_nav li {
+  padding: 10px 15px 10px 0;
+  font-size: 120%;
+}
+
+.cart_total {
+  font-size: 90%;
+  font-weight: bold;
+  float: right;
+  margin: 5px 20px 15px 0;
+  padding: 5px 12px 5px 12px;
+  border: 1px solid #e67e22;
+  border-radius: 5px;
+}
+
+* {
+  /*border: 1px solid;*/
+}
+
+/*---------------------------------------------------------------------------------------
+   LOGIN, SIGNUP, ADD-MENU MODALS
   --------------------------------- */
-  .modal_login {
-  display: none;
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  left: 35%;
-  top: 28%;
-  width: 35%; 
-  height: 270px;
-  /* overflow: auto; Enable scroll if needed */
-  background-color: rgba(0,0,0,0); /*Black w/ opacity*/
-}
-
-.modal-content_login {
-  /* display: none; */
-  position: relative;
-  background-color:#f4f4f4f6;
-  border: 1px solid #888;
-  width: 100%;
-  height: 100%;
-}
-
-.modal_signup {
-  display: none;
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  left: 35%;
-  top: 28%;
-  width: 35%; 
-  height: 385px;
-  /* overflow: auto; Enable scroll if needed */
-  background-color: rgba(0,0,0,0); /*Black w/ opacity*/
-}
-
-.modal-content_signup {
-  /* display: none; */
-  position: relative;
-  background-color:#f4f4f4f6;
-  border: 1px solid #888;
-  width: 100%;
-  height: 100%;
-}
-
+/* ---------- COMMON STYLES ---------- */
+  /* Modals structure */
+.modal_login,
+.modal_signup,
 .modal_menu-add {
   display: none;
   position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */
-  left: 30%;
-  top: 28%;
-  width: 40%; 
-  height: 380px;
-  /* overflow: auto; Enable scroll if needed */
-  background-color: rgba(0,0,0,0); /*Black w/ opacity*/
+ 
 }
 
+  /* Modal contents */
+.modal-content_login,
+.modal-content_signup,
 .modal-content_menu-add {
-  /* display: none; */
   position: relative;
-  background-color:#f4f4f4f6;
-  border: 1px solid #888;
-  width: 100%;
-  height: 100%;
+  background-color: #e4e1e1fa;
+  border-radius: 5px;
 }
 
+  /* close button */
 .close {
   position: absolute;
-  right: 18px;
-  top: 0;
+  right: 25px;
+  padding-top: 3px;
   color: #000;
   font-size: 25px;
 }
@@ -978,36 +995,41 @@ td, th {
   cursor: pointer;
 }
 
-.imgcontainer {
+.title_container {
   text-align: center;
-  margin-top: 15px;
+  padding-top: 20px;
   height: 40px;
   position: relative;
 }
 
-.imgcontainer h3 {
+.title_container h3 {
   color:#e67e22;
   font-weight: normal;
   font-size: 85%;
   padding: 8px 0 0 0;
 }
 
-.container {
-  padding: 0 14px 0 14px;
+.form_container {
+  margin: 30px 14px 0 14px;
 }
 
-.container label {
+.form_container_plus {
+  margin-top: 50px;
+} 
+
+.form_container label {
   font-size: 55%;
-  color: #f4f4f4f6;
-  /* color:red; */
+  color: #e4e1e1fa;
   display: block;
   padding-left: 5px;
 }
 
-.container input[type=email], 
-.container input[type=password],
-.container input[type=text] {
-  width: 100%;
+
+.form_container input[type=email], 
+.form_container input[type=password],
+.form_container input[type=text],
+.form_container textarea {
+  width: 95%;
   height: 100%;
   padding: 10px 10px;
   margin: 5px 0 5px 0;
@@ -1016,22 +1038,19 @@ td, th {
   border-radius: 5px;
 }
 
-input[type=number],
-textarea {
-  width: 100%;
-  height: 100%;
+.form_container input[type=number],
+.form_container textarea {
   padding: 10px 10px;
   border: 1px solid #ccc;
   font-size: 77%;
   border-radius: 5px;
 }
 
-.container input[type=number] {
+.form_container input[type=number] {
   width: 22%;
   margin: 3px 0 1px 0;
 }
 
-/* Set a style for all buttons */
 button {
   background-color: transparent;
   color: #e67e22;
@@ -1045,12 +1064,24 @@ button {
   font-size: 60%;
 }
 
-.button_container_signup button { margin-top: 13px; }
-
 button:hover {
   background-color: #e67e22;
   color: white;
   border: 1px solid#e67e22;
+}
+
+
+/* ---------- LOGIN MODAL ---------- */
+.modal_login {
+  left: 35%;
+  top: 28%;
+  width: 35%; 
+  height: 40%;
+}
+
+.modal-content_login {
+  width: 100%;
+  height: 100%;
 }
 
 .button_container label {
@@ -1076,6 +1107,28 @@ button:hover {
   margin-top: 5px;
 }
 
-.button_container_add_menu button {
-  margin-top: 15px;
+/* ---------- SIGNUP MODAL ---------- */
+.modal_signup {
+  left: 35%;
+  top: 28%;
+  width: 35%; 
+  height: 60%;
+}
+
+.modal-content_signup {
+  width: 100%;
+  height: 100%;
+}
+
+/* ---------- ADD MENU MODAL ---------- */
+.modal_menu-add {
+  left: 30%;
+  top: 28%;
+  width: 40%; 
+  height: 60%;
+}
+
+.modal-content_menu-add {
+  width: 100%;
+  height: 100%;
 }

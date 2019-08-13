@@ -23,6 +23,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js" defer></script>
     <!-- JQuery waypoints plugin for the sticky nav implementation -->
     <script src="static/js/jquery.waypoints.min.js" defer></script>
+    <!-- Notify js plugin - custom notification -->
+    <script src="static/js/notify.min.js" defer></script>
     <!-- Custom JavaScript -->
     <script src="static/js/script.js" defer></script>
     <title>FastFoodFast | Home</title>
@@ -40,7 +42,7 @@
 
   <body>
     <header id="head">
-      <nav>
+        <nav>
         <div class="row">
           <a><img src="static/images/logo-white.png" alt="Fastfoodfast logo" class="logo"></a>
           <a href="#head"><img src="static/images/logo-black.png" alt="Fastfoodfast logo" class="logo_black"></a>
@@ -50,7 +52,9 @@
             <li><a href="#testimonials">Testimonials</a></li>
             <li><a href="#feedback">Give us feedback</a></li>
           </ul>
-          <a class="cart" href="cart.html"><i class="ion-ios-cart-outline" title="View shopping cart"></i></a>
+          <!-- Runs populate cart table js function -->
+          <a class="cart js_cart" href="#"><i class="ion-ios-cart-outline" title="View shopping cart" id='cart_icon'></i></a>
+          <!-- Hamburger icon for mobile viewport -->
           <a class="mobile_nav_icon js_nav_icon"><i class="ion-navicon-round"></i></a>
         </div>
       </nav>
@@ -58,7 +62,7 @@
         <h1>EAT <span class="h1_span">HEALTHY</span>.. WITHIN <span class="h1_span">MINUTES</span>
         ..<br>ALL THE TIME!</h1>
         <p>
-            Order any of today's delicious meal options or simply pick one from your previous orders.
+            Order any of today's delicious meals and have it delivered FAST!
         </p>
         <a class="btn" href="#menu">Order Now</a>
       </div>
@@ -137,7 +141,7 @@
         <div class="col span-1-of-3">
           <blockquote>
             I was looking for a quality and quick food delivery service. I
-            tried many that were availble but finally settled for FastFoodFast. They are the best food delivery service ever, keep up the great work!
+            tried many that were availble but finally settled for FastFoodFast. They are the best food delivery service ever!
             <cite>Vince Chapman</cite>
           </blockquote>
         </div>
@@ -167,7 +171,7 @@
                   <p class="meal_price">$10<span> only</span></p>
                 </div>
                 <div class="menu_divs">
-                  <a href="#" class="btn btn_meal add_cart">Add to cart</a>
+                  <a href="#" class="btn btn_meal add_cart" id='2'>Add to cart</a>
                 </div>
               </div>
             </div>
@@ -210,7 +214,7 @@
                   <p class="meal_price">$15<span> only</span></p>
                 </div>
                 <div class="menu_divs">
-                  <a href="#" class="btn btn_meal add_cart">Add to cart</a>
+                  <a href="#" class="btn btn_meal add_cart" id='3'>Add to cart</a>
                 </div>
               </div>
             </div>
@@ -233,7 +237,7 @@
                   <p class="meal_price">$18<span> only</span></p>
                 </div>
                 <div class="menu_divs">
-                  <a href="#" class="btn btn_meal add_cart">Add to cart</a>
+                  <a href="#" class="btn btn_meal add_cart" id='4'>Add to cart</a>
                 </div>
               </div>
             </div>
@@ -255,7 +259,7 @@
                   <p class="meal_price">$25<span> only</span></p>
                 </div>
                 <div class="menu_divs">
-                  <a href="#" class="btn btn_meal add_cart">Add to cart</a>
+                  <a href="#" class="btn btn_meal add_cart" id='5'>Add to cart</a>
                 </div>
               </div>
             </div>
@@ -276,7 +280,7 @@
                   <p class="meal_price">$13<span> only</span></p>
                 </div>
                 <div class="menu_divs">
-                  <a href="#" class="btn btn_meal add_cart">Add to cart</a>
+                  <a href="#" class="btn btn_meal add_cart" id='8'>Add to cart</a>
                 </div>
               </div>
             </div>
@@ -362,11 +366,12 @@
   <div class="admin_section">
     <div class="row header_section">
         <div class="col span-1-of-2 title_col">
-            <h1>Admin Dashboard</h1>
+            <h2>Admin Dashboard</h2>
         </div>
         <div class="col span-1-of-2 nav_col admin_nav">
           <ul>
               <li><a href="#" id="logout">Log out</a></li>
+              <li><a class="js_close_table "href="#" id="closelist">Close List</a></li>
               <li><a href="#">Orders List</a></li>
               <li><a href="#" id="menulist">Menu List</a></li>
               <li><a href="#" id="addmenu">Add Menu</a></li>
@@ -376,8 +381,7 @@
     <div class="row view_section">
       <div class="row view_header">
           <p>View section heading</p>
-          <span class="close_table js_close_table" title="Close">&times;</span>
-      </div>
+       </div>
       <div class="row view_info">
         <table id="menu_table">
             <thead>
@@ -392,18 +396,18 @@
             
           </tbody>
         </table>
-      </div>
+      </div>  
     </div>
   </div>
 
   <!-- Login modal -->
   <div class="modal_login">
     <form class="modal-content_login" action="javascript:login()">
-      <div class="imgcontainer">
+      <div class="title_container">
         <span class="close js_close_login" title="Close">&times;</span>
-        <h3>FastFoodFast</h3>
+        <h2>Login</h2>
       </div>
-      <div class="container">
+      <div class="form_container">
         <label id="alabel"><b>You are not authorized to access this function</b></label>
         <label id="elabel"><b>Email is not registered, confirm entered email or register below</b></label>
         <input type="email" placeholder="Enter your email address" id="uemail" autocomplete="off" required>
@@ -411,7 +415,7 @@
         <input type="password" placeholder="Enter your password" id="upsw" autocomplete="off" required>
       </div>
       <div class="button_container">
-          <button type="submit">Login</button>
+          <button type="submit">OK</button>
           <label id="rlabel">Quick registration</label>
       </div>
     </form>
@@ -420,11 +424,11 @@
   <!-- Signup modal -->
   <div class="modal_signup">
       <form class="modal-content_signup" action="javascript:signUp()">
-        <div class="imgcontainer">
+        <div class="title_container">
           <span class="close js_close_signup" title="Close">&times;</span>
-          <h3>FastFoodFast</h3>
+          <h2>Sign Up</h2>
         </div>
-        <div class="container">
+        <div class="form_container form_container_plus">
           <input type="text" placeholder="Enter your name" id="suname" autocomplete="off" required>
           <label id="selabel"><b>You are already registered, use your details to login</b></label>
           <input type="email" placeholder="Enter your email address" id="suemail" autocomplete="off" required>
@@ -433,8 +437,8 @@
           <input type="password" placeholder="Enter your password" id="supsw" autocomplete="off" required>
           <input type="password" placeholder="Confirm your password" id="supsw2" autocomplete="off" required>
         </div>
-        <div class="button_container_signup">
-            <button type="submit">Signup</button>
+        <div class="button_container">
+            <button type="submit">OK</button>
         </div>
       </form>
     </div>
@@ -442,20 +446,54 @@
   <!-- Add menu modal -->
   <div class="modal_menu-add">
     <form class="modal-content_menu-add" action="javascript:addMenuItem()">
-      <div class="imgcontainer">
+      <div class="title_container">
         <span class="close js_close_add_menu" title="Close">&times;</span>
-        <h3>Add New Menu Item</h3>
+        <h2>Add Menu Item</h2>
       </div>
-      <div class="container">
+      <div class="form_container form_container_plus">
         <input type="text" placeholder="Enter menu name" id="menuname" autocomplete="off" required>
         <textarea type="text" placeholder="Enter menu description " id="menudesc" autocomplete="off" required rows=5></textarea>
         <input type="number" id="menuprice" placeholder="Enter price" autocomplete="off" required>
         <input type="text" id="menuurl" placeholder="Enter full image url" required>
       </div>
-      <div class="button_container_add_menu">
-          <button type="submit">Add Menu</button>
+      <div class="button_container">
+          <button type="submit">OK</button>
       </div>
     </form>
   </div>
+
+  <!-- Cart modal -->
+  <div class="cart_modal">
+    <div class="row header_section">
+      <div class="cart_head col span-1-of-3">
+        <h2 id="cart_header">Your cart</h2>
+      </div>
+      <div class="col span-2-of-3 nav_col cart_nav">
+        <ul>
+          <li><a href="#" title="Cancel Order"><i class="ion-ios-close-outline js_close_cart"></i> </a></li>
+          <li><a href="#" title="Checkout"><i class="ion-ios-checkmark-outline"></i> </a></li>
+          <li><a href="#" title="Add Meal"><i class="ion-ios-plus js_add_cart"></i> </a></li>
+        </ul>
+      </div>
+    </div>  
+    <div class="row view_info">
+      <table id="cart_table">
+        <thead>
+          <tr>
+            <th>NAME</th>
+            <th>PRICE</th>
+            <th>QTY</th>
+            <th>TOTAL</th>
+            <th>ACTION</th>
+          </tr>
+        </thead>
+        <tbody>
+      
+        </tbody>
+      </table>
+    </div>
+      <label class="cart_total">Cart Total: $ 100</label>
+  </div>
+
 
 </html>
