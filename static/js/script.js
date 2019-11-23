@@ -175,6 +175,7 @@ document.querySelector('.js_add_cart').addEventListener('click', (e) => {
   
 /*----------FUNCTIONS---------*/
 
+// Blur background when modals are displayed
 function sectionsBlur(blurState) {
   let secs = document.querySelectorAll('section');
 
@@ -532,7 +533,7 @@ function login() {
       
       //Attempt login to an admin feature to verify admin rights
       if (idValue === 'admin') {
-        var fetchData = new Request(API_BASE_URL.concat('/v1/menus'), requestData);
+        var fetchData = new Request(API_BASE_URL.concat('/v1/orders'), requestData);
           
         fetch(fetchData)
           .then(response => {
