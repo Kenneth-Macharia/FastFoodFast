@@ -3,11 +3,11 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/27b3a3a8da654d6c0183/maintainability)](https://codeclimate.com/github/Kenneth-Macharia/FastFoodFast/maintainability)
 
 # The FastFoodFast Web App
-## Introduction 
+## Introduction
 This repository hosts the development of an online app for FastFoodFast, a 5 star restaurant. Users will interact with the website frontend to order food for delivery.
 
 ## The Components
-The app is made up of: 
+The app comprises of:
 
     1.UI pages developed using HTML5, CSS3 and JavaSript
 
