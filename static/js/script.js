@@ -14,26 +14,26 @@ var head;
 var orderItems = []
 
 /*----------WAKE UP API--------*/
-(function () {
-  // Immediately invoked function to trigger Heroku API wake up on page load
-  const get_docs_endpoint = API_BASE_URL.concat('/');
-  var requestData = new Request(get_docs_endpoint, {
-    method: 'GET',
-    headers: new Headers(),
-    mode: 'cors',
-    cache: 'default'});
+// (function () {
+//   // Immediately invoked function to trigger Heroku API wake up on page load
+//   const get_docs_endpoint = API_BASE_URL.concat('/');
+//   var requestData = new Request(get_docs_endpoint, {
+//     method: 'GET',
+//     headers: new Headers(),
+//     mode: 'cors',
+//     cache: 'default'});
 
-  fetch(requestData)
+//   fetch(requestData)
 
-    // .then(response => {
-    //   if (response.status === 200) {
-    //     return Promise.resolve(response);
-    //   } else {
-    //     return Promise.reject(new Error(response.statusText))
-    //   }
-    // })
+//     .then(response => {
+//       if (response.status === 200) {
+//         return Promise.resolve(response);
+//       } else {
+//         return Promise.reject(new Error(response.statusText))
+//       }
+//     })
 
-})();
+// })();
 
 /*----------ELEMENTS EVENTS--------*/
 
