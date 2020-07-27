@@ -20,7 +20,7 @@ var wake_api = (function () {
   var requestData = new Request(get_docs_endpoint, {
     method: 'GET',
     headers: new Headers(),
-    mode: 'cors',
+    mode: 'no-cors',
     cache: 'default'});
 
   fetch(requestData)
