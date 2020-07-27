@@ -20,10 +20,18 @@ var wake_api = (function () {
   var requestData = new Request(get_docs_endpoint, {
     method: 'GET',
     headers: new Headers(),
-    mode: 'cors',
+    mode: 'no-cors',
     cache: 'default'});
 
   fetch(requestData)
+
+    .then(response => {
+      if (response.status === 200) {
+        return Promise.resolve(response);
+      } else {
+        return Promise.reject(new Error(response.statusText))
+      }
+    })
 
 })();
 wake_api;
