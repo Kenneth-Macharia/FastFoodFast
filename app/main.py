@@ -8,7 +8,8 @@ from flask_cors import CORS
 from app.models.users import UserModel
 from app.controllers.users import (UserRegistration, UserUpdate, UserLogin, UserLogout)
 from app.controllers.menus import Menus, AddMenu, MenuMgt
-from app.controllers.orders import UserOrders, AdminOrders, AdminOrder 
+from app.controllers.orders import UserOrders, AdminOrders, AdminOrder
+from app.controllers.docs import Documentation
 
 # Ensures a secret key has been set in the os envirnement before the app can run
 SECRET = os.getenv('SECRET')
@@ -42,8 +43,10 @@ def check_if_token_in_blacklist(decrypted_token):
     jti = decrypted_token['jti']
     return UserModel.is_token_blacklisted(jti)
 
+
 # Register require endpoints
 api = Api(app)
+api.add_resource(Documentation, '/v1')
 api.add_resource(UserRegistration, '/v1/auth/signup')
 api.add_resource(UserUpdate, '/v1/auth/update')
 api.add_resource(UserLogin, '/v1/auth/login')
