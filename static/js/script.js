@@ -26,7 +26,7 @@ var wake_api = (function () {
   fetch(requestData)
 
     .then(response => {
-      if (response.status === 200) {
+      if (response.status === 302) {
         return Promise.resolve(response);
       } else {
         return Promise.reject(new Error(response.statusText))
