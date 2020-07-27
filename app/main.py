@@ -46,7 +46,7 @@ def check_if_token_in_blacklist(decrypted_token):
 
 # Register require endpoints
 api = Api(app)
-api.add_resource(Documentation, '/v1')
+api.add_resource(Documentation, '/')
 api.add_resource(UserRegistration, '/v1/auth/signup')
 api.add_resource(UserUpdate, '/v1/auth/update')
 api.add_resource(UserLogin, '/v1/auth/login')
