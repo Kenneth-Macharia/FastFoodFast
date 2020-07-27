@@ -14,7 +14,7 @@ var head;
 var orderItems = []
 
 /*----------WAKE UP API--------*/
-(() => {
+(function () {
   // Immediately invoked function to trigger Heroku API wake up on page load
   const get_docs_endpoint = API_BASE_URL.concat('/');
   var requestData = new Request(get_docs_endpoint, {
@@ -35,7 +35,7 @@ var orderItems = []
       console.log(response.status)
     })
 
-})()
+})();
 
 /*----------ELEMENTS EVENTS--------*/
 
