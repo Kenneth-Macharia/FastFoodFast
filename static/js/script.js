@@ -13,22 +13,46 @@ let cartModal = document.querySelector('.cart_modal');
 var head;
 var orderItems = []
 
+/*----------WAKE UP API--------*/
+(() => {
+  // Immediately invoked function to trigger Heroku API wake up on page load
+  const get_docs_endpoint = API_BASE_URL.concat('/');
+  var requestData = new Request(get_docs_endpoint, {
+    method: 'GET',
+    headers: new Headers(),
+    mode: 'cors',
+    cache: 'default'});
+
+  fetch(requestData)
+
+    // TODO: REMOVE
+    .then(response => {
+      // if (response.status === 200) {
+      //   return Promise.resolve(response);
+      // } else {
+      //   return Promise.reject(new Error(response.statusText))
+      // }
+      console.log(response.status)
+    })
+
+})()
+
 /*----------ELEMENTS EVENTS--------*/
 
 // Access customer previous orders link (Open login modal)
-document.querySelector("#prev_ord").addEventListener("click", function (e) { 
+document.querySelector("#prev_ord").addEventListener("click", function (e) {
   e.preventDefault();
   openCloseModals('openLoginModal', 'prev_ord')
 }, false);
 
 // Access admin dashboard link (Open login modal)
-document.querySelector("#admin").addEventListener("click", function (e) { 
+document.querySelector("#admin").addEventListener("click", function (e) {
   e.preventDefault();
   openCloseModals('openLoginModal', 'admin')
 }, false);
 
 // Open signup modal via 'Quick Registration' link on login modal
-document.querySelector("#rlabel").addEventListener("click", function () { 
+document.querySelector("#rlabel").addEventListener("click", function () {
   openCloseModals('openSignUpModal', 'admin')
 }, false);
 
@@ -57,7 +81,7 @@ document.querySelector("#upsw").addEventListener("focus", function () {
 }, false);
 document.querySelector("#suemail").addEventListener("focus", function () {
   resetModals('resetSignupEmail')
-}, false);  
+}, false);
 document.querySelector("#supsw").addEventListener("focus", function () {
   resetModals('resetSignupPassword')
 }, false);
@@ -66,7 +90,7 @@ document.querySelector("#supsw2").addEventListener("focus", function () {
 }, false);
 
 // Close and reset Admin modal
-document.querySelector("#logout").addEventListener("click", function (e) { 
+document.querySelector("#logout").addEventListener("click", function (e) {
   e.preventDefault();
   closeTables('#menu_table');
   document.querySelector('#menulist').classList.remove('js-deactivateLink');
@@ -80,7 +104,7 @@ document.querySelector("#logout").addEventListener("click", function (e) {
 // Admin dash header close button function
 document.querySelector(".js_close_table").addEventListener('click', function(e) {
   e.preventDefault()
-  
+
   if (document.querySelector('.view_header p').innerHTML === 'Menu List') {
     closeTables('#menu_table');
     document.querySelector('#menulist').classList.remove('js-deactivateLink');
@@ -113,7 +137,7 @@ document.querySelector("#addmenu").addEventListener("click", function (e) {
 
   // Open add menu modal
   openCloseModals('openAddMenuModal', 'admin');
-  
+
 }, false);
 
 // Detect the 'add to cart button clicked' and fetch the menu id from it
@@ -122,7 +146,7 @@ for (var i = 0; i < cart_buttons.length; i++) {
   cart_buttons[i].addEventListener('click', addOrderItem, false);
 }
 
-// Open & populate cart modal 
+// Open & populate cart modal
 document.querySelector('.js_cart').addEventListener('click', (e) => {
   e.preventDefault();
   if (orderItems.length !== 0) {
@@ -163,7 +187,7 @@ document.querySelector('.js_add_cart').addEventListener('click', (e) => {
 }, false);
 
 //Access customer checkout order button (Open login modal)
-// document.querySelector("").addEventListener("click", function (e) { 
+// document.querySelector("").addEventListener("click", function (e) {
 //   e.preventDefault();
 //   openCloseModals('openLoginModal', 'checkout')
 // }, false);
@@ -172,7 +196,7 @@ document.querySelector('.js_add_cart').addEventListener('click', (e) => {
 // On page reload save the user token and when the link to open a protected modal is clicked check if its has expired and reqire login, else just open the protected modal.
 //https:developer.mozilla.org/en-US/docs/Web/API/Window/sessionStorage
 
-  
+
 /*----------FUNCTIONS---------*/
 
 // Blur background when modals are displayed
@@ -194,7 +218,7 @@ function sectionsBlur(blurState) {
 function showCartItems() {
   // Check if cart is open
   if (cartModal.style.display !== 'block') {
-  
+
     // Persist cart array in sessionStorage
     sessionStorage.setItem('orderData', orderItems);
 
@@ -213,7 +237,7 @@ function showCartItems() {
 
       var j;
       for (j = 0; j <= 4; j++) {
-        
+
         // Insert new 5 cells per row, append cart data and control elements
         let newCell = newRow.insertCell(j);
 
@@ -247,7 +271,7 @@ function showCartItems() {
           aLink.appendChild(aIcon);
           newCell.appendChild(aLink)
         }
-      }  
+      }
     }
 
     // Blur the background
@@ -275,12 +299,12 @@ function addOrderItem(e) {
       // Ensure selected item is not already in the cart array
       for (i = 0; i < orderItems.length; i++) {
         if (orderItems[i].id == menu_id) {
-          $('#cart_icon').notify("Meal already added, ammend quantities in the cart", 
+          $('#cart_icon').notify("Meal already added, ammend quantities in the cart",
             {position: "bottom", autoHide: true, autoHideDelay:3000});
           return
         }
       }
-    }  
+    }
 
     // Check if the sessionStorage if empty
     if (sessionStorage.getItem("menu")) {
@@ -297,13 +321,13 @@ function addOrderItem(e) {
             'name': menus[i].Menu_Name,
             'price': menus[i].Menu_Price,
             'qty': 1}
-        } 
+        }
       }
 
       // Notify item added to cart
       $('#cart_icon').notify('Meal added to cart', {position: "bottom", autoHide: true,
        autoHideDelay:1000, className:"success"});
-     
+
       // Add the current item to an order items array (cart)
       orderItems.push(currentItem)
 
@@ -311,7 +335,7 @@ function addOrderItem(e) {
       if (orderItems.length > 0) {
         document.querySelector('#cart_icon').style.color = '#e67e22'
       }
-      
+
     } else {
       // If empty, populate sessionStorage with menus from the backend
       getMenu('user')
@@ -384,7 +408,7 @@ function showMenuTable(menuArray) {
 
     var j;
     for (j = 0; j <= 3; j++) {
-      
+
       // Insert new 4 cells per row, append menuArray data and control elements
       let newCell = newRow.insertCell(j);
 
@@ -422,7 +446,7 @@ function showMenuTable(menuArray) {
         let menuCheckLabelText = document.createTextNode("Available");
         menuCheckLabel.appendChild(menuCheckLabelText);
         checkboxDiv.appendChild(menuCheckLabel);
-        
+
         let submitEdit = document.createElement("INPUT");
         submitEdit.setAttribute("type", "submit");
         submitEdit.setAttribute("value", "Edit");
@@ -435,11 +459,11 @@ function showMenuTable(menuArray) {
         submitDelete.setAttribute("id", "submit_d");
         submitDiv.appendChild(submitDelete);
 
-        // Append the two divs to the last row cell 
+        // Append the two divs to the last row cell
         newCell.appendChild(checkboxDiv);
         newCell.appendChild(submitDiv);
       }
-    }  
+    }
   }
    // Show the table
    document.querySelector("#menu_table").style.display = "block";
@@ -530,11 +554,11 @@ function login() {
         cache: 'default',
         credentials: 'include',
         headers: head};
-      
+
       //Attempt login to an admin feature to verify admin rights
       if (idValue === 'admin') {
         var fetchData = new Request(API_BASE_URL.concat('/v1/orders'), requestData);
-          
+
         fetch(fetchData)
           .then(response => {
             if (response.status === 200) {
@@ -567,7 +591,7 @@ function login() {
         fetch(fetchData)
         .then(response => {
           if (response.status === 200) {
-              //open the checkout order page confirm payment and create saveorder            
+              //open the checkout order page confirm payment and create saveorder
 
           } else if (response.status === 401) {
             document.querySelector('#alabel').style.color = "red";
@@ -740,7 +764,7 @@ function openCloseModals (action, source) {
       modalAddMenu.style.display = "block";
       document.querySelector('#menuname').focus();
       break;
-      
+
     case 'closeAddMenuModal':
       modalAddMenu.style.display = "none";
       resetModals('clearAddMenuModal');
@@ -790,8 +814,8 @@ $('a[href*="#"]')
 .click(function(event) {
   // On-page links
   if (
-    location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') 
-    && 
+    location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '')
+    &&
     location.hostname == this.hostname
   ) {
     // Figure out element to scroll to
