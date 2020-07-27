@@ -25,14 +25,12 @@ var orderItems = []
 
   fetch(requestData)
 
-    // TODO: REMOVE
     .then(response => {
-      // if (response.status === 200) {
-      //   return Promise.resolve(response);
-      // } else {
-      //   return Promise.reject(new Error(response.statusText))
-      // }
-      console.log(response.status)
+      if (response.status === 200) {
+        return Promise.resolve(response);
+      } else {
+        return Promise.reject(new Error(response.statusText))
+      }
     })
 
 })();
