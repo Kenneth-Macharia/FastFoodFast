@@ -1,0 +1,210 @@
+/* ---------------------------------
+   INDEX.HTML QUERIES
+   --------------------------------- */
+
+@media only screen and (max-width:1080px) {
+
+   .row { padding: 0 2%;}
+   .intro {
+      width:690px;
+      margin-left: 110px; 
+   }
+   .box { margin-left: 10px; }
+   .box h3 { font-size: 85%; }
+   .box p { font-size: 80%; }
+   .works_list { font-size: 68%; }
+   .icon-big { font-size: 200%; }
+   blockquote { font-size: 95%; }
+   .single_line_2_h3 {
+      margin-top: 1px;
+   }
+   .footer_col { padding-top: 10px; }
+}
+
+@media only screen and (max-width:730px) {
+
+   section { padding: 40px 0; }
+   .row { padding: 0 2%; }
+   .logo {
+      height: 130px;
+      width: auto;
+   } 
+   .header_texbox { width:417px; }
+   h1 { font-size: 200%; }
+   .header_texbox p { font-size: 90%; }
+   .btn:link,
+   .btn:visited,
+   .btn:active,
+   .btn:hover {
+      font-size: 90%;
+      padding: 5px 5px;
+      margin: 15px 0 0 165px;
+   }
+   h2 {
+      font-size: 100%;
+      margin-bottom: 15px;
+   }
+   h2:after { margin-top: 15px; }
+   .intro {
+      line-height: 120%;
+      width:85%;
+      margin: 20px 0px 20px 50px;
+   }
+   .box {
+      width: 100%;     
+      margin-bottom: 30px;
+   }
+   .icon-big { font-size: 200%; }
+   .box h3 { font-size: 100%; }
+   .box p {
+      font-size: 80%;
+      text-align: center;
+   }
+   .works_list {
+      font-size: 77%;
+      margin: 10px 0 0 230px;
+   }
+   blockquote {
+      font-size: 90%;
+      margin-bottom: 30px;
+   }
+   .single_line_2_h3 {
+      margin-top: 7px;
+   }
+   single_line_4_h3 {
+      padding-bottom: 4px;
+   }
+   .short_parag { padding: 10px 0 10px 0; }
+   .menu_divs {
+      padding: 7Px;
+   }
+   .menu_divs h3 {
+      font-size: 80%;
+      padding-top: 5px 0 0 0;
+      margin-bottom: 10px;
+   }
+   .menu_box { margin: 20px 0 20px 0; }
+   .menu_box_2 { margin-left: 10px; }
+   .meal_desc p {
+      font-size: 76%;
+      line-height: 130%;
+   }
+   .meal_price { font-size: 140%; }
+   .btn_meal:link,
+   .btn_meal:visited,
+   .btn_meal:active,
+   .btn_meal:hover {
+      font-size: 70%;
+      padding: 5px 5px;
+      margin-left: 16px;
+      margin-top: -5px;
+   }
+   .feedback_form { margin-top: 20px; }
+   .feedback_form,
+   .feedback_row { width: 100%; }
+   .feedback_row input[type='submit'] { font-size: 70%; }
+   .footer_row { padding: 0; }
+   .footer_col {
+      width: 32%;
+      padding-top: 5px;
+   }
+   .contacts p,
+   .socal_links li,
+   .footer_nav li { font-size: 63%; }
+   .copyright p {
+      margin:0;
+      padding:0;
+   }
+   .contacts p:after {
+      display: block;
+      background-color: #fcfcfc;
+   }
+
+   /* Style the mobile nav */
+   .main_nav { display: none; }
+   .mobile_nav_icon { display: inline-block; }
+
+   .main_nav {
+     float: left;
+     margin-top: 10px;
+     margin-left: 55px;
+   }
+
+   .main_nav li {
+     /* blocks force line breaks so that they are stacked om top of each other */
+     display: block;
+   }
+
+   .main_nav li a:link,
+   .main_nav li a:visited {
+     display: block;
+     border: 0;  /* no hover on a mobile display hence no need for a border */
+     padding: 5px 0;
+     font-size: 70%;
+   }
+
+   .sticky_nav {
+     height: auto;
+     padding-bottom: 5px;
+   }
+
+   .sticky_nav .main_nav li a:link,
+   .sticky_nav .main_nav li a:visited {
+     /* These only apply if inside the sticky_nav class */
+       padding: 5px 0;
+       font-size: 65%;
+       margin: 13px 0 0 35px;
+
+   }
+
+   .sticky_nav .mobile_nav_icon,
+   .sticky_nav .cart { margin-top: 13px; }
+   .sticky_nav .mobile_nav_icon i { color: #555; }
+}
+
+@media only screen and (max-width:480px) {
+
+   .logo {
+      height: 100px;
+      width: auto;
+   }
+   .menu_box_2 { margin-left: 30px; }
+   .intro {
+      line-height: 120%;
+      width:90%;
+      margin: 30px 15px 30px 20px;
+      font-size: 85%;
+   }
+   .works_list {
+      margin: 10px 0 0 130px;
+   }
+   .btn_meal:link,
+   .btn_meal:visited,
+   .btn_meal:active,
+   .btn_meal:hover { margin-top: -5px; }
+
+}
+
+/* ---------------------------------
+   ABOUTUS.HTML QUERIES
+   --------------------------------- */
+
+@media only screen and (max-width:1080px) {
+
+   .parag div { width:45%; }
+}
+
+
+@media only screen and (max-width:720px) {
+
+   .parag div {
+      width:100%;
+      margin-bottom: 25px;
+   }
+   .images_div li {
+      width:64%;
+      margin-right: 40px;
+   }
+   .images_div li img { width: 330px; }
+   .images_li figcaption { margin-right: 20px; }
+}
