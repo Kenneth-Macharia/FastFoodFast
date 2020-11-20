@@ -1,4 +1,5 @@
 # The FastFoodFast Web App
+
 ## Introduction
 This repository hosts the development of an online app for FastFoodFast, a 5 star restaurant. Users will interact with the website frontend to order food for delivery.
 
