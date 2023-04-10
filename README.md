@@ -2,8 +2,8 @@
 [![Coverage Status](https://coveralls.io/repos/github/Kenneth-Macharia/FastFoodFast/badge.svg?branch=heroku-api)](https://coveralls.io/github/Kenneth-Macharia/FastFoodFast?branch=heroku-api)
 [![Maintainability](https://api.codeclimate.com/v1/badges/27b3a3a8da654d6c0183/maintainability)](https://codeclimate.com/github/Kenneth-Macharia/FastFoodFast/maintainability)
 
-# The FastFoodFast Web App
-
+# The FastFoodFast Web App [API IS DOWN FOR MAINTENANCE]
+ 
 ## Introduction
 This repository hosts the development of an online app for FastFoodFast, a 5 star restaurant. Users will interact with the website frontend to order food for delivery.
 
